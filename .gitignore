@@ -1,0 +1,38 @@
+# Build directories
+build/
+cmake-build-*/
+out/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Compiled
+*.o
+*.a
+*.so
+*.exe
+
+# Logs
+*.log
+
+# Temporary
+*.tmp
+*.temp
+
+# Embedded repos (tracked separately)
+brainstorm/
+clawhub-lab/
+dykongshan/
+game-auto-test/
+opencode-demo/
+opencode-examples/
+texturepacker-project/
+wangzhe-chess/
+demos/
