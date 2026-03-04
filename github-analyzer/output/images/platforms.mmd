@@ -1,0 +1,23 @@
+graph LR
+    subgraph Channels[通讯平台集成]
+        W[WhatsApp<br/>Baileys]
+        T[Telegram<br/>grammY]
+        D[Discord<br/>discord.js]
+        S[Slack<br/>Bolt]
+        G[Google Chat<br/>Chat API]
+        O[其他 15+ 平台]
+    end
+
+    subgraph Apps[应用层]
+        M[macOS App<br/>菜单栏控制]
+        I[iOS Node<br/>原生集成]
+        A[Android Node<br/>原生控制]
+        C[WebChat<br/>浏览器访问]
+    end
+
+    Channels --> Gateway[Gateway<br/>统一接口]
+    Apps --> Gateway
+
+    style Channels fill:#ffdddd
+    style Apps fill:#ddffdd
+    style Gateway fill:#ddddff

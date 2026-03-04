@@ -1,0 +1,34 @@
+graph TD
+    A[用户层<br/>桌面/移动设备] --> B[通讯平台层<br/>WhatsApp/Telegram/Discord等]
+    B --> C[Gateway 控制平面<br/>WebSocket Server]
+    C --> D[Pi Agent Runtime<br/>RPC 模式]
+    C --> E[CLI Surface<br/>终端命令]
+    C --> F[WebChat UI<br/>浏览器界面]
+    C --> G[macOS App<br/>菜单栏应用]
+
+    D --> H[Session Manager<br/>会话管理/路由/队列]
+    E --> H
+    F --> H
+    G --> H
+
+    H --> I[Tools Platform<br/>扩展能力]
+    H --> J[Skills Platform<br/>可插拔功能]
+    H --> K[Canvas Control<br/>可视化控制台]
+
+    I --> L[Browser<br/>浏览器控制]
+    I --> M[Canvas<br/>可视化]
+    I --> N[Nodes<br/>相机/屏幕/位置]
+    I --> O[Cron<br/>定时任务]
+
+    J --> P[Bundled Skills<br/>内置技能]
+    J --> Q[Managed Skills<br/>托管技能]
+    J --> R[Workspace Skills<br/>工作区技能]
+
+    K --> S[macOS Canvas<br/>A2UI]
+    K --> T[iOS/Android Canvas<br/>实时渲染]
+
+    style A fill:#e1f5ff
+    style C fill:#ffe1e1
+    style H fill:#e1ffe1
+    style I fill:#f5e1ff
+    style J fill:#fff5e1

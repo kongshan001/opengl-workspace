@@ -1,0 +1,49 @@
+# OpenClaw 项目介绍
+
+OpenClaw 是一个运行在你自己设备上的个人 AI 助手。
+
+它通过 Gateway 控制平面，连接到你已经在使用的各种通讯平台。
+
+支持 WhatsApp、Telegram、Discord、Slack 等 20 多个平台。
+
+核心特点：
+
+第一，本地优先。Gateway 运行在你自己的设备上，数据不出设备。
+
+第二，跨平台支持。支持 macOS、iOS、Android 和 Windows WSL2。
+
+第三，多 Agent 路由。可以将不同的消息路由到不同的 Agent，实现隔离。
+
+第四，开源生态。MIT 协议，完全开源，可自托管。
+
+技术架构：
+
+用户通过通讯平台发送消息，Gateway 作为控制平面处理所有请求。
+
+Pi Agent Runtime 在 RPC 模式下运行，处理 AI 对话。
+
+Tools Platform 提供浏览器控制、Canvas、Cron 等扩展能力。
+
+Skills Platform 支持可插拔的功能包。
+
+适用场景：
+
+企业内部 AI 助手，数据本地可控。
+
+隐私敏感的团队协作。
+
+个人跨平台助手需求。
+
+开发者工作流集成。
+
+快速开始：
+
+使用 npm 安装 openclaw。
+
+运行 onboard 命令启动配置向导。
+
+配置你的第一个 Channel。
+
+开始与你的个人 AI 助手对话。
+
+OpenClaw，你的个人 AI 助手。本地运行，跨平台，完全开源。
