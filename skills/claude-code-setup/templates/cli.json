@@ -1,0 +1,42 @@
+{
+  "project": {
+    "type": "cli",
+    "language": "typescript",
+    "framework": []
+  },
+  "claudeMd": {
+    "includeTechStack": true,
+    "includeDirectoryStructure": true,
+    "includeCommands": true,
+    "includeCodingStyle": true,
+    "includeTesting": true,
+    "includeCliDoc": true
+  },
+  "rules": {
+    "enabled": true,
+    "files": ["code-style", "testing", "cli-commands"]
+  },
+  "skills": {
+    "enabled": true,
+    "files": ["review-pr"]
+  },
+  "agents": {
+    "enabled": true,
+    "files": ["test-writer"],
+    "defaultModel": "sonnet"
+  },
+  "hooks": {
+    "enabled": true,
+    "types": ["PreToolUse"]
+  },
+  "mcp": {
+    "enabled": true,
+    "servers": ["github"],
+    "scope": "project"
+  },
+  "settings": {
+    "permissionMode": "default",
+    "preApproveTools": ["npm", "pnpm", "git", "Read"],
+    "denySensitiveFiles": true
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "project": {
+    "type": "frontend",
+    "language": "typescript",
+    "framework": ["React"]
+  },
+  "claudeMd": {
+    "includeTechStack": true,
+    "includeDirectoryStructure": true,
+    "includeCommands": true,
+    "includeCodingStyle": true,
+    "includeTesting": true,
+    "includeGitConvention": true
+  },
+  "rules": {
+    "enabled": true,
+    "files": ["code-style", "testing", "frontend-components"]
+  },
+  "skills": {
+    "enabled": true,
+    "files": ["review-pr", "create-component"]
+  },
+  "agents": {
+    "enabled": true,
+    "files": ["test-writer"],
+    "defaultModel": "sonnet"
+  },
+  "hooks": {
+    "enabled": true,
+    "types": ["PreToolUse"],
+    "preToolUse": {
+      "blockDangerousCommands": true,
+      "protectSensitiveFiles": true
+    }
+  },
+  "mcp": {
+    "enabled": true,
+    "servers": ["github"],
+    "scope": "project"
+  },
+  "settings": {
+    "permissionMode": "default",
+    "preApproveTools": ["npm", "pnpm", "git", "Read"],
+    "denySensitiveFiles": true,
+    "sensitivePatterns": [".env", ".env.*", "**/secrets/**"]
+  }
+}

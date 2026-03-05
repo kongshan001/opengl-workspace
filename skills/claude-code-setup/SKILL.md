@@ -997,10 +997,308 @@ exit 0
 
 ---
 
+## ⚡ 一键部署方案
+
+除了交互式生成，还支持以下快速部署方式：
+
+### 方式 1: 预设模板快速部署
+
+使用预设模板，无需交互，一键生成配置：
+
+**Web Frontend 项目**
+```
+/claude-code-setup --template frontend
+```
+
+**Web Backend 项目**
+```
+/claude-code-setup --template backend
+```
+
+**CLI Tool 项目**
+```
+/claude-code-setup --template cli
+```
+
+**Library 项目**
+```
+/claude-code-setup --template library
+```
+
+**Minimal 项目**（仅基础配置）
+```
+/claude-code-setup --template minimal
+```
+
+---
+
+### 方式 2: 命令行参数部署
+
+通过参数指定所有配置，完全自动化：
+
+```bash
+# 示例：创建 Backend 项目
+/claude-code-setup \
+  --path /path/to/project \
+  --name "my-api" \
+  --type backend \
+  --language typescript \
+  --framework "Express,Prisma" \
+  --rules code-style,testing,security,api-design \
+  --skills review-pr \
+  --agents test-writer \
+  --hooks pre-tool-use \
+  --mcp github,postgres \
+  --yes
+```
+
+**参数说明**:
+
+| 参数 | 说明 | 示例 |
+|------|------|------|
+| `--path` | 目标路径 | `/home/user/my-project` |
+| `--name` | 项目名称 | `my-api` |
+| `--type` | 项目类型 | `frontend/backend/cli/library/mobile/desktop` |
+| `--language` | 编程语言 | `typescript/javascript/python/go/rust/java` |
+| `--framework` | 框架（逗号分隔） | `React,Next.js` |
+| `--rules` | 规则文件（逗号分隔） | `code-style,testing,security` |
+| `--skills` | 技能（逗号分隔） | `review-pr,run-tests` |
+| `--agents` | Agent（逗号分隔） | `test-writer,code-reviewer` |
+| `--hooks` | Hook（逗号分隔） | `pre-tool-use,post-tool-use` |
+| `--mcp` | MCP 服务器（逗号分隔） | `github,postgres,slack` |
+| `--permission-mode` | 权限模式 | `default/acceptEdits/plan/dontAsk` |
+| `--yes` | 跳过确认 | - |
+
+---
+
+### 方式 3: JSON 配置文件部署
+
+通过 JSON 配置文件定义所有设置：
+
+```bash
+/claude-code-setup --config setup.json
+```
+
+**setup.json 示例**:
+
+```json
+{
+  "project": {
+    "name": "my-api-server",
+    "type": "backend",
+    "language": "typescript",
+    "framework": ["Express", "Prisma"],
+    "description": "企业级 REST API 服务"
+  },
+  "claudeMd": {
+    "includeTechStack": true,
+    "includeDirectoryStructure": true,
+    "includeCommands": true,
+    "includeCodingStyle": true,
+    "includeTesting": true,
+    "includeGitConvention": true
+  },
+  "rules": {
+    "enabled": true,
+    "files": ["code-style", "testing", "security", "api-design"],
+    "userLevel": false
+  },
+  "skills": {
+    "enabled": true,
+    "files": ["review-pr", "run-tests"]
+  },
+  "agents": {
+    "enabled": true,
+    "files": ["test-writer"],
+    "defaultModel": "sonnet"
+  },
+  "hooks": {
+    "enabled": true,
+    "types": ["PreToolUse"],
+    "preToolUse": {
+      "blockDangerousCommands": true,
+      "protectSensitiveFiles": true
+    }
+  },
+  "mcp": {
+    "enabled": true,
+    "servers": ["github", "postgres"],
+    "scope": "project"
+  },
+  "settings": {
+    "permissionMode": "default",
+    "preApproveTools": ["npm", "git", "Read"],
+    "denySensitiveFiles": true
+  }
+}
+```
+
+---
+
+### 方式 4: 远程模板部署
+
+从 GitHub/GitLab 仓库克隆预配置模板：
+
+```bash
+# 从模板仓库部署
+/claude-code-setup --from https://github.com/user/claude-template-backend
+
+# 从本地模板部署
+/claude-code-setup --from /path/to/template
+```
+
+---
+
+## 📦 预设模板详情
+
+### Frontend 模板
+
+适用于 React/Vue/Angular/Svelte 等前端项目。
+
+**自动包含**:
+- CLAUDE.md（前端配置）
+- Rules: code-style, testing, frontend-components（带 paths）
+- Skills: review-pr, create-component
+- Agents: test-writer
+- Hooks: pre-tool-use
+- MCP: GitHub
+
+**settings.json**:
+```json
+{
+  "permissions": {
+    "allow": ["Bash(npm *)", "Bash(pnpm *)", "Bash(git *)", "Read(**)"],
+    "deny": ["Read(.env)", "Read(.env.*)"],
+    "defaultMode": "default"
+  },
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
+```
+
+---
+
+### Backend 模板
+
+适用于 Node.js/Python/Go/Java 等后端 API 项目。
+
+**自动包含**:
+- CLAUDE.md（后端配置）
+- Rules: code-style, testing, security, api-design（带 paths）
+- Skills: review-pr, create-api
+- Agents: test-writer, code-reviewer
+- Hooks: pre-tool-use（增强安全检查）
+- MCP: GitHub, PostgreSQL
+
+**settings.json**:
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm *)", "Bash(pnpm *)", "Bash(git *)",
+      "Bash(npx prisma *)", "Read(**)"
+    ],
+    "deny": [
+      "Read(.env)", "Read(.env.*)", "Read(**/secrets/**)",
+      "Read(**/*.pem)", "Read(**/*.key)"
+    ],
+    "defaultMode": "default"
+  },
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
+```
+
+---
+
+### CLI 模板
+
+适用于命令行工具项目。
+
+**自动包含**:
+- CLAUDE.md（CLI 配置）
+- Rules: code-style, testing, cli-commands（带 paths）
+- Skills: review-pr
+- Agents: test-writer
+- Hooks: pre-tool-use
+- MCP: GitHub
+
+---
+
+### Library 模板
+
+适用于库/包项目。
+
+**自动包含**:
+- CLAUDE.md（库配置）
+- Rules: code-style, testing
+- Skills: review-pr, release
+- Agents: test-writer, doc-writer
+- Hooks: pre-tool-use
+- MCP: GitHub
+
+---
+
+### Minimal 模板
+
+最小配置，仅包含必要文件。
+
+**自动包含**:
+- CLAUDE.md（基础配置）
+- settings.json（基础权限）
+
+---
+
+## 🔄 部署后操作
+
+生成完成后，自动执行以下操作：
+
+### 1. 验证配置
+
+```bash
+# 验证 JSON 格式
+cat .claude/settings.json | jq .
+```
+
+### 2. 更新 .gitignore
+
+自动检测并添加：
+
+```gitignore
+# Claude Code local settings (auto-added by claude-code-setup)
+.claude/settings.local.json
+```
+
+### 3. 设置 Hook 权限
+
+```bash
+chmod +x .claude/hooks/*.sh
+```
+
+### 4. 输出后续步骤
+
+```
+✅ 配置生成完成！
+
+📝 后续步骤:
+1. 编辑 .claude/settings.local.json 填入敏感信息
+2. 运行 claude 启动 Claude Code
+3. 使用 /mcp 配置 MCP 服务器认证
+
+📚 文档:
+- 配置说明: .claude/README.md
+- 官方文档: https://code.claude.com/docs
+```
+
+---
+
 ## 注意事项
 
-1. **不覆盖已有文件**: 除非用户明确确认
+1. **不覆盖已有文件**: 除非用户明确确认或使用 `--force`
 2. **敏感信息**: 始终放入 settings.local.json
 3. **路径验证**: 确保目标目录存在
 4. **错误处理**: 提供清晰的错误信息
 5. **回滚支持**: 如果生成失败，清理已创建的文件
+6. **配置验证**: 生成后自动验证 JSON 格式

@@ -1,0 +1,42 @@
+{
+  "project": {
+    "type": "library",
+    "language": "typescript",
+    "framework": []
+  },
+  "claudeMd": {
+    "includeTechStack": true,
+    "includeDirectoryStructure": true,
+    "includeCommands": true,
+    "includeApiDesign": true,
+    "includeTesting": true,
+    "includeVersioning": true
+  },
+  "rules": {
+    "enabled": true,
+    "files": ["code-style", "testing"]
+  },
+  "skills": {
+    "enabled": true,
+    "files": ["review-pr", "release"]
+  },
+  "agents": {
+    "enabled": true,
+    "files": ["test-writer", "doc-writer"],
+    "defaultModel": "haiku"
+  },
+  "hooks": {
+    "enabled": true,
+    "types": ["PreToolUse"]
+  },
+  "mcp": {
+    "enabled": true,
+    "servers": ["github"],
+    "scope": "project"
+  },
+  "settings": {
+    "permissionMode": "default",
+    "preApproveTools": ["npm", "pnpm", "git", "Read"],
+    "denySensitiveFiles": true
+  }
+}

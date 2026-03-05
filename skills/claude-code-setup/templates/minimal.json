@@ -1,0 +1,29 @@
+{
+  "project": {
+    "type": "other"
+  },
+  "claudeMd": {
+    "includeTechStack": true,
+    "includeCommands": true
+  },
+  "rules": {
+    "enabled": false
+  },
+  "skills": {
+    "enabled": false
+  },
+  "agents": {
+    "enabled": false
+  },
+  "hooks": {
+    "enabled": false
+  },
+  "mcp": {
+    "enabled": false
+  },
+  "settings": {
+    "permissionMode": "default",
+    "preApproveTools": ["Read"],
+    "denySensitiveFiles": true
+  }
+}

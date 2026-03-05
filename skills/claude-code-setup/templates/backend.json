@@ -1,0 +1,49 @@
+{
+  "project": {
+    "type": "backend",
+    "language": "typescript",
+    "framework": ["Express", "Prisma"]
+  },
+  "claudeMd": {
+    "includeTechStack": true,
+    "includeDirectoryStructure": true,
+    "includeCommands": true,
+    "includeCodingStyle": true,
+    "includeTesting": true,
+    "includeGitConvention": true,
+    "includeApiDoc": true
+  },
+  "rules": {
+    "enabled": true,
+    "files": ["code-style", "testing", "security", "api-design"]
+  },
+  "skills": {
+    "enabled": true,
+    "files": ["review-pr", "create-api"]
+  },
+  "agents": {
+    "enabled": true,
+    "files": ["test-writer", "code-reviewer"],
+    "defaultModel": "sonnet"
+  },
+  "hooks": {
+    "enabled": true,
+    "types": ["PreToolUse"],
+    "preToolUse": {
+      "blockDangerousCommands": true,
+      "protectSensitiveFiles": true,
+      "protectDatabaseOperations": true
+    }
+  },
+  "mcp": {
+    "enabled": true,
+    "servers": ["github", "postgres"],
+    "scope": "project"
+  },
+  "settings": {
+    "permissionMode": "default",
+    "preApproveTools": ["npm", "pnpm", "git", "npx prisma", "Read"],
+    "denySensitiveFiles": true,
+    "sensitivePatterns": [".env", ".env.*", "**/secrets/**", "**/*.pem", "**/*.key"]
+  }
+}
