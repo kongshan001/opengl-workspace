@@ -22,6 +22,7 @@ from common.protocol import (
     create_file_list_result_message, create_file_data_message, create_file_done_message
 )
 from common.config import Config
+from common.audit import audit_log, AuditEventType
 
 
 # 配置日志
@@ -46,6 +47,8 @@ class ClientSession:
         self.authenticated = False
         self.running_processes: Dict[str, asyncio.subprocess.Process] = {}
         self.logger = logging.getLogger(__name__)
+        self.ip_address = ""
+        self.username = ""
     
     async def send(self, msg: Message):
         """发送消息"""
@@ -77,7 +80,14 @@ class RemoteShellServer:
         self.clients[client_id] = session
         
         addr = writer.get_extra_info('peername')
+        session.ip_address = addr[0] if addr else "unknown"
         self.logger.info(f"新连接: {addr} (ID: {client_id})")
+        
+        audit_log(
+            AuditEventType.CLIENT_CONNECT,
+            ip_address=session.ip_address,
+            description=f"客户端连接 (ID: {client_id})"
+        )
         
         try:
             await self._read_loop(client_id, session, reader)
@@ -126,13 +136,28 @@ class RemoteShellServer:
     async def _handle_auth(self, session: ClientSession, msg: Message):
         """处理认证"""
         token = msg.data.get("token", "")
+        username = msg.data.get("username", "api_client")
         if token == self.config.server.token:
             session.authenticated = True
+            session.username = username
             await session.send(Message(MessageType.AUTH_OK, {}))
             self.logger.info("认证成功")
+            audit_log(
+                AuditEventType.LOGIN_SUCCESS,
+                username=username,
+                ip_address=session.ip_address,
+                description="API 认证成功"
+            )
         else:
             await session.send(Message(MessageType.AUTH_FAIL, {"reason": "Token 错误"}))
             self.logger.warning("认证失败: Token 不匹配")
+            audit_log(
+                AuditEventType.LOGIN_FAILED,
+                username=username,
+                ip_address=session.ip_address,
+                description="Token 认证失败",
+                success=False
+            )
     
     async def _handle_exec(self, session: ClientSession, msg: Message):
         """处理命令执行"""
@@ -144,6 +169,13 @@ class RemoteShellServer:
             return
         
         self.logger.info(f"执行命令: {command}")
+        audit_log(
+            AuditEventType.COMMAND_EXEC,
+            username=session.username,
+            ip_address=session.ip_address,
+            description=f"执行命令: {command[:100]}",
+            details={"command": command, "request_id": request_id}
+        )
         
         try:
             process = await asyncio.create_subprocess_shell(
@@ -176,9 +208,25 @@ class RemoteShellServer:
             await session.send(create_exit_message(exit_code, request_id))
             
             self.logger.info(f"命令完成，退出码: {exit_code}")
+            audit_log(
+                AuditEventType.COMMAND_SUCCESS if exit_code == 0 else AuditEventType.COMMAND_FAILED,
+                username=session.username,
+                ip_address=session.ip_address,
+                description=f"命令完成 (退出码: {exit_code})",
+                details={"command": command[:100], "exit_code": exit_code},
+                success=(exit_code == 0)
+            )
             
         except Exception as e:
             await session.send(create_error_message(f"执行错误: {e}", request_id))
+            audit_log(
+                AuditEventType.COMMAND_FAILED,
+                username=session.username,
+                ip_address=session.ip_address,
+                description=f"命令执行异常: {e}",
+                details={"command": command[:100], "error": str(e)},
+                success=False
+            )
         finally:
             if request_id and request_id in session.running_processes:
                 del session.running_processes[request_id]
@@ -187,6 +235,14 @@ class RemoteShellServer:
         """处理文件列表请求"""
         path = msg.data.get("path", ".")
         request_id = msg.request_id
+        
+        audit_log(
+            AuditEventType.FILE_LIST,
+            username=session.username,
+            ip_address=session.ip_address,
+            description=f"列出目录: {path}",
+            details={"path": path}
+        )
         
         try:
             path = os.path.abspath(os.path.expanduser(path))
@@ -237,6 +293,13 @@ class RemoteShellServer:
             
             file_size = os.path.getsize(path)
             self.logger.info(f"下载文件: {path} ({file_size} bytes)")
+            audit_log(
+                AuditEventType.FILE_DOWNLOAD,
+                username=session.username,
+                ip_address=session.ip_address,
+                description=f"下载文件: {path}",
+                details={"path": path, "size": file_size}
+            )
             
             CHUNK_SIZE = 64 * 1024  # 64KB
             offset = 0
@@ -269,6 +332,13 @@ class RemoteShellServer:
                 f.write(data)
             
             self.logger.info(f"上传数据: {path} (+{len(data)} bytes)")
+            audit_log(
+                AuditEventType.FILE_UPLOAD,
+                username=session.username,
+                ip_address=session.ip_address,
+                description=f"上传文件: {path}",
+                details={"path": path, "size": len(data)}
+            )
             
         except Exception as e:
             await session.send(create_file_done_message(False, str(e), request_id))
@@ -294,6 +364,12 @@ class RemoteShellServer:
             del self.clients[client_id]
         
         self.logger.info(f"客户端 {client_id} 已清理")
+        audit_log(
+            AuditEventType.CLIENT_DISCONNECT,
+            username=session.username,
+            ip_address=session.ip_address,
+            description=f"客户端断开 (ID: {client_id})"
+        )
     
     def create_ssl_context(self) -> Optional[ssl.SSLContext]:
         """创建 SSL 上下文"""

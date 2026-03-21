@@ -19,6 +19,7 @@ from common.protocol import Message, MessageType, create_exec_message
 from common.monitor import SystemMonitor
 from common.tunnel import PortForwarder
 from common.users import UserManager, Permission
+from common.audit import audit_log, AuditEventType, get_audit_logger
 
 
 class WebTerminal:
@@ -151,6 +152,10 @@ class WebServer:
         self.app.router.add_post('/api/user/create', self.handle_user_create)
         self.app.router.add_post('/api/user/delete', self.handle_user_delete)
         self.app.router.add_post('/api/user/password', self.handle_user_password)
+        
+        # 审计日志
+        self.app.router.add_get('/api/audit/list', self.handle_audit_list)
+        self.app.router.add_get('/api/audit/stats', self.handle_audit_stats)
     
     def _check_auth(self, request) -> tuple:
         """检查认证，返回 (is_valid, username_or_error)"""
@@ -193,16 +198,30 @@ class WebServer:
             data = await request.json()
             username = data.get('username', '')
             password = data.get('password', '')
+            ip_address = request.remote or "unknown"
             
             token = self.user_manager.authenticate(username, password)
             if token:
                 user = self.user_manager.get_user(username)
+                audit_log(
+                    AuditEventType.LOGIN_SUCCESS,
+                    username=username,
+                    ip_address=ip_address,
+                    description="Web 登录成功"
+                )
                 return web.json_response({
                     "success": True,
                     "token": token,
                     "permissions": user.permissions if user else []
                 })
             else:
+                audit_log(
+                    AuditEventType.LOGIN_FAILED,
+                    username=username,
+                    ip_address=ip_address,
+                    description="Web 登录失败: 用户名或密码错误",
+                    success=False
+                )
                 return web.json_response({"success": False, "error": "用户名或密码错误"}, status=401)
         except Exception as e:
             return web.json_response({"success": False, "error": str(e)}, status=400)
@@ -210,8 +229,16 @@ class WebServer:
     async def handle_logout(self, request):
         """登出"""
         auth = request.headers.get('Authorization', '')
+        is_valid, username = self._check_auth(request)
         if auth.startswith('Bearer '):
             self.user_manager.logout(auth[7:])
+        if is_valid:
+            audit_log(
+                AuditEventType.LOGOUT,
+                username=username,
+                ip_address=request.remote or "unknown",
+                description="Web 登出"
+            )
         return web.json_response({"success": True})
     
     async def handle_exec(self, request):
@@ -385,8 +412,22 @@ class WebServer:
             tunnel_id = await self.port_forwarder.create_tunnel(
                 int(listen_port), target_host, int(target_port)
             )
+            audit_log(
+                AuditEventType.TUNNEL_CREATE,
+                username=result,
+                ip_address=request.remote or "unknown",
+                description=f"创建隧道: {listen_port} -> {target_host}:{target_port}",
+                details={"listen_port": listen_port, "target": f"{target_host}:{target_port}"},
+                success=True
+            )
             return web.json_response({"success": True, "tunnel_id": tunnel_id})
         except Exception as e:
+            audit_log(
+                AuditEventType.TUNNEL_CREATE,
+                ip_address=request.remote or "unknown",
+                description=f"创建隧道失败: {e}",
+                success=False
+            )
             return web.json_response({"error": str(e)}, status=500)
     
     async def handle_tunnel_remove(self, request):
@@ -400,6 +441,14 @@ class WebServer:
             listen_port = data.get('listen_port')
             
             success = await self.port_forwarder.remove_tunnel(int(listen_port))
+            audit_log(
+                AuditEventType.TUNNEL_REMOVE,
+                username=result,
+                ip_address=request.remote or "unknown",
+                description=f"移除隧道: {listen_port}",
+                details={"listen_port": listen_port},
+                success=success
+            )
             return web.json_response({"success": success})
         except Exception as e:
             return web.json_response({"error": str(e)}, status=500)
@@ -428,6 +477,14 @@ class WebServer:
                 return web.json_response({"error": "用户名和密码不能为空"}, status=400)
             
             success = self.user_manager.create_user(username, password, permissions)
+            audit_log(
+                AuditEventType.USER_CREATE,
+                username=result,  # 操作者
+                ip_address=request.remote or "unknown",
+                description=f"创建用户: {username}",
+                details={"new_user": username, "permissions": permissions},
+                success=success
+            )
             return web.json_response({"success": success})
         except Exception as e:
             return web.json_response({"error": str(e)}, status=500)
@@ -443,6 +500,14 @@ class WebServer:
             username = data.get('username')
             
             success = self.user_manager.delete_user(username)
+            audit_log(
+                AuditEventType.USER_DELETE,
+                username=result,  # 操作者
+                ip_address=request.remote or "unknown",
+                description=f"删除用户: {username}",
+                details={"deleted_user": username},
+                success=success
+            )
             return web.json_response({"success": success})
         except Exception as e:
             return web.json_response({"error": str(e)}, status=500)
@@ -458,6 +523,13 @@ class WebServer:
             new_password = data.get('new_password')
             
             success = self.user_manager.update_password(username, new_password)
+            audit_log(
+                AuditEventType.USER_PASSWORD_CHANGE,
+                username=username,
+                ip_address=request.remote or "unknown",
+                description="修改密码",
+                success=success
+            )
             return web.json_response({"success": success})
         except Exception as e:
             return web.json_response({"error": str(e)}, status=500)
@@ -484,6 +556,67 @@ class WebServer:
             await terminal.close()
         
         return ws
+    
+    async def handle_audit_list(self, request):
+        """审计日志列表"""
+        is_valid, result = self._check_permission(request, Permission.ADMIN.value)
+        if not is_valid:
+            return web.json_response({"error": result}, status=403)
+        
+        try:
+            logger = get_audit_logger()
+            
+            # 解析查询参数
+            event_type = request.query.get('event_type')
+            username = request.query.get('username')
+            ip_address = request.query.get('ip_address')
+            success_str = request.query.get('success')
+            hours_str = request.query.get('hours', '24')
+            limit_str = request.query.get('limit', '100')
+            offset_str = request.query.get('offset', '0')
+            
+            success = None
+            if success_str and success_str.lower() in ('true', '1', 'yes'):
+                success = True
+            elif success_str and success_str.lower() in ('false', '0', 'no'):
+                success = False
+            
+            hours = int(hours_str)
+            limit = int(limit_str)
+            offset = int(offset_str)
+            
+            import time
+            start_time = time.time() - hours * 3600
+            
+            logs = logger.query(
+                event_type=event_type,
+                username=username,
+                ip_address=ip_address,
+                success=success,
+                start_time=start_time,
+                limit=limit,
+                offset=offset
+            )
+            
+            return web.json_response({"logs": logs, "count": len(logs)})
+        except Exception as e:
+            return web.json_response({"error": str(e)}, status=500)
+    
+    async def handle_audit_stats(self, request):
+        """审计统计"""
+        is_valid, result = self._check_permission(request, Permission.ADMIN.value)
+        if not is_valid:
+            return web.json_response({"error": result}, status=403)
+        
+        try:
+            logger = get_audit_logger()
+            hours_str = request.query.get('hours', '24')
+            hours = int(hours_str)
+            
+            stats = logger.get_stats(hours=hours)
+            return web.json_response(stats)
+        except Exception as e:
+            return web.json_response({"error": str(e)}, status=500)
     
     def _get_index_html(self) -> str:
         """返回主页 HTML（完整版）"""
@@ -588,6 +721,7 @@ class WebServer:
             <div class="tab" onclick="showTab('monitor')">监控</div>
             <div class="tab" onclick="showTab('tunnel')">隧道</div>
             <div class="tab" onclick="showTab('users')">用户</div>
+            <div class="tab" onclick="showTab('audit')">审计</div>
         </div>
         
         <!-- 终端 -->
@@ -635,6 +769,37 @@ class WebServer:
                 <button onclick="createUser()" style="padding:10px 20px;background:#4ecca3;color:#1a1a2e;border:none;border-radius:5px;cursor:pointer;">创建</button>
             </div>
             <div class="user-list" id="userList"></div>
+        </div>
+        
+        <!-- 审计日志 -->
+        <div class="tab-content" id="auditTab">
+            <div class="audit-stats" id="auditStats"></div>
+            <div class="audit-filters" style="background:#16213e;border-radius:8px;padding:15px;margin-bottom:15px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                <select id="auditType" style="padding:8px;border:none;border-radius:5px;background:#1a1a2e;color:#eee;">
+                    <option value="">全部类型</option>
+                    <option value="login_success">登录成功</option>
+                    <option value="login_failed">登录失败</option>
+                    <option value="command_exec">命令执行</option>
+                    <option value="command_success">命令成功</option>
+                    <option value="command_failed">命令失败</option>
+                    <option value="file_download">文件下载</option>
+                    <option value="file_upload">文件上传</option>
+                    <option value="tunnel_create">隧道创建</option>
+                    <option value="tunnel_remove">隧道删除</option>
+                    <option value="user_create">用户创建</option>
+                    <option value="user_delete">用户删除</option>
+                </select>
+                <input type="text" id="auditUser" placeholder="用户名" style="padding:8px;border:none;border-radius:5px;background:#1a1a2e;color:#eee;width:120px;">
+                <input type="text" id="auditIP" placeholder="IP 地址" style="padding:8px;border:none;border-radius:5px;background:#1a1a2e;color:#eee;width:120px;">
+                <select id="auditHours" style="padding:8px;border:none;border-radius:5px;background:#1a1a2e;color:#eee;">
+                    <option value="24">最近 24 小时</option>
+                    <option value="72">最近 3 天</option>
+                    <option value="168">最近 7 天</option>
+                    <option value="720">最近 30 天</option>
+                </select>
+                <button onclick="loadAuditLogs()" style="padding:8px 16px;background:#4ecca3;color:#1a1a2e;border:none;border-radius:5px;cursor:pointer;">查询</button>
+            </div>
+            <div class="audit-list" id="auditList" style="background:#16213e;border-radius:8px;max-height:calc(100vh - 350px);overflow-y:auto;"></div>
         </div>
     </div>
     
@@ -691,6 +856,7 @@ class WebServer:
             if (name === 'monitor') loadMonitor();
             if (name === 'tunnel') listTunnels();
             if (name === 'users') listUsers();
+            if (name === 'audit') loadAuditLogs();
         }
         
         async function execute() {
@@ -870,6 +1036,83 @@ class WebServer:
         
         function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
         function formatSize(bytes) { if (!bytes) return '0 B'; const k = 1024; const s = ['B', 'KB', 'MB', 'GB']; const i = Math.floor(Math.log(bytes) / Math.log(k)); return (bytes / Math.pow(k, i)).toFixed(1) + ' ' + s[i]; }
+        
+        // 审计日志
+        async function loadAuditLogs() {
+            try {
+                const type = document.getElementById('auditType').value;
+                const user = document.getElementById('auditUser').value;
+                const ip = document.getElementById('auditIP').value;
+                const hours = document.getElementById('auditHours').value;
+                
+                let url = `/api/audit/list?hours=${hours}&limit=200`;
+                if (type) url += `&event_type=${type}`;
+                if (user) url += `&username=${encodeURIComponent(user)}`;
+                if (ip) url += `&ip_address=${encodeURIComponent(ip)}`;
+                
+                const data = await api(url);
+                const list = document.getElementById('auditList');
+                
+                if (data.logs && data.logs.length) {
+                    list.innerHTML = data.logs.map(log => `
+                        <div class="audit-item" style="padding:12px 15px;border-bottom:1px solid #0f3460;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+                                <span style="font-weight:bold;color:${log.success ? '#4ecca3' : '#e94560'};">
+                                    ${log.success ? '✓' : '✗'} ${log.event_type}
+                                </span>
+                                <span style="color:#888;font-size:12px;">${log.datetime}</span>
+                            </div>
+                            <div style="color:#eee;margin-bottom:3px;">${escapeHtml(log.description)}</div>
+                            <div style="color:#888;font-size:12px;">
+                                ${log.username ? `用户: ${log.username}` : ''} 
+                                ${log.ip_address ? `| IP: ${log.ip_address}` : ''}
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    list.innerHTML = '<div style="padding:40px;color:#888;text-align:center;">暂无审计日志</div>';
+                }
+                
+                // 同时加载统计
+                loadAuditStats(hours);
+            } catch (e) {
+                console.error('加载审计日志失败:', e);
+            }
+        }
+        
+        async function loadAuditStats(hours) {
+            try {
+                const data = await api(`/api/audit/stats?hours=${hours || 24}`);
+                const stats = document.getElementById('auditStats');
+                
+                stats.innerHTML = `
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin-bottom:15px;">
+                        <div style="background:#16213e;border-radius:8px;padding:15px;text-align:center;">
+                            <div style="font-size:24px;font-weight:bold;color:#4ecca3;">${data.total_events || 0}</div>
+                            <div style="color:#888;font-size:12px;">总事件</div>
+                        </div>
+                        <div style="background:#16213e;border-radius:8px;padding:15px;text-align:center;">
+                            <div style="font-size:24px;font-weight:bold;color:#4ecca3;">${data.successful || 0}</div>
+                            <div style="color:#888;font-size:12px;">成功</div>
+                        </div>
+                        <div style="background:#16213e;border-radius:8px;padding:15px;text-align:center;">
+                            <div style="font-size:24px;font-weight:bold;color:#e94560;">${data.failed || 0}</div>
+                            <div style="color:#888;font-size:12px;">失败</div>
+                        </div>
+                        <div style="background:#16213e;border-radius:8px;padding:15px;text-align:center;">
+                            <div style="font-size:24px;font-weight:bold;color:#4ecca3;">${data.unique_users || 0}</div>
+                            <div style="color:#888;font-size:12px;">活跃用户</div>
+                        </div>
+                        <div style="background:#16213e;border-radius:8px;padding:15px;text-align:center;">
+                            <div style="font-size:24px;font-weight:bold;color:#4ecca3;">${data.unique_ips || 0}</div>
+                            <div style="color:#888;font-size:12px;">独立 IP</div>
+                        </div>
+                    </div>
+                `;
+            } catch (e) {
+                console.error('加载审计统计失败:', e);
+            }
+        }
         
         document.getElementById('password').addEventListener('keypress', (e) => { if (e.key === 'Enter') login(); });
         setInterval(loadMonitor, 5000);

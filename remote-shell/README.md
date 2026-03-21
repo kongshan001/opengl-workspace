@@ -2,7 +2,7 @@
 
 一个**傻瓜式**的全功能远程计算机管理工具。
 
-![Version](https://img.shields.io/badge/version-2.0.0-green)
+![Version](https://img.shields.io/badge/version-2.1.0-green)
 ![Python](https://img.shields.io/badge/python-3.8+-blue)
 
 ---
@@ -17,6 +17,7 @@
 | **隧道** | TCP 端口转发 | ✅ |
 | **用户** | 多用户管理、权限控制 | ✅ |
 | **安全** | Token 认证、TLS 加密 | ✅ |
+| **审计** | 操作日志、登录日志、日志查询 | ✅ |
 
 ---
 

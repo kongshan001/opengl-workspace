@@ -1,0 +1,31 @@
+# AI Gateway 配置文件
+
+server:
+  host: "0.0.0.0"
+  port: 8765
+
+# 上游 API Key 池
+# 每个Key有: name, api_key, base_url, max_concurrent
+upstream_keys:
+  - name: "glm-1"
+    provider: "glm"
+    api_key: "630c7771e7ff400c9fc0b60d96e3c1ae.IukY4FTSKX6JCGmx"
+    base_url: "https://open.bigmodel.cn/api/coding/paas/v4"
+    max_concurrent: 2
+    enabled: true
+
+  - name: "glm-2"
+    provider: "glm"
+    api_key: "630c7771e7ff400c9fc0b60d96e3c1ae.IukY4FTSKX6JCGmx"
+    base_url: "https://open.bigmodel.cn/api/coding/paas/v4"
+    max_concurrent: 2
+    enabled: true
+
+# 用户限制
+user_limits:
+  max_concurrent: 1        # 每个用户最大并发数
+  default_monthly_quota: 1000000  # 默认月度 token 配额
+
+# 负载均衡策略
+load_balance:
+  strategy: "least_loaded"  # least_loaded | round_robin | random
