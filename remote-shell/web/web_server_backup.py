@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Web 管理界面（美化版）
+Web 管理界面（增强版）
 支持：终端、文件管理、系统监控、端口转发、用户管理
 """
 
@@ -103,123 +103,157 @@ class WebTerminal:
     async def close(self):
         if self.writer:
             self.writer.close()
-            await self.writer.wait_closed()
+            try:
+                await self.writer.wait_closed()
+            except:
+                pass
 
 
 class WebServer:
-    """Web 管理服务器"""
+    """Web 服务器"""
     
     def __init__(self, config: Config):
         self.config = config
+        self.app = web.Application()
+        self.port_forwarder = PortForwarder()
         self.user_manager = UserManager()
-        self.app = web.Application(client_max_size=100 * 1024 * 1024)
-        
         self._setup_routes()
     
     def _setup_routes(self):
         """设置路由"""
+        # 静态页面
         self.app.router.add_get('/', self.handle_index)
+        
+        # API
+        self.app.router.add_get('/api/info', self.handle_info)
         self.app.router.add_post('/api/login', self.handle_login)
+        self.app.router.add_post('/api/logout', self.handle_logout)
+        
+        # 终端
         self.app.router.add_post('/api/exec', self.handle_exec)
+        self.app.router.add_get('/ws', self.handle_websocket)
+        
+        # 文件
         self.app.router.add_post('/api/file/list', self.handle_file_list)
         self.app.router.add_get('/api/file/download', self.handle_file_download)
         self.app.router.add_post('/api/file/upload', self.handle_file_upload)
+        
+        # 系统监控
         self.app.router.add_get('/api/system/info', self.handle_system_info)
+        self.app.router.add_get('/api/system/processes', self.handle_processes)
+        
+        # 端口转发
         self.app.router.add_get('/api/tunnel/list', self.handle_tunnel_list)
         self.app.router.add_post('/api/tunnel/create', self.handle_tunnel_create)
         self.app.router.add_post('/api/tunnel/remove', self.handle_tunnel_remove)
+        
+        # 用户管理
         self.app.router.add_get('/api/user/list', self.handle_user_list)
         self.app.router.add_post('/api/user/create', self.handle_user_create)
         self.app.router.add_post('/api/user/delete', self.handle_user_delete)
         self.app.router.add_post('/api/user/password', self.handle_user_password)
+        
+        # 审计日志
         self.app.router.add_get('/api/audit/list', self.handle_audit_list)
         self.app.router.add_get('/api/audit/stats', self.handle_audit_stats)
-        self.app.router.add_get('/ws', self.handle_websocket)
     
     def _check_auth(self, request) -> tuple:
-        """验证 Token"""
+        """检查认证，返回 (is_valid, username_or_error)"""
         auth = request.headers.get('Authorization', '')
-        if not auth.startswith('Bearer '):
-            return False, "未登录"
-        
-        token = auth[7:]
-        return self.user_manager.verify_token(token)
+        if auth.startswith('Bearer '):
+            token = auth[7:]
+            username = self.user_manager.validate_session(token)
+            if username:
+                return True, username
+        return False, "未认证"
     
     def _check_permission(self, request, permission: str) -> tuple:
         """检查权限"""
-        is_valid, result = self._check_auth(request)
+        is_valid, username = self._check_auth(request)
         if not is_valid:
-            return False, result
+            return False, username
         
-        username = result
-        if not self.user_manager.has_permission(username, permission):
-            return False, "权限不足"
+        user = self.user_manager.get_user(username)
+        if user and user.has_permission(permission):
+            return True, username
         
-        return True, username
+        return False, "权限不足"
     
     async def handle_index(self, request):
-        """主页"""
+        """返回主页"""
         html = self._get_index_html()
         return web.Response(text=html, content_type='text/html')
+    
+    async def handle_info(self, request):
+        """服务器信息"""
+        return web.json_response({
+            "name": "Remote Shell",
+            "version": "2.0.0",
+            "features": ["terminal", "files", "monitor", "tunnel", "users"]
+        })
     
     async def handle_login(self, request):
         """登录"""
         try:
             data = await request.json()
-            username = data.get('username')
-            password = data.get('password')
+            username = data.get('username', '')
+            password = data.get('password', '')
+            ip_address = request.remote or "unknown"
             
-            success, token = self.user_manager.login(username, password)
-            
-            if success:
+            token = self.user_manager.authenticate(username, password)
+            if token:
+                user = self.user_manager.get_user(username)
                 audit_log(
                     AuditEventType.LOGIN_SUCCESS,
                     username=username,
-                    ip_address=request.remote or "unknown",
-                    description=f"用户登录: {username}"
+                    ip_address=ip_address,
+                    description="Web 登录成功"
                 )
-                permissions = self.user_manager.get_permissions(username)
                 return web.json_response({
                     "success": True,
                     "token": token,
-                    "permissions": permissions
+                    "permissions": user.permissions if user else []
                 })
             else:
                 audit_log(
                     AuditEventType.LOGIN_FAILED,
                     username=username,
-                    ip_address=request.remote or "unknown",
-                    description=f"登录失败: {username}",
+                    ip_address=ip_address,
+                    description="Web 登录失败: 用户名或密码错误",
                     success=False
                 )
-                return web.json_response({"error": "用户名或密码错误"}, status=401)
+                return web.json_response({"success": False, "error": "用户名或密码错误"}, status=401)
         except Exception as e:
-            return web.json_response({"error": str(e)}, status=500)
+            return web.json_response({"success": False, "error": str(e)}, status=400)
+    
+    async def handle_logout(self, request):
+        """登出"""
+        auth = request.headers.get('Authorization', '')
+        is_valid, username = self._check_auth(request)
+        if auth.startswith('Bearer '):
+            self.user_manager.logout(auth[7:])
+        if is_valid:
+            audit_log(
+                AuditEventType.LOGOUT,
+                username=username,
+                ip_address=request.remote or "unknown",
+                description="Web 登出"
+            )
+        return web.json_response({"success": True})
     
     async def handle_exec(self, request):
         """执行命令"""
-        is_valid, username = self._check_auth(request)
+        is_valid, result = self._check_permission(request, Permission.EXEC.value)
         if not is_valid:
-            return web.json_response({"error": username}, status=401)
+            return web.json_response({"error": result}, status=401 if result == "未认证" else 403)
         
         try:
             data = await request.json()
             command = data.get('command', '')
             
-            if not self.user_manager.has_permission(username, Permission.EXEC.value):
-                return web.json_response({"error": "无执行权限"}, status=403)
-            
             terminal = WebTerminal(self.config)
             outputs = await terminal.execute(command)
             await terminal.close()
-            
-            audit_log(
-                AuditEventType.COMMAND_EXEC,
-                username=username,
-                ip_address=request.remote or "unknown",
-                description=f"执行命令: {command}",
-                details={"command": command}
-            )
             
             return web.json_response({"outputs": outputs})
         except Exception as e:
@@ -233,79 +267,73 @@ class WebServer:
         
         try:
             data = await request.json()
-            path = data.get('path', '/')
-            
-            terminal = WebTerminal(self.config)
-            
-            # 获取文件列表
-            outputs = await terminal.execute(f'ls -lah "{path}" | tail -n +2')
+            path = data.get('path', '.')
+            path = os.path.abspath(os.path.expanduser(path))
             
             files = []
-            if outputs and outputs[0].get('text'):
-                lines = outputs[0]['text'].strip().split('\n')
-                for line in lines:
-                    parts = line.split()
-                    if len(parts) >= 9:
-                        is_dir = line.startswith('d')
-                        name = ' '.join(parts[8:])
-                        if name not in ['.', '..']:
+            if os.path.exists(path):
+                if os.path.isfile(path):
+                    stat = os.stat(path)
+                    files.append({
+                        "name": os.path.basename(path),
+                        "path": path,
+                        "type": "file",
+                        "size": stat.st_size,
+                        "modified": stat.st_mtime
+                    })
+                else:
+                    for item in os.listdir(path):
+                        item_path = os.path.join(path, item)
+                        try:
+                            stat = os.stat(item_path)
                             files.append({
-                                'name': name,
-                                'path': os.path.join(path, name),
-                                'type': 'directory' if is_dir else 'file',
-                                'size': parts[4],
-                                'perms': parts[0],
-                                'owner': parts[2],
-                                'modified': ' '.join(parts[5:8])
+                                "name": item,
+                                "path": item_path,
+                                "type": "directory" if os.path.isdir(item_path) else "file",
+                                "size": stat.st_size if os.path.isfile(item_path) else 0,
+                                "modified": stat.st_mtime
                             })
+                        except:
+                            pass
             
-            await terminal.close()
-            
-            audit_log(
-                AuditEventType.FILE_LIST,
-                username=result,
-                ip_address=request.remote or "unknown",
-                description=f"浏览目录: {path}",
-                details={"path": path}
-            )
-            
-            return web.json_response({"files": files})
+            return web.json_response({"files": files, "path": path})
         except Exception as e:
             return web.json_response({"error": str(e)}, status=500)
     
     async def handle_file_download(self, request):
-        """文件下载"""
+        """下载文件"""
         is_valid, result = self._check_permission(request, Permission.FILE_READ.value)
         if not is_valid:
             return web.json_response({"error": result}, status=403)
         
+        path = request.query.get('path', '')
+        if not path:
+            return web.json_response({"error": "缺少路径"}, status=400)
+        
         try:
-            path = request.query.get('path')
+            path = os.path.abspath(os.path.expanduser(path))
+            if not os.path.isfile(path):
+                return web.json_response({"error": "文件不存在"}, status=404)
             
-            audit_log(
-                AuditEventType.FILE_DOWNLOAD,
-                username=result,
-                ip_address=request.remote or "unknown",
-                description=f"下载文件: {path}",
-                details={"path": path}
+            with open(path, 'rb') as f:
+                content = f.read()
+            
+            return web.Response(
+                body=content,
+                headers={'Content-Disposition': f'attachment; filename="{os.path.basename(path)}"'}
             )
-            
-            return web.FileResponse(path)
         except Exception as e:
             return web.json_response({"error": str(e)}, status=500)
     
     async def handle_file_upload(self, request):
-        """文件上传"""
+        """上传文件"""
         is_valid, result = self._check_permission(request, Permission.FILE_WRITE.value)
         if not is_valid:
             return web.json_response({"error": result}, status=403)
         
         try:
             reader = await request.multipart()
-            
-            path = None
-            file_data = None
-            filename = None
+            path, file_data, filename = "", b"", ""
             
             async for field in reader:
                 if field.name == 'path':
@@ -314,22 +342,18 @@ class WebServer:
                     filename = field.filename
                     file_data = await field.read()
             
-            if path and file_data:
-                filepath = os.path.join(path, filename)
-                with open(filepath, 'wb') as f:
-                    f.write(file_data)
-                
-                audit_log(
-                    AuditEventType.FILE_UPLOAD,
-                    username=result,
-                    ip_address=request.remote or "unknown",
-                    description=f"上传文件: {filepath}",
-                    details={"path": filepath, "size": len(file_data)}
-                )
-                
-                return web.json_response({"success": True})
+            if not path or not file_data:
+                return web.json_response({"error": "缺少文件或路径"}, status=400)
             
-            return web.json_response({"error": "参数错误"}, status=400)
+            path = os.path.abspath(os.path.expanduser(path))
+            if os.path.isdir(path):
+                path = os.path.join(path, filename)
+            
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, 'wb') as f:
+                f.write(file_data)
+            
+            return web.json_response({"success": True, "path": path})
         except Exception as e:
             return web.json_response({"error": str(e)}, status=500)
     
@@ -340,27 +364,39 @@ class WebServer:
             return web.json_response({"error": result}, status=401)
         
         try:
-            monitor = SystemMonitor()
-            info = monitor.get_all_info()
+            info = await SystemMonitor.get_system_info()
             return web.json_response(info)
+        except Exception as e:
+            return web.json_response({"error": str(e)}, status=500)
+    
+    async def handle_processes(self, request):
+        """进程列表"""
+        is_valid, result = self._check_permission(request, Permission.ADMIN.value)
+        if not is_valid:
+            return web.json_response({"error": result}, status=403)
+        
+        try:
+            processes = await SystemMonitor.get_processes(limit=50)
+            return web.json_response({
+                "processes": [
+                    {"pid": p.pid, "name": p.name, "status": p.status, "command": p.command}
+                    for p in processes
+                ]
+            })
         except Exception as e:
             return web.json_response({"error": str(e)}, status=500)
     
     async def handle_tunnel_list(self, request):
         """隧道列表"""
-        is_valid, result = self._check_permission(request, Permission.TUNNEL.value)
+        is_valid, result = self._check_permission(request, Permission.ADMIN.value)
         if not is_valid:
             return web.json_response({"error": result}, status=403)
         
-        try:
-            tunnels = PortForwarder.list_tunnels()
-            return web.json_response({"tunnels": tunnels})
-        except Exception as e:
-            return web.json_response({"error": str(e)}, status=500)
+        return web.json_response({"tunnels": self.port_forwarder.list_tunnels()})
     
     async def handle_tunnel_create(self, request):
         """创建隧道"""
-        is_valid, username = self._check_permission(request, Permission.TUNNEL.value)
+        is_valid, result = self._check_permission(request, Permission.ADMIN.value)
         if not is_valid:
             return web.json_response({"error": result}, status=403)
         
@@ -370,30 +406,33 @@ class WebServer:
             target_host = data.get('target_host')
             target_port = data.get('target_port')
             
-            success = await PortForwarder.create_tunnel(
-                listen_port, target_host, target_port
-            )
+            if not all([listen_port, target_host, target_port]):
+                return web.json_response({"error": "参数不完整"}, status=400)
             
-            if success:
-                audit_log(
-                    AuditEventType.TUNNEL_CREATE,
-                    username=username,
-                    ip_address=request.remote or "unknown",
-                    description=f"创建隧道: {listen_port} -> {target_host}:{target_port}",
-                    details={
-                        "listen_port": listen_port,
-                        "target": f"{target_host}:{target_port}"
-                    }
-                )
-                return web.json_response({"success": True})
-            else:
-                return web.json_response({"error": "创建失败"})
+            tunnel_id = await self.port_forwarder.create_tunnel(
+                int(listen_port), target_host, int(target_port)
+            )
+            audit_log(
+                AuditEventType.TUNNEL_CREATE,
+                username=result,
+                ip_address=request.remote or "unknown",
+                description=f"创建隧道: {listen_port} -> {target_host}:{target_port}",
+                details={"listen_port": listen_port, "target": f"{target_host}:{target_port}"},
+                success=True
+            )
+            return web.json_response({"success": True, "tunnel_id": tunnel_id})
         except Exception as e:
+            audit_log(
+                AuditEventType.TUNNEL_CREATE,
+                ip_address=request.remote or "unknown",
+                description=f"创建隧道失败: {e}",
+                success=False
+            )
             return web.json_response({"error": str(e)}, status=500)
     
     async def handle_tunnel_remove(self, request):
-        """删除隧道"""
-        is_valid, username = self._check_permission(request, Permission.TUNNEL.value)
+        """移除隧道"""
+        is_valid, result = self._check_permission(request, Permission.ADMIN.value)
         if not is_valid:
             return web.json_response({"error": result}, status=403)
         
@@ -401,17 +440,15 @@ class WebServer:
             data = await request.json()
             listen_port = data.get('listen_port')
             
-            success = await PortForwarder.remove_tunnel(listen_port)
-            
+            success = await self.port_forwarder.remove_tunnel(int(listen_port))
             audit_log(
                 AuditEventType.TUNNEL_REMOVE,
-                username=username,
+                username=result,
                 ip_address=request.remote or "unknown",
-                description=f"删除隧道: {listen_port}",
+                description=f"移除隧道: {listen_port}",
                 details={"listen_port": listen_port},
                 success=success
             )
-            
             return web.json_response({"success": success})
         except Exception as e:
             return web.json_response({"error": str(e)}, status=500)
@@ -422,11 +459,7 @@ class WebServer:
         if not is_valid:
             return web.json_response({"error": result}, status=403)
         
-        try:
-            users = self.user_manager.list_users()
-            return web.json_response({"users": users})
-        except Exception as e:
-            return web.json_response({"error": str(e)}, status=500)
+        return web.json_response({"users": self.user_manager.list_users()})
     
     async def handle_user_create(self, request):
         """创建用户"""
@@ -438,10 +471,12 @@ class WebServer:
             data = await request.json()
             username = data.get('username')
             password = data.get('password')
-            permissions = data.get('permissions', [])
+            permissions = data.get('permissions', ['exec', 'file_read'])
+            
+            if not username or not password:
+                return web.json_response({"error": "用户名和密码不能为空"}, status=400)
             
             success = self.user_manager.create_user(username, password, permissions)
-            
             audit_log(
                 AuditEventType.USER_CREATE,
                 username=result,  # 操作者
@@ -450,7 +485,6 @@ class WebServer:
                 details={"new_user": username, "permissions": permissions},
                 success=success
             )
-            
             return web.json_response({"success": success})
         except Exception as e:
             return web.json_response({"error": str(e)}, status=500)
@@ -585,735 +619,89 @@ class WebServer:
             return web.json_response({"error": str(e)}, status=500)
     
     def _get_index_html(self) -> str:
-        """返回主页 HTML（美化版）"""
+        """返回主页 HTML（完整版）"""
         return '''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remote Shell v2.0 - 优雅版</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Remote Shell v2.0</title>
     <style>
-        /* ===== 全局样式 ===== */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        :root {
-            --primary: #6366f1;
-            --primary-hover: #5558e3;
-            --primary-light: #818cf8;
-            --secondary: #8b5cf6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #3b82f6;
-            
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --bg-hover: #334155;
-            --bg-input: #0f172a;
-            
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            
-            --border: #334155;
-            --border-light: #475569;
-            
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1f2e 100%);
-            color: var(--text-primary);
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        /* ===== 登录界面 ===== */
-        .login-box {
-            max-width: 440px;
-            margin: 80px auto;
-            background: var(--bg-card);
-            padding: 48px;
-            border-radius: 16px;
-            box-shadow: var(--shadow-xl);
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .login-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-        
-        .login-box h1 {
-            text-align: center;
-            margin-bottom: 12px;
-            font-size: 32px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .login-box .subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 32px;
-            font-size: 14px;
-        }
-        
-        .login-box input {
-            width: 100%;
-            padding: 14px 16px;
-            margin: 8px 0;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-input);
-            color: var(--text-primary);
-            font-size: 15px;
-            transition: all 0.2s ease;
-        }
-        
-        .login-box input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-        
-        .login-box input::placeholder {
-            color: var(--text-muted);
-        }
-        
-        .login-box button {
-            width: 100%;
-            padding: 14px;
-            margin-top: 24px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .login-box button:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .login-box button:active {
-            transform: translateY(0);
-        }
-        
-        /* ===== 主应用 ===== */
-        .main-app {
-            display: none;
-        }
-        
-        /* ===== 头部 ===== */
-        .header {
-            background: var(--bg-card);
-            padding: 16px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .header h1 {
-            font-size: 22px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .header-info {
-            color: var(--text-secondary);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        
-        .header-info .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .header button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            background: var(--danger);
-            color: white;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-        
-        .header button:hover {
-            background: #dc2626;
-            transform: translateY(-1px);
-        }
-        
-        /* ===== 标签页 ===== */
-        .tabs {
-            display: flex;
-            background: var(--bg-card);
-            padding: 0 24px;
-            border-bottom: 1px solid var(--border);
-            overflow-x: auto;
-            gap: 4px;
-        }
-        
-        .tab {
-            padding: 14px 24px;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            color: var(--text-secondary);
-            white-space: nowrap;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-        
-        .tab:hover {
-            color: var(--text-primary);
-            background: rgba(99, 102, 241, 0.05);
-        }
-        
-        .tab.active {
-            color: var(--primary-light);
-            border-bottom-color: var(--primary);
-            background: rgba(99, 102, 241, 0.1);
-        }
-        
-        .tab-content {
-            padding: 24px;
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* ===== 终端 ===== */
-        .terminal {
-            background: var(--bg-dark);
-            border-radius: 12px;
-            padding: 20px;
-            font-family: "SF Mono", "Monaco", "Menlo", "Consolas", monospace;
-            font-size: 14px;
-            height: calc(100vh - 260px);
-            overflow-y: auto;
-            margin-bottom: 16px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .terminal::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .terminal::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
-        
-        .terminal::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 4px;
-        }
-        
-        .terminal::-webkit-scrollbar-thumb:hover {
-            background: var(--border-light);
-        }
-        
-        .terminal .line {
-            white-space: pre-wrap;
-            word-break: break-all;
-            padding: 2px 0;
-        }
-        
-        .terminal .stdout {
-            color: var(--text-primary);
-        }
-        
-        .terminal .stderr {
-            color: var(--danger);
-        }
-        
-        .terminal .prompt {
-            color: var(--success);
-            font-weight: 500;
-        }
-        
-        .command-input {
-            display: flex;
-            gap: 12px;
-        }
-        
-        .command-input input {
-            flex: 1;
-            padding: 14px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-input);
-            color: var(--text-primary);
-            font-family: "SF Mono", "Monaco", monospace;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-        
-        .command-input input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-        
-        .command-input button {
-            padding: 14px 32px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .command-input button:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        /* ===== 文件管理 ===== */
-        .path-bar {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-        
-        .path-bar input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-card);
-            color: var(--text-primary);
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-        
-        .path-bar input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .path-bar button {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-        
-        .path-bar button.primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-        
-        .path-bar button.secondary {
-            background: var(--bg-card);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-        
-        .path-bar button:hover {
-            transform: translateY(-1px);
-        }
-        
-        .file-list {
-            background: var(--bg-card);
-            border-radius: 12px;
-            max-height: calc(100vh - 260px);
-            overflow-y: auto;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .file-item {
-            display: flex;
-            align-items: center;
-            padding: 14px 20px;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .file-item:last-child {
-            border-bottom: none;
-        }
-        
-        .file-item:hover {
-            background: var(--bg-hover);
-        }
-        
-        .file-icon {
-            margin-right: 12px;
-            font-size: 24px;
-        }
-        
-        .file-name {
-            flex: 1;
-            font-weight: 500;
-        }
-        
-        .file-size {
-            color: var(--text-secondary);
-            margin-right: 20px;
-            font-size: 13px;
-        }
-        
-        /* ===== 系统监控 ===== */
-        .monitor-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-        }
-        
-        .monitor-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 24px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-md);
-            transition: all 0.2s ease;
-        }
-        
-        .monitor-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .monitor-card h3 {
-            color: var(--primary-light);
-            margin-bottom: 16px;
-            font-size: 18px;
-            font-weight: 600;
-        }
-        
-        .monitor-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 14px;
-        }
-        
-        .monitor-row:last-child {
-            border-bottom: none;
-        }
-        
-        .monitor-row span:first-child {
-            color: var(--text-secondary);
-        }
-        
-        .monitor-row span:last-child {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--bg-dark);
-            border-radius: 4px;
-            margin-top: 8px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-            transition: width 0.5s ease;
-        }
-        
-        .progress-fill.warning {
-            background: linear-gradient(90deg, var(--warning), #fb923c);
-        }
-        
-        .progress-fill.danger {
-            background: linear-gradient(90deg, var(--danger), #f87171);
-        }
-        
-        /* ===== 隧道管理 ===== */
-        .tunnel-form, .user-form {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .tunnel-form h3, .user-form h3 {
-            color: var(--primary-light);
-            margin-bottom: 16px;
-            font-size: 18px;
-            font-weight: 600;
-        }
-        
-        .tunnel-form input, .user-form input {
-            padding: 12px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-input);
-            color: var(--text-primary);
-            margin-right: 12px;
-            width: 140px;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-        
-        .tunnel-form input:focus, .user-form input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .tunnel-form button, .user-form button {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .tunnel-form button:hover, .user-form button:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .tunnel-list, .user-list {
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .tunnel-item, .user-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .tunnel-item:last-child, .user-item:last-child {
-            border-bottom: none;
-        }
-        
-        .tunnel-item button, .user-item button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            background: var(--danger);
-            color: white;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-        
-        .tunnel-item button:hover, .user-item button:hover {
-            background: #dc2626;
-        }
-        
-        .user-permissions {
-            color: var(--text-secondary);
-            font-size: 12px;
-            margin-top: 4px;
-        }
-        
-        /* ===== 审计日志 ===== */
-        .audit-stats {
-            margin-bottom: 20px;
-        }
-        
-        .audit-filters {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            align-items: center;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .audit-filters select, .audit-filters input {
-            padding: 10px 14px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-input);
-            color: var(--text-primary);
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-        
-        .audit-filters select:focus, .audit-filters input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .audit-filters button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .audit-filters button:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .audit-list {
-            background: var(--bg-card);
-            border-radius: 12px;
-            max-height: calc(100vh - 400px);
-            overflow-y: auto;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .audit-item {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.2s ease;
-        }
-        
-        .audit-item:hover {
-            background: var(--bg-hover);
-        }
-        
-        .audit-item:last-child {
-            border-bottom: none;
-        }
-        
-        /* ===== 统计卡片 ===== */
-        .stat-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid var(--border);
-            transition: all 0.2s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .stat-card .value {
-            font-size: 28px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .stat-card .label {
-            color: var(--text-secondary);
-            font-size: 13px;
-            margin-top: 4px;
-        }
-        
-        /* ===== 错误提示 ===== */
-        .error {
-            color: var(--danger);
-            text-align: center;
-            margin-top: 16px;
-            font-size: 14px;
-        }
-        
-        /* ===== 响应式 ===== */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 12px;
-            }
-            
-            .monitor-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .tunnel-form input, .user-form input {
-                width: 100%;
-                margin-bottom: 12px;
-            }
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #1a1a2e; color: #eee; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        
+        .login-box { max-width: 400px; margin: 100px auto; background: #16213e; padding: 40px; border-radius: 10px; }
+        .login-box h1 { text-align: center; margin-bottom: 30px; color: #4ecca3; }
+        .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: none; border-radius: 5px; background: #1a1a2e; color: #eee; font-size: 16px; }
+        .login-box button { width: 100%; padding: 12px; margin-top: 20px; border: none; border-radius: 5px; background: #4ecca3; color: #1a1a2e; font-size: 16px; cursor: pointer; font-weight: bold; }
+        .login-box button:hover { background: #3db892; }
+        
+        .main-app { display: none; }
+        .header { background: #16213e; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #0f3460; }
+        .header h1 { color: #4ecca3; font-size: 20px; }
+        .header-info { color: #888; font-size: 14px; }
+        .header button { padding: 8px 16px; border: none; border-radius: 5px; background: #e94560; color: white; cursor: pointer; }
+        
+        .tabs { display: flex; background: #16213e; padding: 0 20px; border-bottom: 1px solid #0f3460; overflow-x: auto; }
+        .tab { padding: 12px 24px; cursor: pointer; border-bottom: 2px solid transparent; color: #888; white-space: nowrap; }
+        .tab.active { color: #4ecca3; border-bottom-color: #4ecca3; }
+        .tab:hover { color: #4ecca3; }
+        
+        .tab-content { padding: 20px; display: none; }
+        .tab-content.active { display: block; }
+        
+        /* 终端 */
+        .terminal { background: #0f0f1a; border-radius: 8px; padding: 15px; font-family: "Monaco", "Menlo", monospace; font-size: 14px; height: calc(100vh - 250px); overflow-y: auto; margin-bottom: 15px; }
+        .terminal .line { white-space: pre-wrap; word-break: break-all; }
+        .terminal .stdout { color: #eee; }
+        .terminal .stderr { color: #e94560; }
+        .terminal .prompt { color: #4ecca3; }
+        .command-input { display: flex; gap: 10px; }
+        .command-input input { flex: 1; padding: 12px; border: none; border-radius: 5px; background: #0f0f1a; color: #eee; font-family: monospace; }
+        .command-input button { padding: 12px 24px; border: none; border-radius: 5px; background: #4ecca3; color: #1a1a2e; cursor: pointer; font-weight: bold; }
+        
+        /* 文件管理 */
+        .path-bar { display: flex; gap: 10px; margin-bottom: 15px; }
+        .path-bar input { flex: 1; padding: 10px; border: none; border-radius: 5px; background: #16213e; color: #eee; }
+        .path-bar button { padding: 10px 20px; border: none; border-radius: 5px; background: #4ecca3; color: #1a1a2e; cursor: pointer; }
+        .file-list { background: #16213e; border-radius: 8px; max-height: calc(100vh - 250px); overflow-y: auto; }
+        .file-item { display: flex; align-items: center; padding: 12px 15px; border-bottom: 1px solid #0f3460; cursor: pointer; }
+        .file-item:hover { background: #1a2744; }
+        .file-icon { margin-right: 10px; font-size: 20px; }
+        .file-name { flex: 1; }
+        .file-size { color: #888; margin-right: 20px; }
+        
+        /* 系统监控 */
+        .monitor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .monitor-card { background: #16213e; border-radius: 8px; padding: 20px; }
+        .monitor-card h3 { color: #4ecca3; margin-bottom: 15px; }
+        .monitor-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #0f3460; }
+        .progress-bar { width: 100%; height: 8px; background: #0f0f1a; border-radius: 4px; margin-top: 5px; }
+        .progress-fill { height: 100%; background: #4ecca3; border-radius: 4px; transition: width 0.3s; }
+        .progress-fill.warning { background: #f39c12; }
+        .progress-fill.danger { background: #e94560; }
+        
+        /* 隧道管理 */
+        .tunnel-form { background: #16213e; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .tunnel-form input { padding: 10px; border: none; border-radius: 5px; background: #1a1a2e; color: #eee; margin-right: 10px; width: 120px; }
+        .tunnel-list { background: #16213e; border-radius: 8px; }
+        .tunnel-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #0f3460; }
+        .tunnel-item button { padding: 5px 15px; border: none; border-radius: 3px; background: #e94560; color: white; cursor: pointer; }
+        
+        /* 用户管理 */
+        .user-form { background: #16213e; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .user-form input { padding: 10px; border: none; border-radius: 5px; background: #1a1a2e; color: #eee; margin-right: 10px; }
+        .user-list { background: #16213e; border-radius: 8px; }
+        .user-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #0f3460; }
+        .user-permissions { color: #888; font-size: 12px; }
+        
+        .error { color: #e94560; text-align: center; margin-top: 15px; }
     </style>
 </head>
 <body>
     <div class="login-box" id="loginBox">
         <h1>🔺 Remote Shell</h1>
-        <div class="subtitle">远程服务器管理系统</div>
         <input type="text" id="username" placeholder="用户名" value="admin">
         <input type="password" id="password" placeholder="密码">
         <button onclick="login()">登录</button>
@@ -1323,20 +711,17 @@ class WebServer:
     <div class="main-app" id="mainApp">
         <div class="header">
             <h1>🔺 Remote Shell</h1>
-            <div class="header-info">
-                <span class="status-dot"></span>
-                <span id="serverInfo">连接中...</span>
-            </div>
-            <button onclick="logout()">退出登录</button>
+            <div class="header-info" id="serverInfo"></div>
+            <button onclick="logout()">退出</button>
         </div>
         
         <div class="tabs">
-            <div class="tab active" onclick="showTab('terminal')">💻 终端</div>
-            <div class="tab" onclick="showTab('files')">📁 文件</div>
-            <div class="tab" onclick="showTab('monitor')">📊 监控</div>
-            <div class="tab" onclick="showTab('tunnel')">🔗 隧道</div>
-            <div class="tab" onclick="showTab('users')">👥 用户</div>
-            <div class="tab" onclick="showTab('audit')">📋 审计</div>
+            <div class="tab active" onclick="showTab('terminal')">终端</div>
+            <div class="tab" onclick="showTab('files')">文件</div>
+            <div class="tab" onclick="showTab('monitor')">监控</div>
+            <div class="tab" onclick="showTab('tunnel')">隧道</div>
+            <div class="tab" onclick="showTab('users')">用户</div>
+            <div class="tab" onclick="showTab('audit')">审计</div>
         </div>
         
         <!-- 终端 -->
@@ -1352,8 +737,8 @@ class WebServer:
         <div class="tab-content" id="filesTab">
             <div class="path-bar">
                 <input type="text" id="filePath" placeholder="路径" value="/">
-                <button class="primary" onclick="listFiles()">浏览</button>
-                <button class="secondary" onclick="uploadFile()">上传文件</button>
+                <button onclick="listFiles()">浏览</button>
+                <button onclick="uploadFile()" style="background:#0f3460;color:#eee;">上传</button>
             </div>
             <div class="file-list" id="fileList"></div>
         </div>
@@ -1366,11 +751,11 @@ class WebServer:
         <!-- 端口转发 -->
         <div class="tab-content" id="tunnelTab">
             <div class="tunnel-form">
-                <h3>创建隧道</h3>
+                <h3 style="color:#4ecca3;margin-bottom:15px;">创建隧道</h3>
                 <input type="number" id="tunnelListen" placeholder="监听端口">
                 <input type="text" id="tunnelHost" placeholder="目标主机">
                 <input type="number" id="tunnelPort" placeholder="目标端口">
-                <button onclick="createTunnel()">创建</button>
+                <button onclick="createTunnel()" style="padding:10px 20px;background:#4ecca3;color:#1a1a2e;border:none;border-radius:5px;cursor:pointer;">创建</button>
             </div>
             <div class="tunnel-list" id="tunnelList"></div>
         </div>
@@ -1378,10 +763,10 @@ class WebServer:
         <!-- 用户管理 -->
         <div class="tab-content" id="usersTab">
             <div class="user-form">
-                <h3>创建用户</h3>
+                <h3 style="color:#4ecca3;margin-bottom:15px;">创建用户</h3>
                 <input type="text" id="newUsername" placeholder="用户名">
                 <input type="password" id="newPassword" placeholder="密码">
-                <button onclick="createUser()">创建</button>
+                <button onclick="createUser()" style="padding:10px 20px;background:#4ecca3;color:#1a1a2e;border:none;border-radius:5px;cursor:pointer;">创建</button>
             </div>
             <div class="user-list" id="userList"></div>
         </div>
@@ -1389,8 +774,8 @@ class WebServer:
         <!-- 审计日志 -->
         <div class="tab-content" id="auditTab">
             <div class="audit-stats" id="auditStats"></div>
-            <div class="audit-filters">
-                <select id="auditType">
+            <div class="audit-filters" style="background:#16213e;border-radius:8px;padding:15px;margin-bottom:15px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                <select id="auditType" style="padding:8px;border:none;border-radius:5px;background:#1a1a2e;color:#eee;">
                     <option value="">全部类型</option>
                     <option value="login_success">登录成功</option>
                     <option value="login_failed">登录失败</option>
@@ -1404,17 +789,17 @@ class WebServer:
                     <option value="user_create">用户创建</option>
                     <option value="user_delete">用户删除</option>
                 </select>
-                <input type="text" id="auditUser" placeholder="用户名">
-                <input type="text" id="auditIP" placeholder="IP 地址">
-                <select id="auditHours">
+                <input type="text" id="auditUser" placeholder="用户名" style="padding:8px;border:none;border-radius:5px;background:#1a1a2e;color:#eee;width:120px;">
+                <input type="text" id="auditIP" placeholder="IP 地址" style="padding:8px;border:none;border-radius:5px;background:#1a1a2e;color:#eee;width:120px;">
+                <select id="auditHours" style="padding:8px;border:none;border-radius:5px;background:#1a1a2e;color:#eee;">
                     <option value="24">最近 24 小时</option>
                     <option value="72">最近 3 天</option>
                     <option value="168">最近 7 天</option>
                     <option value="720">最近 30 天</option>
                 </select>
-                <button onclick="loadAuditLogs()">查询</button>
+                <button onclick="loadAuditLogs()" style="padding:8px 16px;background:#4ecca3;color:#1a1a2e;border:none;border-radius:5px;cursor:pointer;">查询</button>
             </div>
-            <div class="audit-list" id="auditList"></div>
+            <div class="audit-list" id="auditList" style="background:#16213e;border-radius:8px;max-height:calc(100vh - 350px);overflow-y:auto;"></div>
         </div>
     </div>
     
@@ -1543,20 +928,20 @@ class WebServer:
                 const pctClass = (p) => p > 80 ? 'danger' : p > 60 ? 'warning' : '';
                 grid.innerHTML = `
                     <div class="monitor-card">
-                        <h3>💻 系统信息</h3>
+                        <h3>💻 系统</h3>
                         <div class="monitor-row"><span>主机名</span><span>${data.hostname}</span></div>
                         <div class="monitor-row"><span>时间</span><span>${data.time}</span></div>
                         <div class="monitor-row"><span>运行时间</span><span>${data.uptime_days} 天</span></div>
                     </div>
                     <div class="monitor-card">
-                        <h3>🖥️ CPU 使用率</h3>
-                        <div class="monitor-row"><span>当前使用率</span><span>${data.cpu.usage}%</span></div>
+                        <h3>🖥️ CPU</h3>
+                        <div class="monitor-row"><span>使用率</span><span>${data.cpu.usage}%</span></div>
                         <div class="progress-bar"><div class="progress-fill ${pctClass(data.cpu.usage)}" style="width:${data.cpu.usage}%"></div></div>
                         <div class="monitor-row"><span>核心数</span><span>${data.cpu.cores}</span></div>
                         <div class="monitor-row"><span>负载</span><span>${data.cpu.load_avg.join(' / ')}</span></div>
                     </div>
                     <div class="monitor-card">
-                        <h3>🧠 内存使用</h3>
+                        <h3>🧠 内存</h3>
                         <div class="monitor-row"><span>使用率</span><span>${data.memory.percent}%</span></div>
                         <div class="progress-bar"><div class="progress-fill ${pctClass(data.memory.percent)}" style="width:${data.memory.percent}%"></div></div>
                         <div class="monitor-row"><span>已用</span><span>${formatSize(data.memory.used)}</span></div>
@@ -1572,7 +957,7 @@ class WebServer:
                     </div>
                     `).join('')}
                 `;
-                document.getElementById('serverInfo').innerHTML = `<span class="status-dot"></span>${data.hostname} | CPU: ${data.cpu.usage}% | 内存: ${data.memory.percent}%`;
+                document.getElementById('serverInfo').textContent = `${data.hostname} | CPU: ${data.cpu.usage}% | 内存: ${data.memory.percent}%`;
             } catch (e) {}
         }
         
@@ -1580,7 +965,7 @@ class WebServer:
             try {
                 const data = await api('/api/tunnel/list');
                 const list = document.getElementById('tunnelList');
-                list.innerHTML = '<h3 style="color:#818cf8;padding:20px;font-weight:600;">活跃隧道</h3>';
+                list.innerHTML = '<h3 style="color:#4ecca3;padding:15px;">活跃隧道</h3>';
                 if (data.tunnels && data.tunnels.length) {
                     data.tunnels.forEach(t => {
                         list.innerHTML += `<div class="tunnel-item">
@@ -1590,7 +975,7 @@ class WebServer:
                         </div>`;
                     });
                 } else {
-                    list.innerHTML += '<div style="padding:40px;color:#94a3b8;text-align:center;">暂无隧道</div>';
+                    list.innerHTML += '<div style="padding:20px;color:#888;text-align:center;">暂无隧道</div>';
                 }
             } catch (e) {}
         }
@@ -1670,22 +1055,22 @@ class WebServer:
                 
                 if (data.logs && data.logs.length) {
                     list.innerHTML = data.logs.map(log => `
-                        <div class="audit-item">
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                                <span style="font-weight:600;color:${log.success ? '#10b981' : '#ef4444'};">
+                        <div class="audit-item" style="padding:12px 15px;border-bottom:1px solid #0f3460;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+                                <span style="font-weight:bold;color:${log.success ? '#4ecca3' : '#e94560'};">
                                     ${log.success ? '✓' : '✗'} ${log.event_type}
                                 </span>
-                                <span style="color:#94a3b8;font-size:12px;">${log.datetime}</span>
+                                <span style="color:#888;font-size:12px;">${log.datetime}</span>
                             </div>
-                            <div style="color:#f1f5f9;margin-bottom:6px;">${escapeHtml(log.description)}</div>
-                            <div style="color:#94a3b8;font-size:12px;">
+                            <div style="color:#eee;margin-bottom:3px;">${escapeHtml(log.description)}</div>
+                            <div style="color:#888;font-size:12px;">
                                 ${log.username ? `用户: ${log.username}` : ''} 
                                 ${log.ip_address ? `| IP: ${log.ip_address}` : ''}
                             </div>
                         </div>
                     `).join('');
                 } else {
-                    list.innerHTML = '<div style="padding:40px;color:#94a3b8;text-align:center;">暂无审计日志</div>';
+                    list.innerHTML = '<div style="padding:40px;color:#888;text-align:center;">暂无审计日志</div>';
                 }
                 
                 // 同时加载统计
@@ -1701,26 +1086,26 @@ class WebServer:
                 const stats = document.getElementById('auditStats');
                 
                 stats.innerHTML = `
-                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;">
-                        <div class="stat-card">
-                            <div class="value">${data.total_events || 0}</div>
-                            <div class="label">总事件</div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin-bottom:15px;">
+                        <div style="background:#16213e;border-radius:8px;padding:15px;text-align:center;">
+                            <div style="font-size:24px;font-weight:bold;color:#4ecca3;">${data.total_events || 0}</div>
+                            <div style="color:#888;font-size:12px;">总事件</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="value">${data.successful || 0}</div>
-                            <div class="label">成功</div>
+                        <div style="background:#16213e;border-radius:8px;padding:15px;text-align:center;">
+                            <div style="font-size:24px;font-weight:bold;color:#4ecca3;">${data.successful || 0}</div>
+                            <div style="color:#888;font-size:12px;">成功</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="value" style="background:none;-webkit-text-fill-color:#ef4444;">${data.failed || 0}</div>
-                            <div class="label">失败</div>
+                        <div style="background:#16213e;border-radius:8px;padding:15px;text-align:center;">
+                            <div style="font-size:24px;font-weight:bold;color:#e94560;">${data.failed || 0}</div>
+                            <div style="color:#888;font-size:12px;">失败</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="value">${data.unique_users || 0}</div>
-                            <div class="label">活跃用户</div>
+                        <div style="background:#16213e;border-radius:8px;padding:15px;text-align:center;">
+                            <div style="font-size:24px;font-weight:bold;color:#4ecca3;">${data.unique_users || 0}</div>
+                            <div style="color:#888;font-size:12px;">活跃用户</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="value">${data.unique_ips || 0}</div>
-                            <div class="label">独立 IP</div>
+                        <div style="background:#16213e;border-radius:8px;padding:15px;text-align:center;">
+                            <div style="font-size:24px;font-weight:bold;color:#4ecca3;">${data.unique_ips || 0}</div>
+                            <div style="color:#888;font-size:12px;">独立 IP</div>
                         </div>
                     </div>
                 `;
