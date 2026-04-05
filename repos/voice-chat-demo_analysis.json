@@ -1,0 +1,6262 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/voice-chat-demo",
+  "language": "python",
+  "total_files": 27,
+  "total_lines": 3303,
+  "modules": [
+    {
+      "name": "tests",
+      "path": "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_app_enhancements.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_errors.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_cli.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_optimization_validation.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_optimization.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_optimize_enhancements.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_edge_tts_retry.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_functions.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_services.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_edge_cases_enhanced.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_services.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_extensions.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_services_full.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_text.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_config.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_new_features.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_edge_cases.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_repr.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_audio.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_conversation.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_service_interfaces.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_config_enhancements.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_advanced.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_input_validation.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_extended.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_integration.py"
+      ],
+      "imports": [
+        "mocks",
+        "argparse",
+        "main",
+        "numpy",
+        "pytest",
+        "aiohttp",
+        "services",
+        "unittest.mock",
+        "tempfile",
+        "inspect",
+        "logging",
+        "core",
+        "os",
+        "asyncio"
+      ],
+      "exports": [],
+      "classes": [
+        "TestVoiceChatAppEnhancements",
+        "TestPlayAudioErrorHandling",
+        "TestGLMServiceImport",
+        "TestCLIArguments",
+        "TestEnvironmentVariables",
+        "TestWhisperRecognizerValidation",
+        "TestGLMChatServiceValidation",
+        "TestConfigEnhancedValidation",
+        "TestEdgeTTSServiceValidation",
+        "TestConversationManagerEdgeCases",
+        "TestAudioProcessorEdgeCasesExtended",
+        "TestConfigExtended",
+        "TestCLIParsingCombinations",
+        "TestGLMRetryMechanism",
+        "TestConfigValidation",
+        "TestNewExceptions",
+        "TestConversationManagerEdgeCases",
+        "TestEdgeTTSRetryMechanism",
+        "TestPlayAudioFunction",
+        "TestRecordWithVad",
+        "TestSimpleRecord",
+        "TestWhisperRecognizer",
+        "TestGLMChatServiceInit",
+        "TestEdgeTTSServiceInit",
+        "TestServiceErrorHandling",
+        "TestConversationManagerClassConstants",
+        "TestVoiceChatAppEdgeCases",
+        "TestConversationManagerEdgeCases",
+        "TestTextProcessorEdgeCases",
+        "TestAudioProcessorEdgeCases",
+        "TestConfigEdgeCases",
+        "TestWhisperRecognizer",
+        "TestGLMChatService",
+        "TestEdgeTTSService",
+        "TestConfigureServices",
+        "TestVoiceChatAppWithRealServices",
+        "TestRecordAndPlayFunctions",
+        "TestConfigTTSVoicesExtended",
+        "TestMockAudioRecorderAdapter",
+        "TestWhisperRecognizer",
+        "TestGLMChatService",
+        "TestEdgeTTSService",
+        "TestServiceInterfaces",
+        "TestServiceRetryMechanism",
+        "TestTextProcessor",
+        "TestConfig",
+        "TestGLMServiceEdgeCases",
+        "TestEdgeTTSServiceEdgeCases",
+        "TestConfigEdgeCases",
+        "TestAudioProcessorEdgeCases",
+        "TestTextProcessorEdgeCases",
+        "TestConversationManagerEdgeCases",
+        "TestVoiceChatAppEdgeCases",
+        "TestConfigEdgeCases",
+        "TestReprMethods",
+        "TestAudioProcessor",
+        "TestConversationManager",
+        "TestServiceInterfaces",
+        "TestServiceInterfaceMethods",
+        "TestConfigEnhancements",
+        "TestConversationManagerAdvanced",
+        "TestAudioProcessorAdvanced",
+        "TestTextProcessorAdvanced",
+        "TestConfigAdvanced",
+        "TestVoiceChatAppErrorsAdvanced",
+        "TestEdgeTTSServiceAdvanced",
+        "TestGLMServiceAdvanced",
+        "TestConfigEdgeCases",
+        "TestGLMChatServiceInputValidation",
+        "TestEdgeTTSServiceInputValidation",
+        "TestVoiceChatAppSimplified",
+        "TestRecordFunctions",
+        "TestPlayAudio",
+        "TestMainEntryPoint",
+        "TestConfigureServices",
+        "TestGlobalVariables",
+        "TestIntegrationScenarios",
+        "TestTextProcessor",
+        "TestVoiceChatAppWithMocks",
+        "TestVoiceChatAppErrors",
+        "TestConversationFlow"
+      ],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "context-manager",
+        "pytest-testing",
+        "context-manager",
+        "pytest-testing",
+        "context-manager",
+        "type-hints",
+        "pytest-testing",
+        "decorators: pytest, patch",
+        "context-manager",
+        "async/await",
+        "type-hints",
+        "pytest-testing",
+        "pytest-testing",
+        "context-manager",
+        "pytest-testing",
+        "decorators: pytest",
+        "context-manager",
+        "async/await",
+        "pytest-testing",
+        "context-manager",
+        "pytest-testing",
+        "decorators: pytest",
+        "context-manager",
+        "async/await",
+        "pytest-testing",
+        "context-manager",
+        "pytest-testing",
+        "decorators: pytest",
+        "async/await",
+        "pytest-testing",
+        "type-hints",
+        "pytest-testing",
+        "context-manager",
+        "async/await",
+        "pytest-testing",
+        "pytest-testing",
+        "pytest-testing",
+        "decorators: pytest",
+        "context-manager",
+        "async/await",
+        "pytest-testing",
+        "context-manager",
+        "pytest-testing",
+        "pytest-testing",
+        "context-manager",
+        "pytest-testing",
+        "pytest-testing",
+        "context-manager",
+        "async/await",
+        "pytest-testing",
+        "pytest-testing",
+        "decorators: pytest",
+        "context-manager",
+        "async/await",
+        "type-hints",
+        "pytest-testing",
+        "context-manager",
+        "async/await",
+        "pytest-testing",
+        "decorators: pytest",
+        "context-manager",
+        "async/await",
+        "pytest-testing",
+        "decorators: pytest",
+        "context-manager",
+        "async/await",
+        "pytest-testing"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "TestVoiceChatAppEnhancements",
+          "methods": [
+            {
+              "name": "test_process_audio_with_none",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试处理 None 音频",
+              "line_count": 7,
+              "call_count": 3
+            },
+            {
+              "name": "test_process_audio_with_too_short",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试处理过短音频",
+              "line_count": 8,
+              "call_count": 4
+            },
+            {
+              "name": "test_process_audio_valid",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试有效音频处理",
+              "line_count": 13,
+              "call_count": 7
+            },
+            {
+              "name": "test_process_audio_raises_transcription_error",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试识别异常",
+              "line_count": 11,
+              "call_count": 8
+            },
+            {
+              "name": "test_should_exit_with_various_keywords",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试各种退出关键词",
+              "line_count": 9,
+              "call_count": 6
+            },
+            {
+              "name": "test_chat_with_stream_callback",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试带流式回调的对话",
+              "line_count": 16,
+              "call_count": 7
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "VoiceChatApp 增强测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestPlayAudioErrorHandling",
+          "methods": [
+            {
+              "name": "test_play_audio_file_not_found",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试文件不存在时的错误",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "test_play_audio_no_file_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空路径错误",
+              "line_count": 6,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "测试 play_audio 错误处理",
+          "inheritance": []
+        },
+        {
+          "name": "TestGLMServiceImport",
+          "methods": [
+            {
+              "name": "test_services_imported",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "验证 services 模块已导入",
+              "line_count": 4,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "测试 GLM 服务模块级导入 (已优化移至 services.py)",
+          "inheritance": []
+        },
+        {
+          "name": "TestCLIArguments",
+          "methods": [
+            {
+              "name": "test_parse_default_args",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认参数解析",
+              "line_count": 21,
+              "call_count": 6
+            },
+            {
+              "name": "test_parse_custom_api_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义 API Key",
+              "line_count": 7,
+              "call_count": 3
+            },
+            {
+              "name": "test_parse_whisper_model",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 Whisper 模型参数",
+              "line_count": 12,
+              "call_count": 4
+            },
+            {
+              "name": "test_parse_pi_mode",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试树莓派优化模式",
+              "line_count": 11,
+              "call_count": 4
+            },
+            {
+              "name": "test_parse_sample_rate",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试采样率参数",
+              "line_count": 11,
+              "call_count": 4
+            },
+            {
+              "name": "test_invalid_whisper_model_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试无效的 Whisper 模型应报错",
+              "line_count": 9,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "测试命令行参数解析",
+          "inheritance": []
+        },
+        {
+          "name": "TestEnvironmentVariables",
+          "methods": [
+            {
+              "name": "test_env_var_api_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "monkeypatch",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试从环境变量读取 API Key",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "test_env_var_whisper_model",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "monkeypatch",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试从环境变量读取 Whisper 模型",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "test_default_api_key_fallback",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "monkeypatch",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 API Key 未设置时的默认值",
+              "line_count": 7,
+              "call_count": 2
+            },
+            {
+              "name": "test_cli_help_flag",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试 CLI --help 参数",
+              "line_count": 24,
+              "call_count": 9
+            },
+            {
+              "name": "test_unknown_argument_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试未知参数应报错",
+              "line_count": 8,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 8,
+          "docstring": "测试环境变量处理",
+          "inheritance": []
+        },
+        {
+          "name": "TestWhisperRecognizerValidation",
+          "methods": [
+            {
+              "name": "test_init_empty_model_name_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "空模型名称应抛出 ValueError",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_init_invalid_device_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "无效设备应抛出 ValueError",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_transcribe_none_audio_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "None 音频应抛出 ValueError",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_transcribe_empty_audio_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "空音频应抛出 ValueError",
+              "line_count": 5,
+              "call_count": 4
+            },
+            {
+              "name": "test_transcribe_invalid_type_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "非 numpy array 应抛出 ValueError",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_transcribe_with_mock_model",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_load",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "使用 mock 模型测试转录",
+              "line_count": 11,
+              "call_count": 6
+            }
+          ],
+          "properties": [],
+          "complexity": 11,
+          "docstring": "WhisperRecognizer 验证测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestGLMChatServiceValidation",
+          "methods": [
+            {
+              "name": "test_init_empty_api_key_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "空 API Key 应抛出 ValueError",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_init_whitespace_api_key_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "空白 API Key 应抛出 ValueError",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_init_none_api_key_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "None API Key 应抛出 ValueError",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_init_invalid_type_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "非字符串 API Key 应抛出 ValueError",
+              "line_count": 4,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 8,
+          "docstring": "GLMChatService 验证测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigEnhancedValidation",
+          "methods": [
+            {
+              "name": "test_validate_negative_max_history",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "负数 max_history 应返回错误",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_validate_invalid_whisper_device",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "无效 whisper_device 应返回错误",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_validate_valid_device_cuda",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "cuda 设备应通过验证",
+              "line_count": 5,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 6,
+          "docstring": "Config 增强验证测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestEdgeTTSServiceValidation",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "EdgeTTSService 验证测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConversationManagerEdgeCases",
+          "methods": [
+            {
+              "name": "test_trim_history_preserves_system",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试修剪历史保留 system 消息",
+              "line_count": 11,
+              "call_count": 5
+            },
+            {
+              "name": "test_exit_keyword_case_sensitivity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试退出关键词大小写",
+              "line_count": 6,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "对话管理器边界情况测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestAudioProcessorEdgeCasesExtended",
+          "methods": [
+            {
+              "name": "test_normalize_audio_preserves_data",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试归一化保留数据",
+              "line_count": 8,
+              "call_count": 5
+            },
+            {
+              "name": "test_is_valid_audio_zero_min_samples",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试最小样本检查",
+              "line_count": 7,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "音频处理器扩展边界测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigExtended",
+          "methods": [
+            {
+              "name": "test_validate_all_valid",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试完全有效配置",
+              "line_count": 9,
+              "call_count": 3
+            },
+            {
+              "name": "test_validate_multiple_errors",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试多错误验证",
+              "line_count": 9,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "配置扩展测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestCLIParsingCombinations",
+          "methods": [
+            {
+              "name": "test_model_and_sample_rate",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试模型和采样率组合",
+              "line_count": 15,
+              "call_count": 6
+            },
+            {
+              "name": "test_optimize_for_pi_overrides_model",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试树莓派优化模式覆盖模型参数",
+              "line_count": 19,
+              "call_count": 6
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "测试 CLI 参数组合",
+          "inheritance": []
+        },
+        {
+          "name": "TestGLMRetryMechanism",
+          "methods": [
+            {
+              "name": "test_retry_constants_exist",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试重试常量定义",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "test_default_timeout",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认超时值",
+              "line_count": 3,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "测试 GLM 服务重试机制",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigValidation",
+          "methods": [
+            {
+              "name": "test_validate_sample_rate_warning",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试非标准采样率产生警告",
+              "line_count": 10,
+              "call_count": 3
+            },
+            {
+              "name": "test_validate_negative_sample_rate",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试负采样率被拒绝",
+              "line_count": 8,
+              "call_count": 4
+            },
+            {
+              "name": "test_validate_vad_out_of_range",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 VAD 参数越界",
+              "line_count": 8,
+              "call_count": 4
+            },
+            {
+              "name": "test_validate_temperature_out_of_range",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试温度参数越界",
+              "line_count": 8,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "测试配置验证增强",
+          "inheritance": []
+        },
+        {
+          "name": "TestNewExceptions",
+          "methods": [
+            {
+              "name": "test_new_exceptions_exist",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试新异常类存在",
+              "line_count": 13,
+              "call_count": 3
+            },
+            {
+              "name": "test_can_raise_and_catch",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试异常可以抛出和捕获",
+              "line_count": 10,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "测试新增异常类",
+          "inheritance": []
+        },
+        {
+          "name": "TestConversationManagerEdgeCases",
+          "methods": [
+            {
+              "name": "test_history_limit_zero",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 max_history 为 0",
+              "line_count": 11,
+              "call_count": 5
+            },
+            {
+              "name": "test_very_long_system_prompt",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试超长系统提示",
+              "line_count": 8,
+              "call_count": 2
+            },
+            {
+              "name": "test_unicode_messages",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 Unicode 消息",
+              "line_count": 10,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "测试对话管理器边界情况",
+          "inheritance": []
+        },
+        {
+          "name": "TestEdgeTTSRetryMechanism",
+          "methods": [
+            {
+              "name": "test_retry_constants_exist",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试重试常量存在",
+              "line_count": 4,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "Edge TTS 重试机制测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestPlayAudioFunction",
+          "methods": [
+            {
+              "name": "test_play_audio_file_not_found_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试文件不存在时抛出 FileNotFoundError",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_play_audio_with_nonexistent_path_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试路径为 None 时正确处理",
+              "line_count": 6,
+              "call_count": 3
+            },
+            {
+              "name": "test_play_audio_exists_method",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 play_audio 函数存在且可调用",
+              "line_count": 3,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 6,
+          "docstring": "测试 play_audio 函数",
+          "inheritance": []
+        },
+        {
+          "name": "TestRecordWithVad",
+          "methods": [
+            {
+              "name": "test_record_with_vad_exists",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 record_with_vad 函数存在",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "test_record_with_vad_signature",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 record_with_vad 函数签名",
+              "line_count": 8,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "测试 record_with_vad 函数",
+          "inheritance": []
+        },
+        {
+          "name": "TestSimpleRecord",
+          "methods": [
+            {
+              "name": "test_record_function_importable",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 simple_record 函数可导入",
+              "line_count": 4,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "测试 simple_record 函数",
+          "inheritance": []
+        },
+        {
+          "name": "TestWhisperRecognizer",
+          "methods": [
+            {
+              "name": "test_init_default_params",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认初始化参数",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "test_init_custom_params",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义参数",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "test_model_not_loaded_by_default",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认不加载模型",
+              "line_count": 4,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "测试 WhisperRecognizer 类",
+          "inheritance": []
+        },
+        {
+          "name": "TestGLMChatServiceInit",
+          "methods": [
+            {
+              "name": "test_service_initialization",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试服务可初始化",
+              "line_count": 9,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "测试 GLMChatService 初始化",
+          "inheritance": []
+        },
+        {
+          "name": "TestEdgeTTSServiceInit",
+          "methods": [
+            {
+              "name": "test_service_default_voice",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认语音",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_service_custom_voice",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义语音",
+              "line_count": 4,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "测试 EdgeTTSService 初始化",
+          "inheritance": []
+        },
+        {
+          "name": "TestServiceErrorHandling",
+          "methods": [
+            {
+              "name": "test_voice_chat_app_without_services",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "测试未配置服务时的错误处理",
+              "line_count": 18,
+              "call_count": 10
+            },
+            {
+              "name": "test_voice_chat_app_with_partial_services",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试部分配置服务",
+              "line_count": 16,
+              "call_count": 8
+            },
+            {
+              "name": "test_recognizer_without_model",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试未加载模型时的识别",
+              "line_count": 9,
+              "call_count": 1
+            },
+            {
+              "name": "test_glm_service_initialization",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 GLM 服务初始化",
+              "line_count": 4,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 8,
+          "docstring": "服务错误处理测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConversationManagerClassConstants",
+          "methods": [
+            {
+              "name": "test_exit_keywords_exist",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试退出关键词类常量存在",
+              "line_count": 7,
+              "call_count": 2
+            },
+            {
+              "name": "test_instance_uses_class_constants",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试实例使用类常量",
+              "line_count": 6,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "测试 ConversationManager 类常量",
+          "inheritance": []
+        },
+        {
+          "name": "TestVoiceChatAppEdgeCases",
+          "methods": [
+            {
+              "name": "test_voice_chat_app_with_empty_config",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试空配置",
+              "line_count": 7,
+              "call_count": 2
+            },
+            {
+              "name": "test_voice_chat_app_with_custom_history",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义历史记录数",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "test_speech_to_text_with_recognizer_exception",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试识别器抛出异常",
+              "line_count": 13,
+              "call_count": 9
+            },
+            {
+              "name": "test_chat_with_service_exception",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试对话服务异常",
+              "line_count": 10,
+              "call_count": 7
+            },
+            {
+              "name": "test_synthesize_speech_without_service",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试无 TTS 服务",
+              "line_count": 13,
+              "call_count": 7
+            }
+          ],
+          "properties": [],
+          "complexity": 8,
+          "docstring": "VoiceChatApp 边缘用例测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConversationManagerEdgeCases",
+          "methods": [
+            {
+              "name": "test_history_trim_preserves_system",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试修剪保留 system 消息",
+              "line_count": 13,
+              "call_count": 5
+            },
+            {
+              "name": "test_clear_history_after_trim",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试清空历史后修剪",
+              "line_count": 11,
+              "call_count": 6
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "ConversationManager 边缘用例测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestTextProcessorEdgeCases",
+          "methods": [
+            {
+              "name": "test_is_chinese_with_numbers",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试包含数字的中文",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "test_is_chinese_with_punctuation",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试包含标点的中文",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "test_truncate_text_with_unicode",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 Unicode 截断",
+              "line_count": 6,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "TextProcessor 边缘用例测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestAudioProcessorEdgeCases",
+          "methods": [
+            {
+              "name": "test_normalize_with_zero_audio",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试归一化零音频",
+              "line_count": 9,
+              "call_count": 4
+            },
+            {
+              "name": "test_is_valid_audio_exact_min_samples",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试刚好达到最小样本数",
+              "line_count": 6,
+              "call_count": 3
+            },
+            {
+              "name": "test_bytes_audio_roundtrip",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试字节转换往返",
+              "line_count": 9,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "AudioProcessor 边缘用例测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigEdgeCases",
+          "methods": [
+            {
+              "name": "test_validate_with_warnings",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试带警告的配置",
+              "line_count": 10,
+              "call_count": 3
+            },
+            {
+              "name": "test_from_env_with_missing_vars",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试缺少环境变量",
+              "line_count": 16,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "Config 边缘用例测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestWhisperRecognizer",
+          "methods": [
+            {
+              "name": "test_init",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试初始化",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "test_init_default",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认参数",
+              "line_count": 5,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "Whisper 识别器测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestGLMChatService",
+          "methods": [
+            {
+              "name": "test_init",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试初始化",
+              "line_count": 4,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "GLM 服务测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestEdgeTTSService",
+          "methods": [
+            {
+              "name": "test_init_default",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认初始化",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_init_custom_voice",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义语音",
+              "line_count": 4,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "Edge TTS 服务测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigureServices",
+          "methods": [
+            {
+              "name": "test_configure_services",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试配置服务",
+              "line_count": 11,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "服务配置测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestVoiceChatAppWithRealServices",
+          "methods": [
+            {
+              "name": "test_app_init_with_all_services",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试完整服务初始化",
+              "line_count": 17,
+              "call_count": 8
+            },
+            {
+              "name": "test_speech_to_text_direct",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试直接调用语音识别",
+              "line_count": 13,
+              "call_count": 5
+            },
+            {
+              "name": "test_process_audio_flow",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试音频处理流程",
+              "line_count": 22,
+              "call_count": 8
+            },
+            {
+              "name": "test_chat_direct",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试直接调用对话",
+              "line_count": 13,
+              "call_count": 4
+            },
+            {
+              "name": "test_conversation_state",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试对话状态",
+              "line_count": 24,
+              "call_count": 9
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "使用部分真实服务的测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestRecordAndPlayFunctions",
+          "methods": [
+            {
+              "name": "test_functions_exist",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试函数存在",
+              "line_count": 7,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "录音播放函数存在性测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigTTSVoicesExtended",
+          "methods": [
+            {
+              "name": "test_all_tts_voices_valid",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试所有 TTS 语音都有效",
+              "line_count": 8,
+              "call_count": 4
+            },
+            {
+              "name": "test_tts_voices_count",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 TTS 语音数量",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "test_tts_voices_include_both_languages",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试包含中英文语音",
+              "line_count": 7,
+              "call_count": 6
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "扩展 TTS 语音测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestMockAudioRecorderAdapter",
+          "methods": [
+            {
+              "name": "test_adapter_init",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试适配器初始化",
+              "line_count": 10,
+              "call_count": 2
+            },
+            {
+              "name": "test_adapter_record",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试录音方法",
+              "line_count": 12,
+              "call_count": 4
+            },
+            {
+              "name": "test_adapter_default_audio",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认音频生成",
+              "line_count": 9,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "测试 MockAudioRecorderAdapter",
+          "inheritance": []
+        },
+        {
+          "name": "TestWhisperRecognizer",
+          "methods": [
+            {
+              "name": "test_init_default",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认初始化",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "test_init_custom",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义参数",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "test_init_large_model",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 large 模型",
+              "line_count": 4,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "Whisper 识别器测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestGLMChatService",
+          "methods": [
+            {
+              "name": "test_init",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试初始化",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "test_chat_empty_messages",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空消息列表",
+              "line_count": 6,
+              "call_count": 3
+            },
+            {
+              "name": "test_retry_delay_constant",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试重试延迟常量",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "test_max_retries_constant",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试最大重试次数常量",
+              "line_count": 3,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "GLM 对话服务测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestEdgeTTSService",
+          "methods": [
+            {
+              "name": "test_init_default",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认初始化",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_init_custom_voice",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义语音",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_synthesize_empty_text",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空文本",
+              "line_count": 9,
+              "call_count": 5
+            },
+            {
+              "name": "test_synthesize_whitespace_text",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空白文本",
+              "line_count": 9,
+              "call_count": 5
+            },
+            {
+              "name": "test_retry_constants",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试重试常量",
+              "line_count": 4,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "Edge TTS 服务测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestServiceInterfaces",
+          "methods": [
+            {
+              "name": "test_speech_recognizer_is_abstract",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 ISpeechRecognizer 是抽象类",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_chat_service_is_abstract",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 IChatService 是抽象类",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_tts_service_is_abstract",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 ITTSService 是抽象类",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_audio_recorder_is_abstract",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 IAudioRecorder 是抽象类",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_recognizer_interface_methods",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试识别器接口方法签名",
+              "line_count": 11,
+              "call_count": 3
+            },
+            {
+              "name": "test_chat_service_interface_methods",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试对话服务接口方法签名",
+              "line_count": 8,
+              "call_count": 2
+            },
+            {
+              "name": "test_tts_service_interface_methods",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 TTS 服务接口方法签名",
+              "line_count": 8,
+              "call_count": 2
+            },
+            {
+              "name": "test_audio_recorder_interface_methods",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试录音接口方法签名",
+              "line_count": 8,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 12,
+          "docstring": "服务接口测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestServiceRetryMechanism",
+          "methods": [
+            {
+              "name": "test_glm_retry_constants",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 GLM 重试常量",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "test_edge_tts_retry_constants",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 Edge TTS 重试常量",
+              "line_count": 4,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "服务重试机制测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestTextProcessor",
+          "methods": [
+            {
+              "name": "test_clean_text_normal",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试正常清理",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "test_clean_text_empty",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试空字符串",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "test_clean_text_none",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 None",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "test_clean_text_only_whitespace",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试仅空白字符",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "test_is_empty_text_none",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试空文本 - None",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_is_empty_text_empty_string",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试空文本 - 空字符串",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_is_empty_text_whitespace",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试空文本 - 空白",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_is_empty_text_valid",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试有效文本",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_truncate_text_normal",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试正常截断",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "test_truncate_text_long",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试长文本截断",
+              "line_count": 8,
+              "call_count": 4
+            },
+            {
+              "name": "test_truncate_text_exact_length",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试刚好等于长度",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "test_truncate_text_zero_length",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试零长度截断",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "test_is_chinese_with_chinese",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试包含中文",
+              "line_count": 6,
+              "call_count": 4
+            },
+            {
+              "name": "test_is_chinese_without_chinese",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试不包含中文",
+              "line_count": 6,
+              "call_count": 4
+            },
+            {
+              "name": "test_is_chinese_empty",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试空文本",
+              "line_count": 5,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 15,
+          "docstring": "文本处理器测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfig",
+          "methods": [
+            {
+              "name": "test_init_default",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认初始化",
+              "line_count": 10,
+              "call_count": 1
+            },
+            {
+              "name": "test_init_custom",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义初始化",
+              "line_count": 17,
+              "call_count": 1
+            },
+            {
+              "name": "test_is_configured_empty_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试未配置 - 空 key",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_is_configured_placeholder_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试未配置 - 占位符 key",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_is_configured_valid_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试已配置 - 有效 key",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_is_configured_env_var_style",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试环境变量样式 key",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_tts_voices",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 TTS 语音选项",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "test_whisper_models",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 Whisper 模型选项",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "test_validate_valid_config",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试有效配置",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_validate_empty_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试空 API Key",
+              "line_count": 6,
+              "call_count": 3
+            },
+            {
+              "name": "test_validate_placeholder_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试占位符 API Key",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_validate_invalid_whisper_model",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试无效的 Whisper 模型",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_validate_invalid_tts_voice",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试无效的 TTS 语音",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_validate_invalid_vad_aggressiveness",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试无效的 VAD 激进度",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_validate_invalid_temperature",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试无效的温度参数",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_config_slots",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 Config 类使用 __slots__ 优化内存",
+              "line_count": 12,
+              "call_count": 3
+            },
+            {
+              "name": "test_validate_negative_max_history",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试负数 max_history 被警告 (在 test_advanced.py 中完整测试)",
+              "line_count": 5,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 22,
+          "docstring": "配置测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestGLMServiceEdgeCases",
+          "methods": [
+            {
+              "name": "test_chat_with_none_messages",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空消息列表",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_chat_with_empty_messages",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空消息",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_default_timeout_value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认超时值",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "test_retry_delay_value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试重试延迟",
+              "line_count": 3,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 6,
+          "docstring": "GLM 服务边缘测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestEdgeTTSServiceEdgeCases",
+          "methods": [
+            {
+              "name": "test_default_voice",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认语音",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_custom_voice",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义语音",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_max_retries_constant",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试重试常量",
+              "line_count": 3,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "Edge TTS 服务边缘测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigEdgeCases",
+          "methods": [
+            {
+              "name": "test_api_key_placeholder_validation",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试占位符 API Key",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_empty_api_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试空 API Key",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_valid_api_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试有效 API Key",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_env_var_style_api_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试环境变量样式 API Key",
+              "line_count": 5,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "配置边缘测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestAudioProcessorEdgeCases",
+          "methods": [
+            {
+              "name": "test_normalize_audio_int32",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 int32 类型归一化",
+              "line_count": 7,
+              "call_count": 3
+            },
+            {
+              "name": "test_normalize_audio_clamping",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试音频 clipping",
+              "line_count": 9,
+              "call_count": 5
+            },
+            {
+              "name": "test_bytes_to_audio_invalid",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试无效字节",
+              "line_count": 5,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "AudioProcessor 边界情况测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestTextProcessorEdgeCases",
+          "methods": [
+            {
+              "name": "test_truncate_text_negative_length",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试负数截断长度",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "test_truncate_text_very_long",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试超长截断",
+              "line_count": 6,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "TextProcessor 边界情况测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConversationManagerEdgeCases",
+          "methods": [
+            {
+              "name": "test_add_empty_message",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试添加空消息",
+              "line_count": 7,
+              "call_count": 4
+            },
+            {
+              "name": "test_very_long_message",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试超长消息",
+              "line_count": 6,
+              "call_count": 3
+            },
+            {
+              "name": "test_english_exit_keywords",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试英文退出关键词",
+              "line_count": 6,
+              "call_count": 4
+            },
+            {
+              "name": "test_mixed_language_exit",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试混合语言退出",
+              "line_count": 5,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "ConversationManager 边界情况测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestVoiceChatAppEdgeCases",
+          "methods": [
+            {
+              "name": "test_process_audio_float32",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 float32 音频处理",
+              "line_count": 13,
+              "call_count": 6
+            },
+            {
+              "name": "test_process_audio_float64",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 float64 音频处理",
+              "line_count": 13,
+              "call_count": 6
+            },
+            {
+              "name": "test_chat_with_empty_messages",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试空消息对话",
+              "line_count": 12,
+              "call_count": 6
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "VoiceChatApp 边界情况测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigEdgeCases",
+          "methods": [
+            {
+              "name": "test_validate_all_options",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试完整配置验证",
+              "line_count": 11,
+              "call_count": 3
+            },
+            {
+              "name": "test_is_configured_edge_cases",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试配置状态边界",
+              "line_count": 11,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "Config 边界情况测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestReprMethods",
+          "methods": [
+            {
+              "name": "test_conversation_manager_repr",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 ConversationManager 的 __repr__",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "test_audio_processor_repr",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 AudioProcessor 的 __repr__",
+              "line_count": 7,
+              "call_count": 2
+            },
+            {
+              "name": "test_text_processor_repr",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 TextProcessor 的 __repr__",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "test_config_repr_with_api_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 Config 的 __repr__ (有 API Key)",
+              "line_count": 8,
+              "call_count": 2
+            },
+            {
+              "name": "test_config_repr_without_api_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 Config 的 __repr__ (无 API Key)",
+              "line_count": 6,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "测试类的 __repr__ 方法",
+          "inheritance": []
+        },
+        {
+          "name": "TestAudioProcessor",
+          "methods": [
+            {
+              "name": "test_init",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试初始化",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "test_init_with_custom_params",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义参数",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "test_normalize_audio_int16",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试标准化 int16 音频",
+              "line_count": 8,
+              "call_count": 4
+            },
+            {
+              "name": "test_normalize_audio_already_int16",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试已经是 int16 的音频",
+              "line_count": 8,
+              "call_count": 4
+            },
+            {
+              "name": "test_is_valid_audio_none",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试无效音频 - None",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_is_valid_audio_too_short",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试无效音频 - 太短",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_is_valid_audio_valid",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试有效音频",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_audio_to_bytes",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试音频转字节",
+              "line_count": 8,
+              "call_count": 5
+            },
+            {
+              "name": "test_bytes_to_audio",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试字节转音频",
+              "line_count": 9,
+              "call_count": 4
+            },
+            {
+              "name": "test_audio_round_trip",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试音频往返转换",
+              "line_count": 9,
+              "call_count": 5
+            },
+            {
+              "name": "test_init_invalid_sample_rate",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试无效采样率",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_init_invalid_channels",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试无效通道数",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_normalize_audio_empty",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空音频",
+              "line_count": 5,
+              "call_count": 4
+            },
+            {
+              "name": "test_normalize_audio_float64",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 float64 音频",
+              "line_count": 6,
+              "call_count": 3
+            },
+            {
+              "name": "test_normalize_audio_with_clipping",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试音频裁剪",
+              "line_count": 8,
+              "call_count": 5
+            },
+            {
+              "name": "test_normalize_audio_unsupported_dtype",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试不支持的数据类型",
+              "line_count": 6,
+              "call_count": 4
+            },
+            {
+              "name": "test_is_valid_audio_not_numpy",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试非 numpy 数组",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_audio_to_bytes_empty",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空音频转字节",
+              "line_count": 5,
+              "call_count": 4
+            },
+            {
+              "name": "test_bytes_to_audio_empty",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空字节转音频",
+              "line_count": 5,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 25,
+          "docstring": "音频处理器测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConversationManager",
+          "methods": [
+            {
+              "name": "test_init_with_default_system_prompt",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认 system prompt",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "test_init_with_custom_system_prompt",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义 system prompt",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "test_add_user_message",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试添加用户消息",
+              "line_count": 8,
+              "call_count": 3
+            },
+            {
+              "name": "test_add_assistant_message",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试添加助手消息",
+              "line_count": 8,
+              "call_count": 3
+            },
+            {
+              "name": "test_get_messages",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试获取消息列表",
+              "line_count": 12,
+              "call_count": 5
+            },
+            {
+              "name": "test_clear_history",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试清空历史",
+              "line_count": 10,
+              "call_count": 5
+            },
+            {
+              "name": "test_should_exit_with再见",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试退出关键词 - 再见",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_should_exit_with退出",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试退出关键词 - 退出",
+              "line_count": 6,
+              "call_count": 3
+            },
+            {
+              "name": "test_should_exit_with拜拜",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试退出关键词 - 拜拜",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_should_exit_with_english_keywords",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试退出关键词 - 英文",
+              "line_count": 7,
+              "call_count": 4
+            },
+            {
+              "name": "test_should_not_exit",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试不应退出",
+              "line_count": 7,
+              "call_count": 4
+            },
+            {
+              "name": "test_conversation_history_grows",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试对话历史增长",
+              "line_count": 10,
+              "call_count": 5
+            },
+            {
+              "name": "test_history_limit",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "测试历史记录限制",
+              "line_count": 16,
+              "call_count": 5
+            },
+            {
+              "name": "test_clear_history_with_max_history",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试清空历史后保留限制",
+              "line_count": 10,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 18,
+          "docstring": "对话管理器测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestServiceInterfaces",
+          "methods": [
+            {
+              "name": "test_speech_recognizer_is_abstract",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 ISpeechRecognizer 是抽象类",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_chat_service_is_abstract",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 IChatService 是抽象类",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_tts_service_is_abstract",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 ITTSService 是抽象类",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_audio_recorder_is_abstract",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 IAudioRecorder 是抽象类",
+              "line_count": 4,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 8,
+          "docstring": "测试服务接口是否正确定义",
+          "inheritance": []
+        },
+        {
+          "name": "TestServiceInterfaceMethods",
+          "methods": [
+            {
+              "name": "test_recognizer_has_required_methods",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试语音识别器接口有所需方法",
+              "line_count": 11,
+              "call_count": 3
+            },
+            {
+              "name": "test_chat_service_has_required_methods",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试对话服务接口有所需方法",
+              "line_count": 8,
+              "call_count": 2
+            },
+            {
+              "name": "test_tts_service_has_required_methods",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 TTS 服务接口有所需方法",
+              "line_count": 10,
+              "call_count": 3
+            },
+            {
+              "name": "test_audio_recorder_has_required_methods",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试录音接口有所需方法",
+              "line_count": 8,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "测试服务接口方法签名",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigEnhancements",
+          "methods": [
+            {
+              "name": "test_to_dict_masks_api_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 to_dict 方法会 mask API Key",
+              "line_count": 8,
+              "call_count": 2
+            },
+            {
+              "name": "test_to_dict_empty_api_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 to_dict 处理空 API Key",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "test_to_dict_contains_all_fields",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 to_dict 包含所有配置字段",
+              "line_count": 26,
+              "call_count": 3
+            },
+            {
+              "name": "test_from_env_defaults",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试 from_env 使用默认值",
+              "line_count": 13,
+              "call_count": 1
+            },
+            {
+              "name": "test_from_env_with_env_vars",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "monkeypatch",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 from_env 读取环境变量",
+              "line_count": 13,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "配置增强功能测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConversationManagerAdvanced",
+          "methods": [
+            {
+              "name": "test_history_limit_single_turn",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试单轮对话历史",
+              "line_count": 7,
+              "call_count": 4
+            },
+            {
+              "name": "test_history_limit_multiple_turns",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试多轮对话历史限制",
+              "line_count": 9,
+              "call_count": 5
+            },
+            {
+              "name": "test_clear_history_preserves_system",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试清空历史保留system消息",
+              "line_count": 9,
+              "call_count": 5
+            },
+            {
+              "name": "test_unicode_in_messages",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试Unicode字符支持",
+              "line_count": 9,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "高级对话管理测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestAudioProcessorAdvanced",
+          "methods": [
+            {
+              "name": "test_normalize_audio_int8",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试int8类型音频处理 - 当前不支持int8",
+              "line_count": 9,
+              "call_count": 5
+            },
+            {
+              "name": "test_normalize_audio_preserves_shape",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试音频形状保持",
+              "line_count": 6,
+              "call_count": 5
+            },
+            {
+              "name": "test_is_valid_audio_exact_min_samples",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试恰好最小采样数",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_bytes_to_audio_even_length",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试偶数字节转换",
+              "line_count": 6,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "高级音频处理测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestTextProcessorAdvanced",
+          "methods": [
+            {
+              "name": "test_clean_text_with_special_chars",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试特殊字符清理",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "test_truncate_text_exact_max_length",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试恰好最大长度",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "test_is_chinese_mixed",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试中英文混合",
+              "line_count": 5,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "高级文本处理测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigAdvanced",
+          "methods": [
+            {
+              "name": "test_validate_with_warnings",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试带警告的配置验证",
+              "line_count": 9,
+              "call_count": 3
+            },
+            {
+              "name": "test_is_configured_with_env_var_style",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试环境变量样式配置",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_whisper_device_validation",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 Whisper 设备配置",
+              "line_count": 6,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "高级配置测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestVoiceChatAppErrorsAdvanced",
+          "methods": [
+            {
+              "name": "test_speech_to_text_with_exception",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试语音识别异常处理",
+              "line_count": 18,
+              "call_count": 8
+            },
+            {
+              "name": "test_chat_with_empty_service_raises",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空聊天服务抛出正确异常",
+              "line_count": 8,
+              "call_count": 4
+            },
+            {
+              "name": "test_synthesize_speech_with_empty_service",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空TTS服务抛出正确异常",
+              "line_count": 10,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 6,
+          "docstring": "高级错误处理测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestEdgeTTSServiceAdvanced",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "Edge TTS 高级测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestGLMServiceAdvanced",
+          "methods": [
+            {
+              "name": "test_chat_message_validation",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试消息验证",
+              "line_count": 8,
+              "call_count": 4
+            },
+            {
+              "name": "test_chat_timeout_parameter",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试超时参数",
+              "line_count": 9,
+              "call_count": 1
+            },
+            {
+              "name": "test_chat_with_custom_timeout",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试自定义超时 - 验证参数传递",
+              "line_count": 13,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "GLM 服务高级测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigEdgeCases",
+          "methods": [
+            {
+              "name": "test_api_key_with_spaces",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试带空格的有效API Key",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "test_negative_max_history",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试负数max_history",
+              "line_count": 7,
+              "call_count": 3
+            },
+            {
+              "name": "test_zero_sample_rate",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试零采样率",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_negative_channels",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试负数通道",
+              "line_count": 4,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 6,
+          "docstring": "配置边界情况测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestGLMChatServiceInputValidation",
+          "methods": [
+            {
+              "name": "test_chat_empty_messages_raises_error",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空消息列表应抛出异常",
+              "line_count": 6,
+              "call_count": 3
+            },
+            {
+              "name": "test_chat_none_messages_raises_error",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 None 消息应抛出异常",
+              "line_count": 6,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "GLMChatService 输入验证测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestEdgeTTSServiceInputValidation",
+          "methods": [
+            {
+              "name": "test_synthesize_empty_text_raises_error",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空文本应抛出异常",
+              "line_count": 9,
+              "call_count": 5
+            },
+            {
+              "name": "test_synthesize_whitespace_only_raises_error",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试仅空白字符应抛出异常",
+              "line_count": 9,
+              "call_count": 5
+            },
+            {
+              "name": "test_synthesize_valid_text",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试有效文本可以正常合成",
+              "line_count": 16,
+              "call_count": 8
+            },
+            {
+              "name": "test_synthesize_network_error",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试网络错误应转换为 ConnectionError",
+              "line_count": 14,
+              "call_count": 8
+            },
+            {
+              "name": "test_synthesize_client_error",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试客户端错误应转换为 ConnectionError (重试后)",
+              "line_count": 17,
+              "call_count": 8
+            }
+          ],
+          "properties": [],
+          "complexity": 12,
+          "docstring": "EdgeTTSService 输入验证测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestVoiceChatAppSimplified",
+          "methods": [
+            {
+              "name": "test_services_directly_assigned",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试服务直接赋值",
+              "line_count": 17,
+              "call_count": 5
+            },
+            {
+              "name": "test_services_can_be_modified",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试服务可以修改",
+              "line_count": 11,
+              "call_count": 4
+            },
+            {
+              "name": "test_services_default_to_none",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试服务默认为 None",
+              "line_count": 9,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "VoiceChatApp 简化属性测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestRecordFunctions",
+          "methods": [
+            {
+              "name": "test_record_functions_exist",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试录音函数存在",
+              "line_count": 5,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "测试录音函数",
+          "inheritance": []
+        },
+        {
+          "name": "TestPlayAudio",
+          "methods": [
+            {
+              "name": "test_play_audio_exists",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试播放函数存在",
+              "line_count": 4,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "测试播放函数",
+          "inheritance": []
+        },
+        {
+          "name": "TestMainEntryPoint",
+          "methods": [
+            {
+              "name": "test_main_imports",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 main 可导入",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "test_config_class_exists",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 Config 类存在",
+              "line_count": 6,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "测试主入口",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfigureServices",
+          "methods": [
+            {
+              "name": "test_configure_multiple_times",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试多次配置",
+              "line_count": 13,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "测试 configure_services",
+          "inheritance": []
+        },
+        {
+          "name": "TestGlobalVariables",
+          "methods": [
+            {
+              "name": "test_global_services_variables_exist",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试服务变量存在",
+              "line_count": 7,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "测试全局变量",
+          "inheritance": []
+        },
+        {
+          "name": "TestIntegrationScenarios",
+          "methods": [
+            {
+              "name": "test_app_with_mock_full_flow",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "完整流程测试",
+              "line_count": 28,
+              "call_count": 10
+            },
+            {
+              "name": "test_app_error_handling",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "错误处理测试",
+              "line_count": 13,
+              "call_count": 7
+            },
+            {
+              "name": "test_conversation_manager_integration",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "对话管理器集成测试",
+              "line_count": 23,
+              "call_count": 10
+            },
+            {
+              "name": "test_audio_processor_integration",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "音频处理器集成测试",
+              "line_count": 20,
+              "call_count": 10
+            }
+          ],
+          "properties": [],
+          "complexity": 6,
+          "docstring": "集成场景测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestTextProcessor",
+          "methods": [
+            {
+              "name": "test_text_processor_integration",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "文本处理器集成",
+              "line_count": 20,
+              "call_count": 9
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "文本处理器测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestVoiceChatAppWithMocks",
+          "methods": [
+            {
+              "name": "mock_recognizer",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            },
+            {
+              "name": "mock_chat_service",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            },
+            {
+              "name": "mock_tts_service",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            },
+            {
+              "name": "config",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            },
+            {
+              "name": "app",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "config",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_recognizer",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_chat_service",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_tts_service",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 7,
+              "call_count": 1
+            },
+            {
+              "name": "test_init",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "app",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "config",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试初始化",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_process_audio_valid",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "app",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_recognizer",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试有效音频处理",
+              "line_count": 7,
+              "call_count": 2
+            },
+            {
+              "name": "test_process_audio_none",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "app",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 None 音频",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_process_audio_too_short",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "app",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试太短的音频",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "test_chat",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "app",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_chat_service",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试对话",
+              "line_count": 7,
+              "call_count": 2
+            },
+            {
+              "name": "test_chat_with_stream_callback",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "app",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_chat_service",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试带流式回调的对话",
+              "line_count": 12,
+              "call_count": 4
+            },
+            {
+              "name": "test_should_exit",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "app",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试退出检查",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_conversation_history",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "app",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试对话历史累积",
+              "line_count": 7,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 13,
+          "docstring": "使用 Mock 的集成测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestVoiceChatAppErrors",
+          "methods": [
+            {
+              "name": "test_speech_to_text_not_configured",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试未配置识别器",
+              "line_count": 7,
+              "call_count": 5
+            },
+            {
+              "name": "test_chat_not_configured",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试未配置对话服务",
+              "line_count": 7,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "错误处理测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConversationFlow",
+          "methods": [
+            {
+              "name": "app",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 8,
+              "call_count": 5
+            },
+            {
+              "name": "test_full_conversation_flow",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "app",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试完整对话流程",
+              "line_count": 15,
+              "call_count": 4
+            },
+            {
+              "name": "test_exit_flow",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "app",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试退出流程",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "test_multi_turn_conversation",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "app",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "测试多轮对话",
+              "line_count": 16,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 8,
+          "docstring": "对话流程测试",
+          "inheritance": []
+        }
+      ],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "context-manager",
+      "description": "Usage of context-manager",
+      "examples": [],
+      "frequency": 18,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_app_enhancements.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_errors.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_cli.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_optimization_validation.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_optimize_enhancements.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_edge_tts_retry.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_functions.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_services.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_edge_cases_enhanced.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_services_full.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_new_features.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_edge_cases.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_audio.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_service_interfaces.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_advanced.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_input_validation.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_extended.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_integration.py"
+      ]
+    },
+    {
+      "name": "pytest-testing",
+      "description": "Usage of pytest-testing",
+      "examples": [],
+      "frequency": 26,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_app_enhancements.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_errors.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_cli.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_optimization_validation.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_optimization.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_optimize_enhancements.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_edge_tts_retry.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_functions.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_services.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_edge_cases_enhanced.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_services.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_extensions.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_services_full.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_text.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_config.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_new_features.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_edge_cases.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_repr.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_audio.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_conversation.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_service_interfaces.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_config_enhancements.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_advanced.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_input_validation.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_extended.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_integration.py"
+      ]
+    },
+    {
+      "name": "type-hints",
+      "description": "Usage of type-hints",
+      "examples": [],
+      "frequency": 4,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_cli.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_optimization_validation.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_extensions.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_advanced.py"
+      ]
+    },
+    {
+      "name": "decorators: pytest, patch",
+      "description": "Usage of decorators: pytest, patch",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_optimization_validation.py"
+      ]
+    },
+    {
+      "name": "async/await",
+      "description": "Usage of async/await",
+      "examples": [],
+      "frequency": 11,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_optimization_validation.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_edge_tts_retry.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_services.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_services.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_services_full.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_new_features.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_service_interfaces.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_advanced.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_input_validation.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_extended.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_integration.py"
+      ]
+    },
+    {
+      "name": "decorators: pytest",
+      "description": "Usage of decorators: pytest",
+      "examples": [],
+      "frequency": 7,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_edge_tts_retry.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_services.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_services.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_new_features.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_advanced.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_main_extended.py",
+        "/root/.openclaw/workspace-opengl/repos/voice-chat-demo/tests/test_integration.py"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [
+    "main.py"
+  ],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "classes": "PascalCase"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

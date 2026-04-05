@@ -1,0 +1,4304 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/game-frame-sync",
+  "language": "python",
+  "total_files": 9,
+  "total_lines": 3259,
+  "modules": [
+    {
+      "name": "core",
+      "path": "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/frame.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/physics.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/config.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/state.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/replay.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/input.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/rng.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/fixed.py"
+      ],
+      "imports": [
+        "hashlib",
+        "math",
+        "state",
+        "typing",
+        "fixed",
+        "input",
+        "pathlib",
+        "frame",
+        "dataclasses",
+        "physics",
+        "rng",
+        "zlib",
+        "json",
+        "collections",
+        "config",
+        "struct",
+        "enum",
+        "copy",
+        "time"
+      ],
+      "exports": [],
+      "classes": [
+        "Frame",
+        "FrameBuffer",
+        "FrameEngine",
+        "Entity",
+        "PhysicsEngine",
+        "EntityPool",
+        "FixedPointConfig",
+        "PhysicsConfig",
+        "NetworkConfig",
+        "GameConfig",
+        "HistoryConfig",
+        "Config",
+        "StateSnapshot",
+        "GameState",
+        "StateValidator",
+        "ReplayFrame",
+        "ReplayHeader",
+        "ReplayRecorder",
+        "ReplayPlayer",
+        "ReplayAnalyzer",
+        "InputFlags",
+        "PlayerInput",
+        "InputManager",
+        "InputValidator",
+        "DeterministicRNG",
+        "SeededRNG",
+        "FixedPoint"
+      ],
+      "functions": [
+        "distance_squared",
+        "distance",
+        "isqrt",
+        "_ensure_config_loaded",
+        "get_config",
+        "load_config",
+        "reset_config",
+        "fixed"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "decorators: dataclass",
+        "type-hints",
+        "dataclass",
+        "decorators: dataclass, classmethod",
+        "type-hints",
+        "dataclass",
+        "decorators: dataclass, staticmethod, property",
+        "context-manager",
+        "type-hints",
+        "dataclass",
+        "decorators: dataclass, 30fps",
+        "type-hints",
+        "dataclass",
+        "decorators: dataclass, classmethod",
+        "context-manager",
+        "type-hints",
+        "dataclass",
+        "decorators: dataclass, classmethod",
+        "type-hints",
+        "dataclass",
+        "type-hints",
+        "decorators: dataclass, classmethod",
+        "type-hints",
+        "dataclass"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "Frame",
+          "methods": [
+            {
+              "name": "get_input",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[bytes]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取指定玩家的输入\n\nArgs:\n    player_id: 玩家ID（0, 1, 2, ...）\n\nReturns:\n    玩家的输入数据（字节），如果不存在则返回 None",
+              "line_count": 11,
+              "call_count": 1
+            },
+            {
+              "name": "set_input",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "input_data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "设置玩家输入\n\nArgs:\n    player_id: 玩家ID\n    input_data: 序列化后的输入数据（字节）",
+              "line_count": 9,
+              "call_count": 0
+            },
+            {
+              "name": "is_complete",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_count",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "检查帧是否完整（所有玩家输入都已到齐）\n\nArgs:\n    player_count: 游戏中的玩家总数\n\nReturns:\n    True 如果输入数量等于玩家数量",
+              "line_count": 11,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "游戏帧数据\n\n表示帧同步中的一个逻辑帧，包含该帧所有玩家的输入数据。\n帧是帧同步的基本单位，所有客户端在收到相同的帧数据后执行相同的逻辑。\n\n属性:\n    frame_id (int): \n        帧的唯一标识符，从0开始递增。\n        用于确定帧的执行顺序和历史查询。\n        例如：第100帧的 frame_id = 100\n    \n    inputs (Dict[int, bytes]): \n        该帧所有玩家的输入数据。\n        键为 player_id (0, 1, 2, ...)，值为序列化后的输入字节。\n        例如：{0: b'\\x00\\x01...', 1: b'\\x00\\x02...'}\n        当 inputs 的数量等于 player_count 时，该帧才算完整。\n    \n    confirmed (bool): \n        该帧是否已确认（所有玩家输入都已到齐）。\n        True = 所有玩家都发送了这一帧的输入\n        False = 部分玩家输入缺失（超时强制推进时使用）\n    \n    timestamp (float): \n        该帧创建的时间戳（Unix时间戳，秒）。\n        用于超时检测和延迟统计。\n        例如：1708345678.123456",
+          "inheritance": []
+        },
+        {
+          "name": "FrameBuffer",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "buffer_size",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "初始化帧缓冲\n\nArgs:\n    buffer_size: 缓冲帧数，用于抵消网络延迟。\n                值越大延迟越高，但对网络抖动越稳定。",
+              "line_count": 12,
+              "call_count": 1
+            },
+            {
+              "name": "add_input",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "input_data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "添加玩家输入到待处理队列\n\nArgs:\n    frame_id: 目标帧ID\n    player_id: 玩家ID\n    input_data: 输入数据（二进制）\n\nNote:\n    - frame_id < 0 的输入会被忽略\n    - 超过 1024 字节的输入会被拒绝",
+              "line_count": 24,
+              "call_count": 2
+            },
+            {
+              "name": "try_commit_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_count",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Frame]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "尝试提交帧（检查是否所有玩家输入都已到齐）\n\nArgs:\n    frame_id: 要检查的帧ID\n    player_count: 玩家总数\n\nReturns:\n    如果帧完整则返回 Frame 对象，否则返回 None",
+              "line_count": 27,
+              "call_count": 4
+            },
+            {
+              "name": "get_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Frame]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取已提交的帧数据\n\nArgs:\n    frame_id: 帧ID\n\nReturns:\n    Frame 对象，不存在则返回 None",
+              "line_count": 11,
+              "call_count": 1
+            },
+            {
+              "name": "get_next_ready_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Frame]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "获取下一个可执行的帧（按帧ID顺序）\n\nReturns:\n    下一个待执行的 Frame，队列为空则返回 None",
+              "line_count": 11,
+              "call_count": 2
+            },
+            {
+              "name": "get_executable_frame_id",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "current_frame",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取当前可执行的帧ID（考虑缓冲）\n\nArgs:\n    current_frame: 当前服务器帧ID\n\nReturns:\n    可执行的帧ID = current_frame - buffer_size",
+              "line_count": 11,
+              "call_count": 0
+            },
+            {
+              "name": "cleanup_old_frames",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "oldest_frame",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "清理旧的帧数据以释放内存\n\nArgs:\n    oldest_frame: 最小保留的帧ID，小于此值的帧会被删除",
+              "line_count": 14,
+              "call_count": 4
+            },
+            {
+              "name": "get_buffer_status",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取缓冲区状态统计\n\nReturns:\n    包含缓冲区状态的字典：\n    - buffer_size: 配置的缓冲大小\n    - ready_frames: 已准备好执行的帧数\n    - pending_frames: 等待输入的帧数\n    - total_stored: 总共存储的帧数",
+              "line_count": 17,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 19,
+          "docstring": "帧缓冲管理器\n\n用于平滑网络延迟，存储待执行的帧数据。\n\n工作原理：\n1. 服务器发送帧 N 时，客户端还在执行帧 N-buffer_size\n2. 这给网络延迟留出了缓冲时间\n3. buffer_size 越大，对网络抖动的容忍度越高，但延迟也越高\n\n典型配置：\n- buffer_size = 3: 约 100ms 延迟，适合局域网\n- buffer_size = 5: 约 166ms 延迟，适合互联网\n\n属性:\n    buffer_size (int): \n        缓冲帧数，决定延迟补偿的大小。\n        例如：buffer_size=3 表示客户端落后服务器3帧执行\n        \n    frames (Dict[int, Frame]): \n        已完成（所有玩家输入到齐）的帧数据。\n        键为 frame_id，值为 Frame 对象。\n        用于获取待执行的帧和历史查询。\n        \n    pending_inputs (Dict[int, Dict[int, bytes]]): \n        尚未完成的帧的输入数据。\n        外层键为 frame_id，内层键为 player_id，值为输入字节。\n        当某帧的玩家数达到 player_count 时，会被移动到 frames。\n        \n    ready_queue (deque): \n        已准备好可执行的帧ID队列。\n        按 frame_id 排序，用于按顺序获取帧执行。\n        maxlen=1000 防止内存无限增长。",
+          "inheritance": []
+        },
+        {
+          "name": "FrameEngine",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_count",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "buffer_size",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "初始化帧引擎\n\nArgs:\n    player_count: 玩家数量\n    buffer_size: 帧缓冲大小",
+              "line_count": 14,
+              "call_count": 1
+            },
+            {
+              "name": "add_input",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "input_data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "添加玩家输入\n\nArgs:\n    frame_id: 目标帧ID\n    player_id: 玩家ID\n    input_data: 序列化后的输入数据",
+              "line_count": 10,
+              "call_count": 1
+            },
+            {
+              "name": "tick",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Frame]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "帧引擎时钟周期\n\n尝试推进到下一帧。如果当前帧的所有输入都已到齐，\n则返回该帧并将 current_frame 加 1。\n\nReturns:\n    如果有完整帧可执行则返回 Frame，否则返回 None",
+              "line_count": 29,
+              "call_count": 3
+            },
+            {
+              "name": "force_tick",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Frame",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 6,
+              "docstring": "强制推进帧（超时处理）\n\n当某些玩家输入长时间未到时，强制生成一个帧，\n缺失的玩家输入用空数据填充。\n\nReturns:\n    强制生成的 Frame（confirmed=False）",
+              "line_count": 38,
+              "call_count": 6
+            },
+            {
+              "name": "get_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Frame]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取历史帧\n\nArgs:\n    frame_id: 要查询的帧ID\n\nReturns:\n    Frame 对象，不存在则返回 None",
+              "line_count": 11,
+              "call_count": 1
+            },
+            {
+              "name": "get_current_frame_id",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取当前帧ID\n\nReturns:\n    当前正在等待的帧ID",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "get_stats",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取引擎统计信息\n\nReturns:\n    包含统计数据的字典",
+              "line_count": 14,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 15,
+          "docstring": "帧同步引擎\n\n负责协调帧同步的核心组件：\n1. 收集所有玩家的输入\n2. 等待帧完整后生成 Frame\n3. 管理帧历史记录\n4. 提供超时强制推进功能\n\n使用示例:\n    engine = FrameEngine(player_count=2, buffer_size=3)\n    \n    # 每帧收集输入\n    engine.add_input(frame_id, player_id, input_data)\n    \n    # 尝试推进\n    frame = engine.tick()\n    if frame:\n        execute_frame(frame)  # 执行游戏逻辑\n\n属性:\n    player_count (int): \n        游戏中的玩家数量。\n        决定一帧需要多少个输入才算完整。\n        \n    buffer_size (int): \n        帧缓冲大小。\n        传递给 FrameBuffer 使用。\n        \n    frame_buffer (FrameBuffer): \n        帧缓冲管理器实例。\n        负责存储和管理帧数据。\n        \n    current_frame (int): \n        当前正在等待的帧ID。\n        每次成功 tick() 后会 +1。\n        例如：如果 current_frame=100，表示正在收集第100帧的输入。\n        \n    frame_history (Dict[int, Frame]): \n        已执行帧的历史记录。\n        键为 frame_id，值为 Frame 对象。\n        用于回滚、重放和调试。\n        \n    max_history (int): \n        保留的最大历史帧数。\n        默认 300 帧（30fps 下约 10 秒）。\n        超过此数量的旧帧会被自动清理。",
+          "inheritance": []
+        },
+        {
+          "name": "Entity",
+          "methods": [
+            {
+              "name": "__post_init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "初始化默认值（使用配置）",
+              "line_count": 10,
+              "call_count": 2
+            },
+            {
+              "name": "from_float",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "x",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "y",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Entity",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "从浮点数坐标创建实体\n\nArgs:\n    entity_id: 实体ID\n    x: X 坐标（浮点数，像素）\n    y: Y 坐标（浮点数，像素）\n\nReturns:\n    Entity 实例",
+              "line_count": 17,
+              "call_count": 3
+            },
+            {
+              "name": "from_fixed",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "x",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "y",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Entity",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "从 FixedPoint 创建实体\n\nArgs:\n    entity_id: 实体ID\n    x: X 坐标（FixedPoint）\n    y: Y 坐标（FixedPoint）\n\nReturns:\n    Entity 实例",
+              "line_count": 13,
+              "call_count": 1
+            },
+            {
+              "name": "to_float",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Tuple[<ast.Tuple object at 0x792dfe7c2850>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "转换为浮点数坐标\n\nReturns:\n    (x, y) 元组，浮点数像素坐标",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "to_fixed",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Tuple[<ast.Tuple object at 0x792dfe7c1ad0>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "转换为 FixedPoint 坐标\n\nReturns:\n    (x, y) 元组，FixedPoint 坐标",
+              "line_count": 8,
+              "call_count": 2
+            },
+            {
+              "name": "to_int",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Tuple[<ast.Tuple object at 0x792dfe7c0d50>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "转换为整数像素坐标\n\nReturns:\n    (x, y) 元组，整数像素坐标",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "update_position",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "dt_ms",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "根据速度更新位置\n\nArgs:\n    dt_ms: 时间增量（毫秒）",
+              "line_count": 11,
+              "call_count": 0
+            },
+            {
+              "name": "set_velocity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "vx",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "vy",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "设置速度\n\nArgs:\n    vx: X 方向速度（像素/秒 或 FixedPoint）\n    vy: Y 方向速度（像素/秒 或 FixedPoint）",
+              "line_count": 17,
+              "call_count": 4
+            },
+            {
+              "name": "get_bounds",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Tuple[<ast.Tuple object at 0x792dfe7bfcd0>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取碰撞边界\n\nReturns:\n    (x1, y1, x2, y2) 元组，定点数坐标",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "reset",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "重置实体状态（用于对象池）",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "serialize",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "序列化为字典",
+              "line_count": 11,
+              "call_count": 0
+            },
+            {
+              "name": "deserialize",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Entity",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "从字典反序列化",
+              "line_count": 12,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 19,
+          "docstring": "游戏实体\n\n表示游戏中的一个实体（角色、子弹、道具等）。\n所有坐标和速度使用定点数表示，保证跨平台确定性。\n\n重构说明：\n- 使用 FixedPoint.FRACTION_BITS 替代硬编码的 16\n- 使用 FixedPoint.SCALE 替代硬编码的 65536\n\n属性:\n    entity_id (int): 实体的唯一标识符\n    \n    x (int): X 坐标（定点数原始值）\n    y (int): Y 坐标（定点数原始值）\n    vx (int): X 方向速度（定点数原始值）\n    vy (int): Y 方向速度（定点数原始值）\n    width (int): 实体宽度（定点数原始值）\n    height (int): 实体高度（定点数原始值）\n    hp (int): 当前生命值\n    max_hp (int): 最大生命值\n    flags (int): 状态标志位",
+          "inheritance": []
+        },
+        {
+          "name": "PhysicsEngine",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "config",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "初始化物理引擎\n\nArgs:\n    config: 可选的配置对象（用于测试）",
+              "line_count": 20,
+              "call_count": 6
+            },
+            {
+              "name": "add_entity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "添加实体",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "remove_entity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "移除实体",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "get_entity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Entity]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取实体",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "update",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "dt_ms",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "更新物理模拟\n\nArgs:\n    dt_ms: 时间增量（毫秒）",
+              "line_count": 29,
+              "call_count": 8
+            },
+            {
+              "name": "_handle_boundary_collision",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 6,
+              "docstring": "处理边界碰撞",
+              "line_count": 18,
+              "call_count": 1
+            },
+            {
+              "name": "_update_spatial_grid",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "更新空间网格",
+              "line_count": 10,
+              "call_count": 3
+            },
+            {
+              "name": "_handle_entity_collision_optimized",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 12,
+              "docstring": "优化的实体间碰撞检测",
+              "line_count": 42,
+              "call_count": 17
+            },
+            {
+              "name": "_check_aabb_collision",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "a",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "b",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "AABB 碰撞检测",
+              "line_count": 6,
+              "call_count": 0
+            },
+            {
+              "name": "_resolve_collision",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "a",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "b",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "解决碰撞",
+              "line_count": 23,
+              "call_count": 2
+            },
+            {
+              "name": "apply_input",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "input_flags",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "speed",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 7,
+              "docstring": "应用玩家输入到实体\n\nArgs:\n    entity_id: 实体ID\n    input_flags: 输入标志位\n    speed: 移动速度（定点数），默认从配置读取",
+              "line_count": 33,
+              "call_count": 2
+            },
+            {
+              "name": "serialize_state",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "序列化当前物理状态",
+              "line_count": 9,
+              "call_count": 3
+            },
+            {
+              "name": "deserialize_state",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "state",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "反序列化物理状态",
+              "line_count": 5,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 45,
+          "docstring": "确定性物理引擎\n\n处理游戏中所有实体的物理模拟：\n- 重力\n- 摩擦力\n- 碰撞检测和响应\n- 边界处理\n\n重构说明：\n- 所有常量从 CONFIG 读取\n- 使用 FixedPoint 进行计算\n\n属性:\n    entities: 所有实体的字典\n    collision_pairs: 当前帧检测到的碰撞对\n    spatial_grid: 空间划分网格",
+          "inheritance": []
+        },
+        {
+          "name": "EntityPool",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "initial_size",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "初始化对象池",
+              "line_count": 8,
+              "call_count": 4
+            },
+            {
+              "name": "acquire",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Entity",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "从池中获取实体",
+              "line_count": 15,
+              "call_count": 6
+            },
+            {
+              "name": "release",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "将实体归还到池中",
+              "line_count": 5,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "实体对象池\n\n复用 Entity 对象以减少内存分配。",
+          "inheritance": []
+        },
+        {
+          "name": "FixedPointConfig",
+          "methods": [
+            {
+              "name": "scale",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "缩放因子",
+              "line_count": 3,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "定点数配置\n\n属性:\n    fraction_bits: 小数位数（默认16，即16.16格式）",
+          "inheritance": []
+        },
+        {
+          "name": "PhysicsConfig",
+          "methods": [
+            {
+              "name": "get_gravity_fixed",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "scale",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "重力（定点数）",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "get_friction_fixed",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "scale",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "摩擦系数（定点数）",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "get_max_velocity_fixed",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "scale",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "最大速度（定点数）",
+              "line_count": 3,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "物理引擎配置\n\n所有物理相关的常量都在这里定义。\n单位：像素、像素/秒、像素/秒²",
+          "inheritance": []
+        },
+        {
+          "name": "NetworkConfig",
+          "methods": [
+            {
+              "name": "frame_time_ms",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "每帧时间（毫秒）",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "frame_time_sec",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "每帧时间（秒）",
+              "line_count": 3,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "网络配置",
+          "inheritance": []
+        },
+        {
+          "name": "GameConfig",
+          "methods": [
+            {
+              "name": "get_player_speed_fixed",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "scale",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "玩家速度（定点数）",
+              "line_count": 3,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "游戏逻辑配置",
+          "inheritance": []
+        },
+        {
+          "name": "HistoryConfig",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "历史记录配置",
+          "inheritance": []
+        },
+        {
+          "name": "Config",
+          "methods": [
+            {
+              "name": "load_from_file",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 10,
+              "docstring": "从 JSON 文件加载配置\n\nArgs:\n    path: 配置文件路径\n\nReturns:\n    True 如果成功",
+              "line_count": 46,
+              "call_count": 13
+            },
+            {
+              "name": "save_to_file",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "保存配置到 JSON 文件\n\nArgs:\n    path: 配置文件路径\n\nReturns:\n    True 如果成功",
+              "line_count": 28,
+              "call_count": 9
+            },
+            {
+              "name": "reload",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "重新加载配置文件\n\nReturns:\n    True 如果成功",
+              "line_count": 10,
+              "call_count": 1
+            },
+            {
+              "name": "_update_dataclass",
+              "parameters": [
+                {
+                  "name": "obj",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "更新 dataclass 对象的属性",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "转换为字典",
+              "line_count": 9,
+              "call_count": 5
+            },
+            {
+              "name": "__str__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "友好的字符串表示",
+              "line_count": 8,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 20,
+          "docstring": "全局配置类\n\n从 JSON 文件加载配置，支持热重载。\n\n使用方法:\n    from core.config import CONFIG\n    \n    print(CONFIG.physics.gravity)\n    print(CONFIG.network.frame_rate)\n\n从文件加载:\n    CONFIG.load_from_file('config.json')\n\n保存到文件:\n    CONFIG.save_to_file('config.json')",
+          "inheritance": []
+        },
+        {
+          "name": "StateSnapshot",
+          "methods": [
+            {
+              "name": "compute_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "计算状态的确定性哈希\n\n使用 MD5 算法对序列化后的状态计算哈希。\n相同的状态永远产生相同的哈希。\n\nReturns:\n    32字符的十六进制哈希字符串",
+              "line_count": 19,
+              "call_count": 6
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "游戏状态快照\n\n保存某一时刻的完整游戏状态，用于：\n1. 客户端预测回滚\n2. 状态校验（检测作弊/同步问题）\n3. 断线重连\n\n属性:\n    frame_id (int): \n        快照对应的帧ID。\n        用于确定快照的时间点。\n    \n    entities (Dict[int, dict]): \n        所有实体的序列化数据。\n        键为 entity_id，值为实体属性字典。\n        例如：{0: {'x': 100, 'y': 200, 'hp': 100}, ...}\n    \n    metadata (dict): \n        额外的元数据。\n        可包含游戏模式、地图信息等。\n    \n    hash (str): \n        状态的 MD5 哈希值。\n        用于快速比较两个状态是否相同。\n        例如：\"a1b2c3d4e5f6...\"",
+          "inheritance": []
+        },
+        {
+          "name": "GameState",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "初始化游戏状态",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "add_entity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "添加实体到游戏状态\n\nArgs:\n    entity: 实体对象（需要有 entity_id 属性）\n\nReturns:\n    实体的 ID",
+              "line_count": 12,
+              "call_count": 0
+            },
+            {
+              "name": "remove_entity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "从游戏状态中移除实体\n\nArgs:\n    entity_id: 要移除的实体ID",
+              "line_count": 9,
+              "call_count": 0
+            },
+            {
+              "name": "get_entity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取实体\n\nArgs:\n    entity_id: 实体ID\n\nReturns:\n    Entity 对象，不存在则返回 None",
+              "line_count": 11,
+              "call_count": 1
+            },
+            {
+              "name": "bind_player_entity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "绑定玩家到实体\n\n建立玩家ID和实体ID的映射关系，\n用于快速查找玩家控制的角色。\n\nArgs:\n    player_id: 玩家ID\n    entity_id: 实体ID",
+              "line_count": 12,
+              "call_count": 0
+            },
+            {
+              "name": "get_player_entity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "获取玩家对应的实体\n\nArgs:\n    player_id: 玩家ID\n\nReturns:\n    玩家控制的 Entity，不存在则返回 None",
+              "line_count": 14,
+              "call_count": 2
+            },
+            {
+              "name": "save_snapshot",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "StateSnapshot",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "保存当前状态的快照\n\n创建并保存当前帧的完整状态快照，\n用于后续的回滚或校验。\n\nReturns:\n    创建的 StateSnapshot",
+              "line_count": 28,
+              "call_count": 6
+            },
+            {
+              "name": "restore_snapshot",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "恢复到指定帧的快照\n\n将游戏状态回退到之前保存的快照。\n用于客户端预测回滚。\n\nArgs:\n    frame_id: 要恢复的帧ID\n\nReturns:\n    True 如果恢复成功，False 如果快照不存在",
+              "line_count": 25,
+              "call_count": 3
+            },
+            {
+              "name": "rollback_to",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "回滚到指定帧（restore_snapshot 的别名）\n\nArgs:\n    frame_id: 目标帧ID\n\nReturns:\n    是否回滚成功",
+              "line_count": 11,
+              "call_count": 1
+            },
+            {
+              "name": "advance_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "推进帧计数器",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "get_current_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取当前帧ID\n\nReturns:\n    当前帧ID",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "serialize",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "序列化完整状态\n\n将整个游戏状态转换为可传输/存储的字典格式。\n\nReturns:\n    包含完整状态的字典",
+              "line_count": 22,
+              "call_count": 5
+            },
+            {
+              "name": "deserialize",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "从字典反序列化状态\n\nArgs:\n    data: 序列化的状态数据",
+              "line_count": 10,
+              "call_count": 3
+            },
+            {
+              "name": "compute_state_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "计算当前状态的哈希值\n\n用于快速比较两个状态是否相同。\n\nReturns:\n    MD5 哈希字符串",
+              "line_count": 17,
+              "call_count": 4
+            },
+            {
+              "name": "_serialize_entity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "entity",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "序列化单个实体",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "_deserialize_entity",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "反序列化实体（需要子类实现）",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "copy",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "GameState",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "创建状态的深拷贝\n\nReturns:\n    新的 GameState 实例",
+              "line_count": 14,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 28,
+          "docstring": "游戏状态管理器\n\n负责管理整个游戏的状态，包括：\n- 所有游戏实体\n- 玩家与实体的映射\n- 状态快照和恢复\n- 状态哈希计算\n\n属性:\n    frame_id (int): \n        当前游戏帧ID。\n        每帧更新后递增。\n        用于同步和状态追踪。\n    \n    entities (Dict[int, Any]): \n        所有游戏实体的字典。\n        键为 entity_id，值为 Entity 对象。\n        例如：{0: Entity(id=0, x=100, ...), 1: Entity(...)}\n    \n    player_entities (Dict[int, int]): \n        玩家ID到实体ID的映射。\n        键为 player_id，值为 entity_id。\n        用于快速查找玩家对应的实体。\n        例如：{0: 0, 1: 1} 表示玩家0控制实体0\n    \n    snapshots (Dict[int, StateSnapshot]): \n        保存的状态快照。\n        键为 frame_id，值为 StateSnapshot。\n        用于回滚和状态校验。\n    \n    is_running (bool): \n        游戏是否正在运行。\n        True = 游戏进行中，False = 游戏停止。\n    \n    is_paused (bool): \n        游戏是否暂停。\n        暂停时不更新状态。\n\n类常量:\n    MAX_SNAPSHOTS (60): 最大快照数量（2秒@30fps）",
+          "inheritance": []
+        },
+        {
+          "name": "StateValidator",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "初始化校验器",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "record_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "hash_value",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "记录帧的哈希值\n\nArgs:\n    frame_id: 帧ID\n    hash_value: 状态哈希",
+              "line_count": 9,
+              "call_count": 0
+            },
+            {
+              "name": "verify_hash",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "expected_hash",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "验证帧的哈希是否匹配\n\nArgs:\n    frame_id: 帧ID\n    expected_hash: 期望的哈希值\n\nReturns:\n    True 如果匹配或没有记录，False 如果不匹配",
+              "line_count": 25,
+              "call_count": 1
+            },
+            {
+              "name": "get_mismatches",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[dict]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取所有不匹配记录\n\nReturns:\n    不匹配记录的列表",
+              "line_count": 8,
+              "call_count": 1
+            },
+            {
+              "name": "clear_mismatches",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "清空不匹配记录",
+              "line_count": 3,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "状态校验器\n\n用于检测不同客户端之间的状态不一致。\n通过比较状态哈希来发现同步问题。\n\n使用场景:\n1. 服务器验证客户端状态\n2. 客户端自检（与服务器哈希对比）\n3. 调试帧同步问题\n\n属性:\n    hash_history (Dict[int, str]): \n        记录每帧的状态哈希。\n        键为 frame_id，值为哈希字符串。\n        用于后续校验。\n        例如：{100: \"a1b2c3...\", 101: \"d4e5f6...\"}\n    \n    mismatches (List[dict]): \n        记录所有哈希不匹配的情况。\n        每个元素包含 frame_id、期望值、实际值。\n        用于调试和分析同步问题。\n        例如：[{'frame_id': 100, 'expected': 'a1b2...', 'actual': 'x9y8...'}]",
+          "inheritance": []
+        },
+        {
+          "name": "ReplayFrame",
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": null,
+              "line_count": 6,
+              "call_count": 3
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "ReplayFrame",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": null,
+              "line_count": 6,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "回放帧数据",
+          "inheritance": []
+        },
+        {
+          "name": "ReplayHeader",
+          "methods": [
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "ReplayHeader",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "回放文件头",
+          "inheritance": []
+        },
+        {
+          "name": "ReplayRecorder",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_count",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "seed",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "初始化录制器\n\nArgs:\n    player_count: 玩家数量\n    seed: 随机种子",
+              "line_count": 16,
+              "call_count": 2
+            },
+            {
+              "name": "start_recording",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_ids",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "metadata",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "开始录制\n\nArgs:\n    player_ids: 玩家ID列表\n    metadata: 额外元数据",
+              "line_count": 14,
+              "call_count": 2
+            },
+            {
+              "name": "record_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "inputs",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "记录一帧\n\nArgs:\n    frame_id: 帧ID\n    inputs: 玩家输入 {player_id: input_data}",
+              "line_count": 17,
+              "call_count": 4
+            },
+            {
+              "name": "stop_recording",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "停止录制",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "save",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "filename",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "compress",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "保存回放文件\n\nArgs:\n    filename: 文件名\n    compress: 是否压缩",
+              "line_count": 26,
+              "call_count": 10
+            },
+            {
+              "name": "load",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "filename",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "ReplayRecorder",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "加载回放文件\n\nArgs:\n    filename: 文件名\n\nReturns:\n    ReplayRecorder 实例",
+              "line_count": 27,
+              "call_count": 10
+            },
+            {
+              "name": "get_stats",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "获取录制统计",
+              "line_count": 8,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 18,
+          "docstring": "回放录制器\n\n只记录输入，不记录完整状态\n文件很小，适合长时间录制",
+          "inheritance": []
+        },
+        {
+          "name": "ReplayPlayer",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "recorder",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "初始化播放器\n\nArgs:\n    recorder: 录制器实例",
+              "line_count": 13,
+              "call_count": 0
+            },
+            {
+              "name": "from_file",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "filename",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "ReplayPlayer",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "从文件创建播放器",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "play",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "开始播放",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "pause",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "暂停",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "resume",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "恢复",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "stop",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "停止",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "get_next_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[ReplayFrame]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "获取下一帧\n\nReturns:\n    下一帧数据，如果结束返回 None",
+              "line_count": 23,
+              "call_count": 3
+            },
+            {
+              "name": "seek_to_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "跳转到指定帧\n\nArgs:\n    frame_id: 目标帧ID\n\nReturns:\n    是否成功",
+              "line_count": 15,
+              "call_count": 1
+            },
+            {
+              "name": "seek_to_time",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "seconds",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "跳转到指定时间\n\nArgs:\n    seconds: 时间（秒）\n\nReturns:\n    是否成功",
+              "line_count": 17,
+              "call_count": 1
+            },
+            {
+              "name": "get_progress",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "获取播放进度 (0.0 - 1.0)",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "get_current_time",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "获取当前播放时间",
+              "line_count": 7,
+              "call_count": 0
+            },
+            {
+              "name": "get_total_frames",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取总帧数",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "on_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "callback",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "设置帧回调",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "on_complete",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "callback",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "设置完成回调",
+              "line_count": 3,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 24,
+          "docstring": "回放播放器\n\n用于回放录制的游戏",
+          "inheritance": []
+        },
+        {
+          "name": "ReplayAnalyzer",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "recorder",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "get_input_frequency",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "获取玩家输入频率\n\nArgs:\n    player_id: 玩家ID\n\nReturns:\n    输入频率统计",
+              "line_count": 26,
+              "call_count": 2
+            },
+            {
+              "name": "get_frame_times",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[float]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "获取帧间隔时间",
+              "line_count": 11,
+              "call_count": 4
+            },
+            {
+              "name": "get_average_frame_time",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取平均帧时间",
+              "line_count": 4,
+              "call_count": 3
+            },
+            {
+              "name": "detect_lag_frames",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "threshold",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[int]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "检测延迟帧\n\nArgs:\n    threshold: 延迟阈值（秒）\n\nReturns:\n    延迟帧ID列表",
+              "line_count": 18,
+              "call_count": 3
+            },
+            {
+              "name": "generate_report",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "生成分析报告",
+              "line_count": 13,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 14,
+          "docstring": "回放分析器\n\n用于分析回放数据",
+          "inheritance": []
+        },
+        {
+          "name": "InputFlags",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "输入标志位枚举\n\n使用位标志来表示玩家的各种输入操作。\n多个标志可以组合使用（例如：同时移动和攻击）。\n\n位运算示例:\n    # 组合多个标志\n    flags = InputFlags.MOVE_RIGHT | InputFlags.ATTACK\n    \n    # 检查是否包含某个标志\n    if flags & InputFlags.ATTACK:\n        print(\"玩家正在攻击\")\n    \n    # 移除某个标志\n    flags &= ~InputFlags.ATTACK\n\n属性:\n    NONE (0x00): 无操作\n    MOVE_UP (0x01): 向上移动（对应按键：W / ↑）\n    MOVE_DOWN (0x02): 向下移动（对应按键：S / ↓）\n    MOVE_LEFT (0x04): 向左移动（对应按键：A / ←）\n    MOVE_RIGHT (0x08): 向右移动（对应按键：D / →）\n    ATTACK (0x10): 普通攻击（对应按键：空格 / 回车）\n    SKILL_1 (0x20): 技能1\n    SKILL_2 (0x40): 技能2\n    JUMP (0x80): 跳跃",
+          "inheritance": [
+            "IntFlag"
+          ]
+        },
+        {
+          "name": "PlayerInput",
+          "methods": [
+            {
+              "name": "set_flag",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "flag",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "设置输入标志\n\nArgs:\n    flag: 要设置的标志（可组合多个）",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "has_flag",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "flag",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "检查是否包含某个标志\n\nArgs:\n    flag: 要检查的标志\n\nReturns:\n    True 如果包含该标志",
+              "line_count": 11,
+              "call_count": 1
+            },
+            {
+              "name": "clear_flag",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "flag",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "清除某个标志\n\nArgs:\n    flag: 要清除的标志",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "serialize",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bytes",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "序列化为二进制（网络传输用）\n\nReturns:\n    16+ 字节的二进制数据",
+              "line_count": 17,
+              "call_count": 2
+            },
+            {
+              "name": "deserialize",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "PlayerInput",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "从二进制反序列化\n\nArgs:\n    data: 二进制数据\n\nReturns:\n    PlayerInput 实例\n\nRaises:\n    ValueError: 如果数据长度不足",
+              "line_count": 33,
+              "call_count": 5
+            },
+            {
+              "name": "get_direction",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "tuple",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "获取移动方向向量\n\nReturns:\n    (dx, dy) 元组，每个值为 -1, 0, 或 1",
+              "line_count": 17,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 11,
+          "docstring": "玩家输入数据结构\n\n表示一个玩家在某一帧的完整输入，支持紧凑的二进制序列化。\n\n序列化格式（共16字节）:\n    - frame_id: 4字节无符号整数\n    - player_id: 2字节无符号整数\n    - flags: 1字节标志位\n    - target_x: 4字节有符号整数（定点数）\n    - target_y: 4字节有符号整数（定点数）\n    - extra_len: 1字节额外数据长度\n    - extra: 变长额外数据\n\n属性:\n    frame_id (int): \n        该输入对应的帧ID。\n        用于确保输入在正确的帧被执行。\n        例如：frame_id=100 表示这是第100帧的输入。\n    \n    player_id (int): \n        发送该输入的玩家ID。\n        范围：0 到 player_count-1。\n    \n    flags (int): \n        输入标志位（InputFlags 的组合）。\n        例如：flags=0x18 表示同时按下右移和攻击。\n    \n    target_x (int): \n        目标X坐标（定点数 16.16 格式）。\n        用于指向性技能或移动目标。\n        例如：target_x = 500 * 65536 = 32768000\n    \n    target_y (int): \n        目标Y坐标（定点数 16.16 格式）。\n    \n    extra (bytes): \n        额外数据（最多255字节）。\n        用于扩展功能，如自定义技能参数。",
+          "inheritance": []
+        },
+        {
+          "name": "InputManager",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "初始化输入管理器\n\nArgs:\n    player_id: 玩家ID",
+              "line_count": 13,
+              "call_count": 0
+            },
+            {
+              "name": "begin_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "开始新帧的输入收集\n\nArgs:\n    frame_id: 新帧的ID",
+              "line_count": 11,
+              "call_count": 1
+            },
+            {
+              "name": "set_input",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "flags",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "target_x",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "target_y",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "extra",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "设置当前帧的输入\n\nArgs:\n    flags: 输入标志位\n    target_x: 目标X（定点数）\n    target_y: 目标Y（定点数）\n    extra: 额外数据",
+              "line_count": 15,
+              "call_count": 0
+            },
+            {
+              "name": "end_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[PlayerInput]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "结束当前帧的输入收集\n\nReturns:\n    当前帧的 PlayerInput，如果没有开始帧则返回 None",
+              "line_count": 28,
+              "call_count": 5
+            },
+            {
+              "name": "get_pending_inputs",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[PlayerInput]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取待发送的输入\n\nReturns:\n    待发送输入列表（获取后队列清空）",
+              "line_count": 10,
+              "call_count": 2
+            },
+            {
+              "name": "get_input",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[bytes]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取指定帧的输入（序列化格式）\n\nArgs:\n    frame_id: 帧ID\n\nReturns:\n    序列化后的输入字节，不存在则返回 None",
+              "line_count": 11,
+              "call_count": 1
+            },
+            {
+              "name": "get_parsed_input",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[PlayerInput]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取解析后的输入（仅本地玩家）\n\nArgs:\n    frame_id: 帧ID\n\nReturns:\n    PlayerInput 对象",
+              "line_count": 11,
+              "call_count": 1
+            },
+            {
+              "name": "apply_remote_input",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "input_data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "应用远程玩家的输入\n\nArgs:\n    player_id: 远程玩家ID\n    frame_id: 帧ID\n    input_data: 序列化的输入数据",
+              "line_count": 11,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 12,
+          "docstring": "输入管理器\n\n负责收集、缓存和管理单个玩家的输入。\n每个玩家应该有一个独立的 InputManager 实例。\n\n工作流程:\n    1. begin_frame(frame_id) - 开始新一帧的输入收集\n    2. set_input(flags, x, y) - 设置当前帧的输入\n    3. end_frame() - 结束输入收集，返回 PlayerInput\n    4. send_input() - 将输入发送给服务器\n\n属性:\n    player_id (int): \n        该管理器对应的玩家ID。\n    \n    current_input (PlayerInput): \n        当前帧正在收集的输入。\n        begin_frame() 时创建，end_frame() 时清空。\n    \n    input_history (Dict[int, bytes]): \n        历史输入记录（序列化后的字节）。\n        键为 frame_id，用于重发和回滚。\n        例如：{100: b'\\x00...', 101: b'\\x00...'}\n    \n    parsed_history (Dict[int, PlayerInput]): \n        解析后的本地输入历史。\n        仅存储本地玩家的输入，用于预测校验。\n    \n    max_history (int): \n        最大历史记录数量。\n        默认 300 帧，超过后自动清理旧记录。\n    \n    pending_inputs (List[PlayerInput]): \n        待发送的输入队列。\n        end_frame() 时添加，get_pending_inputs() 时取出。",
+          "inheritance": []
+        },
+        {
+          "name": "InputValidator",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "max_apm",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "初始化验证器\n\nArgs:\n    max_apm: 每分钟最大操作数",
+              "line_count": 9,
+              "call_count": 0
+            },
+            {
+              "name": "validate",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "player_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "input_data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 8,
+              "docstring": "验证输入是否合法\n\nArgs:\n    player_id: 玩家ID\n    input_data: 输入数据（字节或 PlayerInput）\n\nReturns:\n    True 如果输入合法",
+              "line_count": 45,
+              "call_count": 5
+            },
+            {
+              "name": "validate_frame_id",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "frame_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "current_frame",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "验证帧ID是否合法\n\nArgs:\n    frame_id: 输入的帧ID\n    current_frame: 当前服务器帧ID\n\nReturns:\n    True 如果帧ID合法",
+              "line_count": 16,
+              "call_count": 0
+            },
+            {
+              "name": "check_input_range",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "target_x",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "target_y",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "检查输入坐标范围是否合法\n\nArgs:\n    target_x: 目标X坐标（定点数）\n    target_y: 目标Y坐标（定点数）\n\nReturns:\n    True 如果范围合法",
+              "line_count": 16,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 14,
+          "docstring": "输入验证器\n\n用于检测异常输入（可能表示作弊）。\n应该在服务器端使用，验证客户端发来的输入。\n\n检测项目:\n1. 输入大小是否超限\n2. 帧ID是否合法（不超前太多）\n3. 坐标是否在有效范围内\n4. 输入频率是否异常（超高速点击）\n\n属性:\n    max_apm (int): \n        每分钟最大操作数（Actions Per Minute）。\n        用于检测自动化脚本/外挂。\n        默认 600，超过人类极限（职业玩家约 300-400）。\n    \n    input_times (Dict[int, List[float]]): \n        每个玩家的输入时间记录。\n        键为 player_id，值为时间戳列表。\n        用于 APM 检测。\n\n类常量:\n    MAX_INPUT_SIZE (1024): 最大输入字节数\n    MAX_FRAME_AHEAD (100): 最大超前帧数",
+          "inheritance": []
+        },
+        {
+          "name": "DeterministicRNG",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "seed",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "初始化 RNG\n\nArgs:\n    seed: 随机种子（所有客户端必须使用相同值）\n\nNote:\n    种子 0 会被自动改为 1（算法要求状态非零）",
+              "line_count": 13,
+              "call_count": 0
+            },
+            {
+              "name": "next_uint32",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "生成下一个 32 位无符号整数\n\n使用 Xorshift32 算法，纯位运算，保证确定性。\n\nReturns:\n    随机整数 [0, 4294967295]",
+              "line_count": 15,
+              "call_count": 0
+            },
+            {
+              "name": "next_int",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "生成有符号整数\n\nReturns:\n    随机整数 [-2147483648, 2147483647]",
+              "line_count": 8,
+              "call_count": 1
+            },
+            {
+              "name": "range",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "min_val",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "max_val",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "生成指定范围的随机整数\n\nArgs:\n    min_val: 最小值（包含）\n    max_val: 最大值（包含）\n\nReturns:\n    [min_val, max_val] 范围内的整数\n\n示例:\n    damage = rng.range(10, 20)  # 10-20 之间的随机伤害",
+              "line_count": 19,
+              "call_count": 1
+            },
+            {
+              "name": "uniform",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "生成 [0, 1) 范围的浮点数\n\n注意：虽然返回浮点数，但由于输入是确定性的，\n输出也是确定性的。\n\nReturns:\n    随机浮点数 [0.0, 1.0)",
+              "line_count": 11,
+              "call_count": 1
+            },
+            {
+              "name": "uniform_range",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "min_val",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "max_val",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "生成指定范围的随机浮点数\n\nArgs:\n    min_val: 最小值\n    max_val: 最大值\n\nReturns:\n    [min_val, max_val) 范围内的浮点数",
+              "line_count": 12,
+              "call_count": 1
+            },
+            {
+              "name": "chance",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "probability",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "以给定概率返回 True\n\n用于概率性事件判定（暴击、闪避等）。\n\nArgs:\n    probability: 概率 [0.0, 1.0]\n\nReturns:\n    True 以给定概率，否则 False\n\n示例:\n    if rng.chance(0.3):  # 30% 概率暴击\n        damage *= 2",
+              "line_count": 17,
+              "call_count": 1
+            },
+            {
+              "name": "pick",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "items",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "any",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "从列表中随机选择一个元素\n\nArgs:\n    items: 列表（非空）\n\nReturns:\n    随机选择的元素，空列表返回 None\n\n示例:\n    effect = rng.pick(['burn', 'freeze', 'poison'])",
+              "line_count": 17,
+              "call_count": 2
+            },
+            {
+              "name": "shuffle",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "items",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "Fisher-Yates 洗牌算法（确定性）\n\n对列表进行随机打乱，返回新列表。\n相同种子总是产生相同的打乱结果。\n\nArgs:\n    items: 要洗牌的列表\n\nReturns:\n    洗牌后的新列表（原列表不变）\n\n示例:\n    deck = rng.shuffle(list(range(52)))  # 洗一副牌",
+              "line_count": 22,
+              "call_count": 4
+            },
+            {
+              "name": "get_state",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取当前状态\n\n用于保存 RNG 状态，之后可以恢复。\n常用于回滚重放。\n\nReturns:\n    当前状态值（32位整数）",
+              "line_count": 11,
+              "call_count": 0
+            },
+            {
+              "name": "set_state",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "state",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "设置状态\n\n用于恢复之前保存的 RNG 状态。\n\nArgs:\n    state: 之前保存的状态值",
+              "line_count": 12,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 16,
+          "docstring": "确定性随机数生成器\n\n使用 Xorshift32 算法，保证：\n1. 相同种子产生相同的随机序列\n2. 跨平台一致性（纯整数运算）\n3. 高性能（位运算）\n\n帧同步中的使用场景：\n- 暴击判定：if rng.chance(0.3): damage *= 2\n- 随机技能效果：effect = rng.pick(effects)\n- 随机生成：x = rng.range(100, 500)\n- 洗牌：shuffled_deck = rng.shuffle(deck)\n\n重要：所有客户端必须使用相同的种子初始化！\n\n属性:\n    state (int): \n        RNG 的内部状态（32位整数）。\n        每次调用随机函数后都会改变。\n        可以通过 get_state() / set_state() 保存和恢复。\n\n示例:\n    rng = DeterministicRNG(seed=12345)\n    \n    # 所有客户端得到相同的结果\n    damage = rng.range(10, 20)      # 例如：15\n    is_crit = rng.chance(0.3)       # 例如：True\n    target = rng.pick(enemies)      # 例如：enemies[2]",
+          "inheritance": []
+        },
+        {
+          "name": "SeededRNG",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "seed",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "初始化 RNG\n\nArgs:\n    seed: 随机种子",
+              "line_count": 10,
+              "call_count": 0
+            },
+            {
+              "name": "next",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "生成下一个随机数\n\nReturns:\n    随机整数 [0, 2^32-1]",
+              "line_count": 9,
+              "call_count": 0
+            },
+            {
+              "name": "range",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "min_val",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "max_val",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "生成范围整数\n\nArgs:\n    min_val: 最小值\n    max_val: 最大值\n\nReturns:\n    [min_val, max_val] 范围的整数",
+              "line_count": 12,
+              "call_count": 1
+            },
+            {
+              "name": "uniform",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "生成 [0, 1) 浮点数\n\nReturns:\n    随机浮点数",
+              "line_count": 8,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "基于线性同余生成器（LCG）的确定性 RNG\n\n使用经典的 LCG 算法，参数来自 Numerical Recipes。\n比 Xorshift32 稍慢，但更容易理解。\n\n类常量:\n    MULTIPLIER (1664525): LCG 乘数\n    INCREMENT (1013904223): LCG 增量\n    MODULUS (2^32): 模数\n\n属性:\n    state (int): RNG 内部状态",
+          "inheritance": []
+        },
+        {
+          "name": "FixedPoint",
+          "methods": [
+            {
+              "name": "configure",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "fraction_bits",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "配置定点数精度\n\nArgs:\n    fraction_bits: 小数位数\n\n示例:\n    >>> FixedPoint.configure(16)  # 16.16 格式\n    >>> FixedPoint.configure(8)   # 24.8 格式",
+              "line_count": 17,
+              "call_count": 2
+            },
+            {
+              "name": "__post_init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "验证范围",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "from_float",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "value",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "从浮点数创建定点数\n\nArgs:\n    value: 浮点数值\n\nReturns:\n    FixedPoint 实例\n\n示例:\n    >>> FixedPoint.from_float(3.14).to_float()\n    3.14",
+              "line_count": 15,
+              "call_count": 2
+            },
+            {
+              "name": "from_int",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "value",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "从整数创建定点数（整数部分）\n\nArgs:\n    value: 整数值\n\nReturns:\n    FixedPoint 实例（小数部分为0）\n\n示例:\n    >>> FixedPoint.from_int(100).to_float()\n    100.0",
+              "line_count": 15,
+              "call_count": 1
+            },
+            {
+              "name": "from_raw",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "raw",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "从原始值创建（用于反序列化）\n\nArgs:\n    raw: 原始整数值\n\nReturns:\n    FixedPoint 实例",
+              "line_count": 11,
+              "call_count": 1
+            },
+            {
+              "name": "to_float",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "转换为浮点数\n\nReturns:\n    浮点数值",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "to_int",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "转换为整数（截断小数部分）\n\nReturns:\n    整数值",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "round",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "四舍五入到整数\n\nReturns:\n    整数值",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "__add__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "加法",
+              "line_count": 9,
+              "call_count": 7
+            },
+            {
+              "name": "__radd__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "右加法",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "__sub__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "减法",
+              "line_count": 9,
+              "call_count": 7
+            },
+            {
+              "name": "__rsub__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "右减法",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "__mul__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "乘法\n\n注意：两个定点数相乘需要右移 FRACTION_BITS",
+              "line_count": 13,
+              "call_count": 7
+            },
+            {
+              "name": "__rmul__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "右乘法",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "__truediv__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 7,
+              "docstring": "除法\n\n注意：两个定点数相除需要先左移 FRACTION_BITS",
+              "line_count": 19,
+              "call_count": 10
+            },
+            {
+              "name": "__rtruediv__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "右除法",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "__floordiv__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "整除",
+              "line_count": 11,
+              "call_count": 6
+            },
+            {
+              "name": "__mod__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "取模",
+              "line_count": 7,
+              "call_count": 4
+            },
+            {
+              "name": "__neg__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "负号",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "__abs__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "绝对值",
+              "line_count": 3,
+              "call_count": 2
+            },
+            {
+              "name": "__lt__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": null,
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "__le__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": null,
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "__gt__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": null,
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "__ge__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": null,
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "__repr__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            },
+            {
+              "name": "__str__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 2
+            },
+            {
+              "name": "__hash__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            },
+            {
+              "name": "__int__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            },
+            {
+              "name": "__float__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            },
+            {
+              "name": "clamp",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "min_val",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "max_val",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "FixedPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "限制在范围内\n\nArgs:\n    min_val: 最小值\n    max_val: 最大值\n\nReturns:\n    限制后的值",
+              "line_count": 16,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 61,
+          "docstring": "定点数抽象类\n\n使用 16.16 格式（可配置）：\n- 高 16 位：整数部分\n- 低 16 位：小数部分\n\n只需修改 FRACTION_BITS 即可全局更改精度。\n\n属性:\n    raw (int): 内部存储的原始整数值\n\n类变量:\n    FRACTION_BITS (int): 小数位数，默认 16\n    SCALE (int): 缩放因子 = 2^FRACTION_BITS\n    MAX_VALUE (int): 最大值\n    MIN_VALUE (int): 最小值\n\n示例:\n    >>> x = FixedPoint.from_float(3.14)\n    >>> x.to_float()\n    3.14\n    >>> y = fixed(2.0)\n    >>> (x + y).to_float()\n    5.14",
+          "inheritance": []
+        }
+      ],
+      "functions_info": [
+        {
+          "name": "distance_squared",
+          "parameters": [
+            {
+              "name": "a",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "b",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "int",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "计算两实体间距离的平方",
+          "line_count": 5,
+          "call_count": 0
+        },
+        {
+          "name": "distance",
+          "parameters": [
+            {
+              "name": "a",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "b",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "int",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "计算两实体间距离",
+          "line_count": 4,
+          "call_count": 2
+        },
+        {
+          "name": "isqrt",
+          "parameters": [
+            {
+              "name": "n",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "int",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 4,
+          "docstring": "整数平方根（牛顿法）",
+          "line_count": 14,
+          "call_count": 0
+        },
+        {
+          "name": "_ensure_config_loaded",
+          "parameters": [],
+          "return_type": null,
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 5,
+          "docstring": "确保配置已加载（延迟加载，避免循环导入）",
+          "line_count": 20,
+          "call_count": 4
+        },
+        {
+          "name": "get_config",
+          "parameters": [],
+          "return_type": "Config",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "获取全局配置",
+          "line_count": 3,
+          "call_count": 0
+        },
+        {
+          "name": "load_config",
+          "parameters": [
+            {
+              "name": "path",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Config",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "加载指定配置文件\n\nArgs:\n    path: 配置文件路径\n\nReturns:\n    Config 实例",
+          "line_count": 12,
+          "call_count": 1
+        },
+        {
+          "name": "reset_config",
+          "parameters": [],
+          "return_type": null,
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "重置配置为默认值",
+          "line_count": 4,
+          "call_count": 1
+        },
+        {
+          "name": "fixed",
+          "parameters": [
+            {
+              "name": "value",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "FixedPoint",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 4,
+          "docstring": "创建定点数的便捷函数\n\nArgs:\n    value: 浮点数、整数或 FixedPoint\n\nReturns:\n    FixedPoint 实例\n\n示例:\n    >>> x = fixed(3.14)\n    >>> y = fixed(100)\n    >>> z = fixed(x)",
+          "line_count": 23,
+          "call_count": 7
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "decorators: dataclass",
+      "description": "Usage of decorators: dataclass",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/frame.py"
+      ]
+    },
+    {
+      "name": "type-hints",
+      "description": "Usage of type-hints",
+      "examples": [],
+      "frequency": 8,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/frame.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/physics.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/config.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/state.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/replay.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/input.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/rng.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/fixed.py"
+      ]
+    },
+    {
+      "name": "dataclass",
+      "description": "Usage of dataclass",
+      "examples": [],
+      "frequency": 7,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/frame.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/physics.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/config.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/state.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/replay.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/input.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/fixed.py"
+      ]
+    },
+    {
+      "name": "decorators: dataclass, classmethod",
+      "description": "Usage of decorators: dataclass, classmethod",
+      "examples": [],
+      "frequency": 4,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/physics.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/replay.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/input.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/fixed.py"
+      ]
+    },
+    {
+      "name": "decorators: dataclass, staticmethod, property",
+      "description": "Usage of decorators: dataclass, staticmethod, property",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/config.py"
+      ]
+    },
+    {
+      "name": "context-manager",
+      "description": "Usage of context-manager",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/config.py",
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/replay.py"
+      ]
+    },
+    {
+      "name": "decorators: dataclass, 30fps",
+      "description": "Usage of decorators: dataclass, 30fps",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game-frame-sync/core/state.py"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [
+    "server/main.py"
+  ],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "classes": "PascalCase",
+      "functions": "snake_case"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": [
+    "更新物理模拟\n        \n        Args:\n            dt_ms: 时间增量（毫秒）",
+    "全局配置类\n    \n    从 JSON 文件加载配置，支持热重载。\n    \n    使用方法:\n        from core.config import CONFIG\n        \n        print(CONFIG.physics.gravity)\n        print(CONFIG.network.frame_rate)\n    \n    从文件加载:\n      ",
+    "获取缓冲区状态统计\n        \n        Returns:\n            包含缓冲区状态的字典：\n            - buffer_size: 配置的缓冲大小\n            - ready_frames: 已准备好执行的帧数\n            - pending_frames: 等待输入的帧数\n            - total_stored: 总",
+    "添加实体到游戏状态\n        \n        Args:\n            entity: 实体对象（需要有 entity_id 属性）\n        \n        Returns:\n            实体的 ID",
+    "重新加载配置文件\n        \n        Returns:\n            True 如果成功",
+    "生成有符号整数\n        \n        Returns:\n            随机整数 [-2147483648, 2147483647]",
+    "获取当前帧ID\n        \n        Returns:\n            当前正在等待的帧ID",
+    "检查是否包含某个标志\n        \n        Args:\n            flag: 要检查的标志\n        \n        Returns:\n            True 如果包含该标志",
+    "记录一帧\n        \n        Args:\n            frame_id: 帧ID\n            inputs: 玩家输入 {player_id: input_data}",
+    "初始化帧引擎\n        \n        Args:\n            player_count: 玩家数量\n            buffer_size: 帧缓冲大小",
+    "转换为浮点数坐标\n        \n        Returns:\n            (x, y) 元组，浮点数像素坐标",
+    "检查输入坐标范围是否合法\n        \n        Args:\n            target_x: 目标X坐标（定点数）\n            target_y: 目标Y坐标（定点数）\n        \n        Returns:\n            True 如果范围合法",
+    "获取已提交的帧数据\n        \n        Args:\n            frame_id: 帧ID\n        \n        Returns:\n            Frame 对象，不存在则返回 None",
+    "设置状态\n        \n        用于恢复之前保存的 RNG 状态。\n        \n        Args:\n            state: 之前保存的状态值",
+    "加载指定配置文件\n    \n    Args:\n        path: 配置文件路径\n    \n    Returns:\n        Config 实例",
+    "强制推进帧（超时处理）\n        \n        当某些玩家输入长时间未到时，强制生成一个帧，\n        缺失的玩家输入用空数据填充。\n        \n        Returns:\n            强制生成的 Frame（confirmed=False）",
+    "初始化 RNG\n        \n        Args:\n            seed: 随机种子（所有客户端必须使用相同值）\n        \n        Note:\n            种子 0 会被自动改为 1（算法要求状态非零）",
+    "设置输入标志\n        \n        Args:\n            flag: 要设置的标志（可组合多个）",
+    "帧同步引擎\n    \n    负责协调帧同步的核心组件：\n    1. 收集所有玩家的输入\n    2. 等待帧完整后生成 Frame\n    3. 管理帧历史记录\n    4. 提供超时强制推进功能\n    \n    使用示例:\n        engine = FrameEngine(player_count=2, buffer_size=3)\n        \n        # 每帧收集输",
+    "生成范围整数\n        \n        Args:\n            min_val: 最小值\n            max_val: 最大值\n        \n        Returns:\n            [min_val, max_val] 范围的整数"
+  ]
+}

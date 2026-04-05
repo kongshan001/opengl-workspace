@@ -1,0 +1,71 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/algorithms_test",
+  "language": "cpp",
+  "total_files": 1,
+  "total_lines": 81,
+  "modules": [
+    {
+      "name": "src",
+      "path": "/root/.openclaw/workspace-opengl/repos/algorithms_test/src",
+      "language": "cpp",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/algorithms_test/src/o1.cpp"
+      ],
+      "imports": [
+        "unordered_map",
+        "queue",
+        "vector",
+        "unordered_set"
+      ],
+      "exports": [],
+      "classes": [],
+      "functions": [
+        "y",
+        "Vertex",
+        "getVertex",
+        "neighbors",
+        "if",
+        "if",
+        "if",
+        "if",
+        "bfs",
+        "Vertex",
+        "neighbors",
+        "for",
+        "main",
+        "bfs"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "stl-containers"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "stl-containers",
+      "description": "C++ stl-containers",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/algorithms_test/src/o1.cpp"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "functions": "camelCase"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

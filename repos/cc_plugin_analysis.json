@@ -1,0 +1,79 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/cc_plugin",
+  "language": "shell",
+  "total_files": 1,
+  "total_lines": 47,
+  "modules": [
+    {
+      "name": "shell",
+      "path": "/root/.openclaw/workspace-opengl/repos/cc_plugin",
+      "language": "shell",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_plugin/research.sh"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "env-variables",
+        "pipe-commands",
+        "conditionals",
+        "process-substitution"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "env-variables",
+      "description": "Shell env-variables",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_plugin/research.sh"
+      ]
+    },
+    {
+      "name": "pipe-commands",
+      "description": "Shell pipe-commands",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_plugin/research.sh"
+      ]
+    },
+    {
+      "name": "conditionals",
+      "description": "Shell conditionals",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_plugin/research.sh"
+      ]
+    },
+    {
+      "name": "process-substitution",
+      "description": "Shell process-substitution",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_plugin/research.sh"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {},
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

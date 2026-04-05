@@ -1,0 +1,548 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/test-cocos/cocos-engine",
+  "language": "typescript",
+  "total_files": 3162,
+  "total_lines": 150000,
+  "architecture": "Game Engine",
+  "entry_points": [
+    "cocos/core/index.ts",
+    "cocos/game/index.ts",
+    "editor/engine-features/types.ts"
+  ],
+  "modules": [
+    {
+      "name": "animation",
+      "path": "cocos/animation",
+      "language": "typescript",
+      "files": [
+        "cocos/animation/index.ts",
+        "cocos/animation/file1.ts",
+        "cocos/animation/file2.ts",
+        "cocos/animation/file3.ts",
+        "cocos/animation/file4.ts",
+        "cocos/animation/file5.ts",
+        "cocos/animation/file6.ts",
+        "cocos/animation/file7.ts",
+        "cocos/animation/file8.ts",
+        "cocos/animation/file9.ts"
+      ],
+      "imports": [
+        "@cocos/core",
+        "@cocos/scene-graph",
+        "@cocos/misc"
+      ],
+      "exports": [
+        "AnimationClip",
+        "AnimationState",
+        "SkeletonAnimation"
+      ],
+      "classes": [
+        "AnimationClip",
+        "AnimationState",
+        "Animation",
+        "SkeletonAnimation"
+      ],
+      "functions": [
+        "playAnimation",
+        "stopAnimation",
+        "crossFade"
+      ],
+      "dependencies": [
+        "core",
+        "scene-graph"
+      ],
+      "patterns": [
+        "component-based",
+        "event-driven",
+        "state-machine"
+      ],
+      "domain_knowledge": [
+        "\u52a8\u753b\u7cfb\u7edf",
+        "\u9aa8\u9abc\u52a8\u753b",
+        "\u72b6\u6001\u673a",
+        "\u52a8\u753b\u6df7\u5408",
+        "\u5173\u952e\u5e27\u52a8\u753b"
+      ],
+      "conventions": {
+        "naming": "camelCase for functions, PascalCase for classes"
+      }
+    },
+    {
+      "name": "core",
+      "path": "cocos/core",
+      "language": "typescript",
+      "files": [
+        "cocos/core/index.ts",
+        "cocos/core/file1.ts",
+        "cocos/core/file2.ts",
+        "cocos/core/file3.ts",
+        "cocos/core/file4.ts",
+        "cocos/core/file5.ts",
+        "cocos/core/file6.ts",
+        "cocos/core/file7.ts",
+        "cocos/core/file8.ts",
+        "cocos/core/file9.ts"
+      ],
+      "imports": [],
+      "exports": [
+        "Component",
+        "Node",
+        "Director",
+        "Game"
+      ],
+      "classes": [
+        "Component",
+        "Node",
+        "Director",
+        "Game",
+        "Scene"
+      ],
+      "functions": [
+        "find",
+        "isValid",
+        "destroy"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "ecs-pattern",
+        "object-pool",
+        "event-emitter"
+      ],
+      "domain_knowledge": [
+        "\u6e38\u620f\u5f15\u64ce\u6838\u5fc3",
+        "ECS\u67b6\u6784",
+        "\u573a\u666f\u56fe",
+        "\u751f\u547d\u5468\u671f\u7ba1\u7406"
+      ],
+      "conventions": {
+        "naming": "camelCase for functions, PascalCase for classes"
+      }
+    },
+    {
+      "name": "physics",
+      "path": "cocos/physics",
+      "language": "typescript",
+      "files": [
+        "cocos/physics/index.ts",
+        "cocos/physics/file1.ts",
+        "cocos/physics/file2.ts",
+        "cocos/physics/file3.ts",
+        "cocos/physics/file4.ts",
+        "cocos/physics/file5.ts",
+        "cocos/physics/file6.ts",
+        "cocos/physics/file7.ts",
+        "cocos/physics/file8.ts",
+        "cocos/physics/file9.ts"
+      ],
+      "imports": [
+        "@cocos/core",
+        "cannon.js"
+      ],
+      "exports": [
+        "RigidBody",
+        "Collider",
+        "PhysicsWorld"
+      ],
+      "classes": [
+        "RigidBody",
+        "Collider",
+        "PhysicsWorld",
+        "Joint"
+      ],
+      "functions": [
+        "raycast",
+        "sweepTest",
+        "overlapTest"
+      ],
+      "dependencies": [
+        "core"
+      ],
+      "patterns": [
+        "component-based",
+        "physics-integration"
+      ],
+      "domain_knowledge": [
+        "\u7269\u7406\u6a21\u62df",
+        "\u78b0\u649e\u68c0\u6d4b",
+        "\u521a\u4f53\u52a8\u529b\u5b66",
+        "\u5173\u8282\u7cfb\u7edf"
+      ],
+      "conventions": {
+        "naming": "camelCase for functions, PascalCase for classes"
+      }
+    },
+    {
+      "name": "gfx",
+      "path": "cocos/gfx",
+      "language": "typescript",
+      "files": [
+        "cocos/gfx/index.ts",
+        "cocos/gfx/file1.ts",
+        "cocos/gfx/file2.ts",
+        "cocos/gfx/file3.ts",
+        "cocos/gfx/file4.ts",
+        "cocos/gfx/file5.ts",
+        "cocos/gfx/file6.ts",
+        "cocos/gfx/file7.ts",
+        "cocos/gfx/file8.ts",
+        "cocos/gfx/file9.ts"
+      ],
+      "imports": [],
+      "exports": [
+        "Device",
+        "Buffer",
+        "Texture",
+        "Shader"
+      ],
+      "classes": [
+        "Device",
+        "Buffer",
+        "Texture",
+        "Shader",
+        "PipelineState"
+      ],
+      "functions": [
+        "createBuffer",
+        "createTexture",
+        "createShader"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "abstraction-layer",
+        "rendering-api"
+      ],
+      "domain_knowledge": [
+        "\u56fe\u5f62API\u62bd\u8c61",
+        "WebGL/Vulkan/Metal",
+        "\u6e32\u67d3\u7ba1\u7ebf",
+        "\u7740\u8272\u5668\u7ba1\u7406"
+      ],
+      "conventions": {
+        "naming": "camelCase for functions, PascalCase for classes"
+      }
+    },
+    {
+      "name": "rendering",
+      "path": "cocos/rendering",
+      "language": "typescript",
+      "files": [
+        "cocos/rendering/index.ts",
+        "cocos/rendering/file1.ts",
+        "cocos/rendering/file2.ts",
+        "cocos/rendering/file3.ts",
+        "cocos/rendering/file4.ts",
+        "cocos/rendering/file5.ts",
+        "cocos/rendering/file6.ts",
+        "cocos/rendering/file7.ts",
+        "cocos/rendering/file8.ts",
+        "cocos/rendering/file9.ts"
+      ],
+      "imports": [
+        "@cocos/gfx",
+        "@cocos/core"
+      ],
+      "exports": [
+        "Renderer",
+        "Camera",
+        "Light",
+        "ForwardPipeline"
+      ],
+      "classes": [
+        "Renderer",
+        "Camera",
+        "Light",
+        "Pipeline"
+      ],
+      "functions": [
+        "render",
+        "present",
+        "resize"
+      ],
+      "dependencies": [
+        "gfx",
+        "core"
+      ],
+      "patterns": [
+        "pipeline-pattern",
+        "render-pass"
+      ],
+      "domain_knowledge": [
+        "\u6e32\u67d3\u7cfb\u7edf",
+        "\u76f8\u673a\u7cfb\u7edf",
+        "\u5149\u7167\u7cfb\u7edf",
+        "\u6e32\u67d3\u7ba1\u7ebf"
+      ],
+      "conventions": {
+        "naming": "camelCase for functions, PascalCase for classes"
+      }
+    },
+    {
+      "name": "2d",
+      "path": "cocos/2d",
+      "language": "typescript",
+      "files": [
+        "cocos/2d/index.ts",
+        "cocos/2d/file1.ts",
+        "cocos/2d/file2.ts",
+        "cocos/2d/file3.ts",
+        "cocos/2d/file4.ts",
+        "cocos/2d/file5.ts",
+        "cocos/2d/file6.ts",
+        "cocos/2d/file7.ts",
+        "cocos/2d/file8.ts",
+        "cocos/2d/file9.ts"
+      ],
+      "imports": [
+        "@cocos/core",
+        "@cocos/rendering"
+      ],
+      "exports": [
+        "Sprite",
+        "Label",
+        "Mask",
+        "Graphics"
+      ],
+      "classes": [
+        "Sprite",
+        "Label",
+        "Mask",
+        "Graphics",
+        "UIComponent"
+      ],
+      "functions": [
+        "updateVertexData",
+        "updateMaterial"
+      ],
+      "dependencies": [
+        "core",
+        "rendering"
+      ],
+      "patterns": [
+        "component-based",
+        "ui-system"
+      ],
+      "domain_knowledge": [
+        "2D\u6e32\u67d3",
+        "\u7cbe\u7075\u7cfb\u7edf",
+        "\u6587\u672c\u6e32\u67d3",
+        "\u906e\u7f69\u6548\u679c"
+      ],
+      "conventions": {
+        "naming": "camelCase for functions, PascalCase for classes"
+      }
+    },
+    {
+      "name": "3d",
+      "path": "cocos/3d",
+      "language": "typescript",
+      "files": [
+        "cocos/3d/index.ts",
+        "cocos/3d/file1.ts",
+        "cocos/3d/file2.ts",
+        "cocos/3d/file3.ts",
+        "cocos/3d/file4.ts",
+        "cocos/3d/file5.ts",
+        "cocos/3d/file6.ts",
+        "cocos/3d/file7.ts",
+        "cocos/3d/file8.ts",
+        "cocos/3d/file9.ts"
+      ],
+      "imports": [
+        "@cocos/core",
+        "@cocos/rendering"
+      ],
+      "exports": [
+        "MeshRenderer",
+        "SkinnedMeshRenderer",
+        "Model"
+      ],
+      "classes": [
+        "MeshRenderer",
+        "SkinnedMeshRenderer",
+        "Model"
+      ],
+      "functions": [
+        "updateBound",
+        "updateMaterial"
+      ],
+      "dependencies": [
+        "core",
+        "rendering"
+      ],
+      "patterns": [
+        "component-based",
+        "mesh-rendering"
+      ],
+      "domain_knowledge": [
+        "3D\u7f51\u683c\u6e32\u67d3",
+        "\u8499\u76ae\u7f51\u683c",
+        "\u6a21\u578b\u52a0\u8f7d"
+      ],
+      "conventions": {
+        "naming": "camelCase for functions, PascalCase for classes"
+      }
+    },
+    {
+      "name": "physics-2d",
+      "path": "cocos/physics-2d",
+      "language": "typescript",
+      "files": [
+        "cocos/physics-2d/index.ts",
+        "cocos/physics-2d/file1.ts",
+        "cocos/physics-2d/file2.ts",
+        "cocos/physics-2d/file3.ts",
+        "cocos/physics-2d/file4.ts",
+        "cocos/physics-2d/file5.ts",
+        "cocos/physics-2d/file6.ts",
+        "cocos/physics-2d/file7.ts",
+        "cocos/physics-2d/file8.ts",
+        "cocos/physics-2d/file9.ts"
+      ],
+      "imports": [
+        "@cocos/core",
+        "box2d.js"
+      ],
+      "exports": [
+        "RigidBody2D",
+        "Collider2D",
+        "PhysicsWorld2D"
+      ],
+      "classes": [
+        "RigidBody2D",
+        "Collider2D",
+        "PhysicsWorld2D"
+      ],
+      "functions": [
+        "raycast2D",
+        "testPoint"
+      ],
+      "dependencies": [
+        "core"
+      ],
+      "patterns": [
+        "component-based",
+        "2d-physics"
+      ],
+      "domain_knowledge": [
+        "2D\u7269\u7406",
+        "Box2D\u96c6\u6210",
+        "\u78b0\u649e\u68c0\u6d4b"
+      ],
+      "conventions": {
+        "naming": "camelCase for functions, PascalCase for classes"
+      }
+    }
+  ],
+  "patterns": [
+    {
+      "name": "component-based",
+      "description": "ECS\u7ec4\u4ef6\u7cfb\u7edf\u6a21\u5f0f",
+      "examples": [
+        "Component base class",
+        "Node-Component relationship"
+      ],
+      "frequency": 95,
+      "files": [
+        "core/Component.ts",
+        "2d/Sprite.ts"
+      ]
+    },
+    {
+      "name": "event-driven",
+      "description": "\u4e8b\u4ef6\u9a71\u52a8\u67b6\u6784",
+      "examples": [
+        "EventEmitter",
+        "Game events"
+      ],
+      "frequency": 80,
+      "files": [
+        "core/Eventify.ts",
+        "game/Game.ts"
+      ]
+    },
+    {
+      "name": "async/await",
+      "description": "\u5f02\u6b65\u52a0\u8f7d\u548c\u8d44\u6e90\u7ba1\u7406",
+      "examples": [
+        "Asset loading",
+        "Resource management"
+      ],
+      "frequency": 60,
+      "files": [
+        "asset/AssetManager.ts"
+      ]
+    }
+  ],
+  "public_apis": {
+    "core": [
+      "Component",
+      "Node",
+      "Director",
+      "Game",
+      "Scene"
+    ],
+    "animation": [
+      "AnimationClip",
+      "AnimationState",
+      "Animation"
+    ],
+    "physics": [
+      "RigidBody",
+      "Collider",
+      "PhysicsWorld"
+    ],
+    "gfx": [
+      "Device",
+      "Buffer",
+      "Texture",
+      "Shader"
+    ],
+    "rendering": [
+      "Renderer",
+      "Camera",
+      "Light"
+    ]
+  },
+  "dependencies": {
+    "animation": [
+      "core",
+      "scene-graph"
+    ],
+    "physics": [
+      "core"
+    ],
+    "rendering": [
+      "gfx",
+      "core"
+    ],
+    "2d": [
+      "core",
+      "rendering"
+    ],
+    "3d": [
+      "core",
+      "rendering"
+    ]
+  },
+  "conventions": {
+    "naming": {
+      "classes": "PascalCase",
+      "functions": "camelCase",
+      "constants": "UPPER_CASE"
+    },
+    "structure": {
+      "modules": "\u6309\u529f\u80fd\u5212\u5206",
+      "exports": "index.ts \u7edf\u4e00\u5bfc\u51fa"
+    }
+  },
+  "domain_knowledge": [
+    "Cocos Creator \u6e38\u620f\u5f15\u64ce",
+    "\u7ec4\u4ef6\u7cfb\u7edf\uff08ECS\u67b6\u6784\uff09",
+    "\u6e32\u67d3\u7ba1\u7ebf\u62bd\u8c61",
+    "\u7269\u7406\u5f15\u64ce\u96c6\u6210",
+    "\u52a8\u753b\u7cfb\u7edf",
+    "2D/3D \u6e32\u67d3",
+    "\u8d44\u6e90\u7ba1\u7406",
+    "\u8de8\u5e73\u53f0\u652f\u6301"
+  ]
+}

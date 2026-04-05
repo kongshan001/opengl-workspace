@@ -1,0 +1,3282 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw",
+  "language": "python",
+  "total_files": 11,
+  "total_lines": 2794,
+  "modules": [
+    {
+      "name": "tests",
+      "path": "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_game_controller.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/conftest.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_glm_vision.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_config.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_auto_tester.py"
+      ],
+      "imports": [
+        "src.game_controller",
+        "PIL",
+        "src.glm_vision",
+        "platform",
+        "pytest",
+        "importlib",
+        "config",
+        "base64",
+        "unittest.mock",
+        "src.auto_tester",
+        "time",
+        "json",
+        "os",
+        "pathlib",
+        "tempfile",
+        "sys"
+      ],
+      "exports": [],
+      "classes": [
+        "TestWindowInfo",
+        "TestGameControllerInit",
+        "TestFindWindow",
+        "TestTakeScreenshot",
+        "TestInputOperations",
+        "TestLaunchGame",
+        "TestSwipe",
+        "TestGetWindowRect",
+        "TestIntegration",
+        "TestGLMVisionInit",
+        "TestBuildContent",
+        "TestEncodeImage",
+        "TestExtractJson",
+        "TestAnalyze",
+        "TestFindElement",
+        "TestVerifyState",
+        "TestDecideAction",
+        "TestConfig",
+        "TestEnvHelpers",
+        "TestAutoGameTesterInit",
+        "TestBuildContext",
+        "TestExecuteAction",
+        "TestCheckFinalGoal",
+        "TestRun"
+      ],
+      "functions": [
+        "mock_pyautogui"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "decorators: patch, pytest",
+        "context-manager",
+        "type-hints",
+        "pytest-testing",
+        "decorators: pytest",
+        "pytest-testing",
+        "decorators: patch",
+        "context-manager",
+        "type-hints",
+        "pytest-testing",
+        "decorators: patch",
+        "context-manager",
+        "type-hints",
+        "pytest-testing",
+        "decorators: patch",
+        "context-manager",
+        "type-hints",
+        "pytest-testing"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "TestWindowInfo",
+          "methods": [
+            {
+              "name": "test_window_info_creation",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试窗口信息创建",
+              "line_count": 19,
+              "call_count": 1
+            },
+            {
+              "name": "test_window_rect",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试窗口矩形",
+              "line_count": 13,
+              "call_count": 1
+            },
+            {
+              "name": "test_window_center",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试窗口中心点",
+              "line_count": 13,
+              "call_count": 1
+            },
+            {
+              "name": "test_window_repr",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试窗口字符串表示",
+              "line_count": 15,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "WindowInfo 类测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestGameControllerInit",
+          "methods": [
+            {
+              "name": "test_init_default",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认初始化",
+              "line_count": 8,
+              "call_count": 1
+            },
+            {
+              "name": "test_init_with_params",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试带参数初始化",
+              "line_count": 9,
+              "call_count": 1
+            },
+            {
+              "name": "test_screenshot_dir_created",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试截图目录创建",
+              "line_count": 4,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "GameController 初始化测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestFindWindow",
+          "methods": [
+            {
+              "name": "test_find_window_no_target",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试无目标时的窗口查找",
+              "line_count": 7,
+              "call_count": 3
+            },
+            {
+              "name": "test_list_windows_windows",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 Windows 窗口列表",
+              "line_count": 9,
+              "call_count": 5
+            },
+            {
+              "name": "test_list_windows_linux",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 Linux 窗口列表",
+              "line_count": 7,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "窗口查找测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestTakeScreenshot",
+          "methods": [
+            {
+              "name": "test_take_screenshot_creates_file",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "tmp_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试截图创建文件",
+              "line_count": 22,
+              "call_count": 9
+            },
+            {
+              "name": "test_take_screenshot_auto_name",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "tmp_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试自动命名截图",
+              "line_count": 21,
+              "call_count": 8
+            },
+            {
+              "name": "test_take_screenshot_returns_valid_image",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试截图返回有效图片",
+              "line_count": 14,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "截图测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestInputOperations",
+          "methods": [
+            {
+              "name": "test_wait",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试等待功能",
+              "line_count": 11,
+              "call_count": 4
+            },
+            {
+              "name": "test_click",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_click",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试点击",
+              "line_count": 6,
+              "call_count": 4
+            },
+            {
+              "name": "test_press_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_press",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试按键",
+              "line_count": 6,
+              "call_count": 4
+            },
+            {
+              "name": "test_hotkey",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_hotkey",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试组合键",
+              "line_count": 6,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "输入操作测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestLaunchGame",
+          "methods": [
+            {
+              "name": "test_launch_nonexistent_game",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试启动不存在的游戏",
+              "line_count": 7,
+              "call_count": 2
+            },
+            {
+              "name": "test_launch_game_with_mock",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "测试启动游戏（Mock）",
+              "line_count": 22,
+              "call_count": 7
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "游戏启动测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestSwipe",
+          "methods": [
+            {
+              "name": "test_swipe_up",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_drag",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_move",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试向上滑动",
+              "line_count": 7,
+              "call_count": 6
+            },
+            {
+              "name": "test_swipe_down",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_drag",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_move",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试向下滑动",
+              "line_count": 6,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "滑动测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestGetWindowRect",
+          "methods": [
+            {
+              "name": "test_get_window_rect_no_window",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试无窗口时获取区域",
+              "line_count": 8,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "获取窗口区域测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestIntegration",
+          "methods": [
+            {
+              "name": "test_full_screenshot_flow",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "tmp_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试完整截图流程",
+              "line_count": 23,
+              "call_count": 8
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "集成测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestGLMVisionInit",
+          "methods": [
+            {
+              "name": "test_init_with_config",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试使用配置初始化",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "test_init_with_custom_params",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试自定义参数初始化",
+              "line_count": 5,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "GLMVision 初始化测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestBuildContent",
+          "methods": [
+            {
+              "name": "test_build_text_only",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试纯文本内容",
+              "line_count": 8,
+              "call_count": 3
+            },
+            {
+              "name": "test_build_with_image_url",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试图片 URL 内容",
+              "line_count": 12,
+              "call_count": 3
+            },
+            {
+              "name": "test_build_with_video_url",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试视频 URL 内容",
+              "line_count": 9,
+              "call_count": 3
+            },
+            {
+              "name": "test_build_with_file_url",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试文件 URL 内容",
+              "line_count": 9,
+              "call_count": 3
+            },
+            {
+              "name": "test_build_with_local_image",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "tmp_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试本地图片内容",
+              "line_count": 18,
+              "call_count": 8
+            }
+          ],
+          "properties": [],
+          "complexity": 9,
+          "docstring": "消息内容构建测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestEncodeImage",
+          "methods": [
+            {
+              "name": "test_encode_image",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "tmp_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试图片转 base64",
+              "line_count": 19,
+              "call_count": 9
+            },
+            {
+              "name": "test_encode_nonexistent_image",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试编码不存在的图片",
+              "line_count": 6,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "图片编码测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestExtractJson",
+          "methods": [
+            {
+              "name": "test_extract_direct_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试直接 JSON 解析",
+              "line_count": 8,
+              "call_count": 2
+            },
+            {
+              "name": "test_extract_json_from_code_block",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试从代码块提取 JSON",
+              "line_count": 13,
+              "call_count": 2
+            },
+            {
+              "name": "test_extract_json_from_plain_code_block",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试从无语言标记的代码块提取",
+              "line_count": 12,
+              "call_count": 2
+            },
+            {
+              "name": "test_extract_embedded_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试从文本中提取嵌入的 JSON",
+              "line_count": 8,
+              "call_count": 2
+            },
+            {
+              "name": "test_extract_invalid_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试无效 JSON 返回 None",
+              "line_count": 8,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "JSON 提取测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestAnalyze",
+          "methods": [
+            {
+              "name": "test_analyze_with_http_success",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "tmp_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 HTTP 调用成功",
+              "line_count": 31,
+              "call_count": 9
+            },
+            {
+              "name": "test_analyze_http_error",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试 HTTP 调用失败",
+              "line_count": 14,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "分析功能测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestFindElement",
+          "methods": [
+            {
+              "name": "test_find_element_success",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "tmp_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试成功找到元素",
+              "line_count": 21,
+              "call_count": 6
+            },
+            {
+              "name": "test_find_element_not_found",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "tmp_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试未找到元素",
+              "line_count": 19,
+              "call_count": 6
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "元素查找测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestVerifyState",
+          "methods": [
+            {
+              "name": "test_verify_state_matched",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "tmp_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试状态匹配",
+              "line_count": 20,
+              "call_count": 6
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "状态验证测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestDecideAction",
+          "methods": [
+            {
+              "name": "test_decide_click_action",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "tmp_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试点击决策",
+              "line_count": 21,
+              "call_count": 6
+            },
+            {
+              "name": "test_decide_wait_action",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "tmp_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试等待决策",
+              "line_count": 20,
+              "call_count": 6
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "决策测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestConfig",
+          "methods": [
+            {
+              "name": "test_glm_api_url",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试 API URL 配置",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "test_glm_model_default",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试默认模型配置",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "test_directories_exist",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试目录是否创建",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "test_max_steps_default",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试最大步数默认值",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "test_timeout_config",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试超时配置",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "test_test_goals_structure",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试测试目标结构",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "test_env_override",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试环境变量覆盖",
+              "line_count": 6,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "配置模块测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestEnvHelpers",
+          "methods": [
+            {
+              "name": "test_get_env_bool_true",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "测试布尔值解析 - True",
+              "line_count": 10,
+              "call_count": 6
+            },
+            {
+              "name": "test_get_env_bool_false",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试布尔值解析 - False",
+              "line_count": 7,
+              "call_count": 4
+            },
+            {
+              "name": "test_get_env_bool_default",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "测试布尔值默认值",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "test_get_env_int",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试整数值解析",
+              "line_count": 7,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 11,
+          "docstring": "环境变量辅助函数测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestAutoGameTesterInit",
+          "methods": [
+            {
+              "name": "test_init_default",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试默认初始化",
+              "line_count": 8,
+              "call_count": 3
+            },
+            {
+              "name": "test_init_with_params",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试带参数初始化",
+              "line_count": 11,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "AutoGameTester 初始化测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestBuildContext",
+          "methods": [
+            {
+              "name": "test_build_context_empty",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试空历史上下文",
+              "line_count": 9,
+              "call_count": 4
+            },
+            {
+              "name": "test_build_context_with_history",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试有历史记录的上下文",
+              "line_count": 19,
+              "call_count": 4
+            },
+            {
+              "name": "test_build_context_limits_to_recent",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "测试上下文限制为最近记录",
+              "line_count": 19,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "上下文构建测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestExecuteAction",
+          "methods": [
+            {
+              "name": "test_execute_click_action",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试执行点击动作",
+              "line_count": 22,
+              "call_count": 7
+            },
+            {
+              "name": "test_execute_click_find_element",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试点击时查找元素",
+              "line_count": 24,
+              "call_count": 8
+            },
+            {
+              "name": "test_execute_wait_action",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试执行等待动作",
+              "line_count": 17,
+              "call_count": 7
+            },
+            {
+              "name": "test_execute_input_action",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试执行输入动作",
+              "line_count": 23,
+              "call_count": 7
+            },
+            {
+              "name": "test_execute_swipe_action",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试执行滑动动作",
+              "line_count": 17,
+              "call_count": 7
+            },
+            {
+              "name": "test_execute_done_action",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试完成动作",
+              "line_count": 13,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 12,
+          "docstring": "动作执行测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestCheckFinalGoal",
+          "methods": [
+            {
+              "name": "test_check_final_goal_achieved",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试目标达成",
+              "line_count": 14,
+              "call_count": 5
+            },
+            {
+              "name": "test_check_final_goal_not_achieved",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试目标未达成",
+              "line_count": 14,
+              "call_count": 5
+            },
+            {
+              "name": "test_check_final_goal_low_confidence",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试低置信度",
+              "line_count": 15,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 6,
+          "docstring": "最终目标检查测试",
+          "inheritance": []
+        },
+        {
+          "name": "TestRun",
+          "methods": [
+            {
+              "name": "test_run_max_steps_reached",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_controller_cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_vision_cls",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试达到最大步数",
+              "line_count": 21,
+              "call_count": 7
+            },
+            {
+              "name": "test_run_goal_achieved",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_controller_cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_vision_cls",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试目标达成",
+              "line_count": 20,
+              "call_count": 7
+            },
+            {
+              "name": "test_run_records_history",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_controller_cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mock_vision_cls",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "测试记录历史",
+              "line_count": 18,
+              "call_count": 8
+            }
+          ],
+          "properties": [],
+          "complexity": 6,
+          "docstring": "运行测试",
+          "inheritance": []
+        }
+      ],
+      "functions_info": [
+        {
+          "name": "mock_pyautogui",
+          "parameters": [],
+          "return_type": null,
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "返回 pyautogui mock",
+          "line_count": 3,
+          "call_count": 0
+        }
+      ]
+    },
+    {
+      "name": "src",
+      "path": "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/glm_vision.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/test_flow.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/game_controller.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/auto_tester.py"
+      ],
+      "imports": [
+        "auto_tester",
+        "re",
+        "config",
+        "base64",
+        "json",
+        "zai",
+        "platform",
+        "pyperclip",
+        "typing",
+        "requests",
+        "pyautogui",
+        "PIL",
+        "psutil",
+        "subprocess",
+        "sys",
+        "game_controller",
+        "win32gui",
+        "win32con",
+        "io",
+        "glm_vision",
+        "unittest.mock",
+        "win32ui",
+        "time",
+        "os",
+        "win32process",
+        "pathlib"
+      ],
+      "exports": [],
+      "classes": [
+        "GLMVision",
+        "TestFlow",
+        "WindowInfo",
+        "GameController",
+        "AutoGameTester"
+      ],
+      "functions": [
+        "__getattr__",
+        "run_test"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "decorators: property",
+        "context-manager",
+        "type-hints",
+        "type-hints",
+        "decorators: property",
+        "type-hints",
+        "type-hints"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "GLMVision",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "api_key",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "model",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 0
+            },
+            {
+              "name": "client",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "延迟初始化 SDK client",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "_encode_image",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "image_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "图片转 base64\n\nGLM-4.6V 支持直接传入 base64 字符串，无需 data URI 前缀",
+              "line_count": 8,
+              "call_count": 4
+            },
+            {
+              "name": "_build_content",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "text",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "image_urls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "video_urls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "file_urls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "local_image",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[Dict]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 8,
+              "docstring": "构建多模态消息内容\n\nArgs:\n    text: 文本提示\n    image_urls: 图片 URL 列表\n    video_urls: 视频 URL 列表\n    file_urls: 文件 URL 列表\n    local_image: 本地图片路径\n\nReturns:\n    content 列表",
+              "line_count": 62,
+              "call_count": 6
+            },
+            {
+              "name": "analyze",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "prompt",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "image_path",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "image_urls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "video_urls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "file_urls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "thinking",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "stream",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d85297ed0>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "多模态分析\n\nArgs:\n    prompt: 文本提示\n    image_path: 本地图片路径\n    image_urls: 图片 URL 列表\n    video_urls: 视频 URL 列表\n    file_urls: 文件 URL 列表\n    thinking: 是否开启深度思考\n    stream: 是否流式输出\n\nReturns:\n    {\"success\": bool, \"content\": str, \"reasoning\": str, \"error\": str}",
+              "line_count": 41,
+              "call_count": 4
+            },
+            {
+              "name": "_analyze_with_sdk",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "content",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "thinking",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "stream",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d852ab990>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 6,
+              "docstring": "使用 zai-sdk 调用",
+              "line_count": 30,
+              "call_count": 6
+            },
+            {
+              "name": "_analyze_with_http",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "content",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "thinking",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "stream",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d85288910>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 6,
+              "docstring": "使用原生 HTTP 调用 (fallback)",
+              "line_count": 55,
+              "call_count": 6
+            },
+            {
+              "name": "_handle_stream_response",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "response",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d8528c7d0>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "处理 SDK 流式响应",
+              "line_count": 18,
+              "call_count": 6
+            },
+            {
+              "name": "_handle_http_stream",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "response",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d852dc150>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 9,
+              "docstring": "处理 HTTP 流式响应",
+              "line_count": 28,
+              "call_count": 9
+            },
+            {
+              "name": "_extract_json",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "text",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Dict]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 7,
+              "docstring": "从文本中提取 JSON",
+              "line_count": 26,
+              "call_count": 8
+            },
+            {
+              "name": "find_element",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "image_path",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element_name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d852d5550>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "查找界面元素位置\n\nArgs:\n    image_path: 截图路径\n    element_name: 元素描述\n\nReturns:\n    {\"found\": bool, \"x\": int, \"y\": int, \"width\": int, \"height\": int}",
+              "line_count": 29,
+              "call_count": 2
+            },
+            {
+              "name": "verify_state",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "image_path",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "expected",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d852d4f90>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "验证界面状态\n\nArgs:\n    image_path: 截图路径\n    expected: 期望状态的描述\n\nReturns:\n    {\"matched\": bool, \"confidence\": float, \"detail\": str}",
+              "line_count": 29,
+              "call_count": 2
+            },
+            {
+              "name": "decide_action",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "image_path",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "goal",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d853051d0>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "智能决策下一步操作\n\nArgs:\n    image_path: 截图路径\n    goal: 当前目标\n    context: 上下文信息（可选）\n\nReturns:\n    {\n        \"action\": \"click|input|wait|swipe|done|fail\",\n        \"target\": \"操作目标描述\",\n        \"x\": 100, \"y\": 200,\n        \"text\": \"输入内容（input时）\",\n        \"next_goal\": \"下一步目标\",\n        \"screenshot\": \"截图路径\"\n    }",
+              "line_count": 60,
+              "call_count": 2
+            },
+            {
+              "name": "describe_screen",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "image_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "描述当前界面内容\n\nArgs:\n    image_path: 截图路径\n\nReturns:\n    界面描述文本",
+              "line_count": 21,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 60,
+          "docstring": "GLM-4.6V 视觉理解\n\n支持的功能:\n- 图像理解 (URL 或 base64)\n- 视频理解\n- 文件理解\n- 深度思考模式 (thinking)\n- 流式输出",
+          "inheritance": []
+        },
+        {
+          "name": "TestFlow",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "take_screenshot",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "截图并返回路径",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "execute_step",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "step",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d85297450>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 13,
+              "docstring": "执行单个测试步骤\n\nArgs:\n    step: 步骤配置\n    \nReturns:\n    执行结果",
+              "line_count": 127,
+              "call_count": 44
+            },
+            {
+              "name": "run_test",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "flow",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d85286050>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "运行完整测试流程\n\nArgs:\n    flow: 测试流程（默认使用 config.TEST_FLOW）\n    \nReturns:\n    测试报告",
+              "line_count": 40,
+              "call_count": 16
+            },
+            {
+              "name": "generate_report",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "start_time",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "end_time",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d852d5fd0>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "生成测试报告",
+              "line_count": 34,
+              "call_count": 13
+            }
+          ],
+          "properties": [],
+          "complexity": 23,
+          "docstring": "测试流程编排",
+          "inheritance": []
+        },
+        {
+          "name": "WindowInfo",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "handle",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "title",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "left",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "top",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "width",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "height",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "pid",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "rect",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Tuple[<ast.Tuple object at 0x733d852dd790>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "返回 (left, top, right, bottom)",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "center",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Tuple[<ast.Tuple object at 0x733d852dc7d0>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "返回窗口中心点",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "__repr__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "窗口信息",
+          "inheritance": []
+        },
+        {
+          "name": "GameController",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "process_name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "window_title",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "初始化控制器\n\nArgs:\n    process_name: 进程名（如 \"game.exe\"）\n    window_title: 窗口标题（支持部分匹配）",
+              "line_count": 18,
+              "call_count": 3
+            },
+            {
+              "name": "_init_window_manager",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "初始化窗口管理器",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "_init_windows",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "初始化 Windows 窗口管理",
+              "line_count": 14,
+              "call_count": 2
+            },
+            {
+              "name": "_find_window_by_pid_windows",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "pid",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[WindowInfo]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "通过进程ID查找窗口 (Windows)",
+              "line_count": 29,
+              "call_count": 6
+            },
+            {
+              "name": "_find_window_by_title_windows",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "title_pattern",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[WindowInfo]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "通过窗口标题查找窗口 (Windows)",
+              "line_count": 29,
+              "call_count": 8
+            },
+            {
+              "name": "_get_window_screenshot_windows",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "window",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Image.Image]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "截取指定窗口 (Windows)",
+              "line_count": 44,
+              "call_count": 16
+            },
+            {
+              "name": "_init_linux",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "初始化 Linux 窗口管理",
+              "line_count": 10,
+              "call_count": 3
+            },
+            {
+              "name": "_find_window_by_pid_linux",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "pid",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[WindowInfo]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "通过进程ID查找窗口 (Linux)",
+              "line_count": 17,
+              "call_count": 6
+            },
+            {
+              "name": "_find_window_by_title_linux",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "title_pattern",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[WindowInfo]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "通过窗口标题查找窗口 (Linux)",
+              "line_count": 17,
+              "call_count": 5
+            },
+            {
+              "name": "_get_window_info_linux",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "window_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[WindowInfo]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "获取窗口信息 (Linux)",
+              "line_count": 37,
+              "call_count": 16
+            },
+            {
+              "name": "_get_window_screenshot_linux",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "window",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Image.Image]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "截取指定窗口 (Linux)",
+              "line_count": 16,
+              "call_count": 5
+            },
+            {
+              "name": "find_window",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[WindowInfo]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 11,
+              "docstring": "查找目标窗口",
+              "line_count": 35,
+              "call_count": 7
+            },
+            {
+              "name": "_find_pid_by_name",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "process_name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[int]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 6,
+              "docstring": "通过进程名查找 PID",
+              "line_count": 18,
+              "call_count": 8
+            },
+            {
+              "name": "list_windows",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[WindowInfo]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 8,
+              "docstring": "列出所有可见窗口",
+              "line_count": 37,
+              "call_count": 14
+            },
+            {
+              "name": "launch_game",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "exe_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "启动游戏",
+              "line_count": 27,
+              "call_count": 11
+            },
+            {
+              "name": "close_game",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "关闭游戏",
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "take_screenshot",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "save_name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 7,
+              "docstring": "截取目标窗口（或全屏）",
+              "line_count": 25,
+              "call_count": 10
+            },
+            {
+              "name": "activate_window",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "激活目标窗口（置顶）",
+              "line_count": 14,
+              "call_count": 6
+            },
+            {
+              "name": "click",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "x",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "y",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "clicks",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "button",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "relative",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "点击",
+              "line_count": 9,
+              "call_count": 3
+            },
+            {
+              "name": "input_text",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "text",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "interval",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "输入文本",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "input_chinese",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "text",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "输入中文（通过剪贴板）",
+              "line_count": 10,
+              "call_count": 5
+            },
+            {
+              "name": "press_key",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "key",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "按下按键",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "hotkey",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "组合键",
+              "line_count": 5,
+              "call_count": 4
+            },
+            {
+              "name": "swipe",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "direction",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "distance",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "滑动",
+              "line_count": 20,
+              "call_count": 6
+            },
+            {
+              "name": "wait",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "seconds",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "等待",
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "get_window_rect",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Tuple[<ast.Tuple object at 0x733d85131fd0>]]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "获取目标窗口区域",
+              "line_count": 6,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 90,
+          "docstring": "游戏控制器\n\n支持基于进程/窗口的截图和操作",
+          "inheritance": []
+        },
+        {
+          "name": "AutoGameTester",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "api_key",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "model",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "thinking",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "初始化测试器\n\nArgs:\n    api_key: GLM API Key (默认从 config 读取)\n    model: 模型名称 (默认从 config 读取)\n    thinking: 是否开启深度思考 (默认从 config 读取)",
+              "line_count": 26,
+              "call_count": 2
+            },
+            {
+              "name": "run",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "initial_goal",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "final_goal",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "max_steps",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "on_step",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x733d852a8490>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 7,
+              "docstring": "运行自动化测试\n\nArgs:\n    initial_goal: 初始目标\n    final_goal: 最终目标\n    max_steps: 最大步数\n    on_step: 每步回调函数\n\nReturns:\n    测试报告",
+              "line_count": 112,
+              "call_count": 32
+            },
+            {
+              "name": "_build_context",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "构建上下文信息",
+              "line_count": 9,
+              "call_count": 2
+            },
+            {
+              "name": "_execute_action",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "decision",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "screenshot",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 9,
+              "docstring": "执行决策动作",
+              "line_count": 56,
+              "call_count": 29
+            },
+            {
+              "name": "_check_final_goal",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "screenshot",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "final_goal",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "检查是否达成最终目标",
+              "line_count": 6,
+              "call_count": 3
+            },
+            {
+              "name": "_print_summary",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "report",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "打印测试摘要",
+              "line_count": 11,
+              "call_count": 8
+            }
+          ],
+          "properties": [],
+          "complexity": 23,
+          "docstring": "智能游戏自动化测试器\n\n特点:\n- 完全无人值守\n- AI 自主决策\n- 目标驱动\n- 支持深度思考",
+          "inheritance": []
+        }
+      ],
+      "functions_info": [
+        {
+          "name": "__getattr__",
+          "parameters": [
+            {
+              "name": "name",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": null,
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 5,
+          "docstring": null,
+          "line_count": 14,
+          "call_count": 1
+        },
+        {
+          "name": "run_test",
+          "parameters": [
+            {
+              "name": "initial_goal",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "final_goal",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "max_steps",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Dict",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "快捷测试入口",
+          "line_count": 12,
+          "call_count": 2
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "decorators: patch, pytest",
+      "description": "Usage of decorators: patch, pytest",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_game_controller.py"
+      ]
+    },
+    {
+      "name": "context-manager",
+      "description": "Usage of context-manager",
+      "examples": [],
+      "frequency": 5,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_game_controller.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_glm_vision.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_config.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_auto_tester.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/glm_vision.py"
+      ]
+    },
+    {
+      "name": "type-hints",
+      "description": "Usage of type-hints",
+      "examples": [],
+      "frequency": 8,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_game_controller.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_glm_vision.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_config.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_auto_tester.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/glm_vision.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/test_flow.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/game_controller.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/auto_tester.py"
+      ]
+    },
+    {
+      "name": "pytest-testing",
+      "description": "Usage of pytest-testing",
+      "examples": [],
+      "frequency": 5,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_game_controller.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/conftest.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_glm_vision.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_config.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_auto_tester.py"
+      ]
+    },
+    {
+      "name": "decorators: pytest",
+      "description": "Usage of decorators: pytest",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/conftest.py"
+      ]
+    },
+    {
+      "name": "decorators: patch",
+      "description": "Usage of decorators: patch",
+      "examples": [],
+      "frequency": 3,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_glm_vision.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_config.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/tests/test_auto_tester.py"
+      ]
+    },
+    {
+      "name": "decorators: property",
+      "description": "Usage of decorators: property",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/glm_vision.py",
+        "/root/.openclaw/workspace-opengl/repos/game_auto_test_fw/src/game_controller.py"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [
+    "main.py"
+  ],
+  "public_apis": {},
+  "dependencies": {
+    "tests": [
+      "src"
+    ]
+  },
+  "conventions": {
+    "naming": {
+      "classes": "PascalCase",
+      "functions": "snake_case"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": [
+    "验证界面状态\n        \n        Args:\n            image_path: 截图路径\n            expected: 期望状态的描述\n        \n        Returns:\n            {\"matched\": bool, \"confidence\": float, \"detail\": str}",
+    "智能游戏自动化测试器 - 完全无人值守\n\n基于 GLM-4.6V 多模态模型，实现真正的智能自动化测试",
+    "初始化控制器\n        \n        Args:\n            process_name: 进程名（如 \"game.exe\"）\n            window_title: 窗口标题（支持部分匹配）",
+    "初始化测试器\n        \n        Args:\n            api_key: GLM API Key (默认从 config 读取)\n            model: 模型名称 (默认从 config 读取)\n            thinking: 是否开启深度思考 (默认从 config 读取)",
+    "GLM-4.6V 视觉理解\n    \n    支持的功能:\n    - 图像理解 (URL 或 base64)\n    - 视频理解\n    - 文件理解\n    - 深度思考模式 (thinking)\n    - 流式输出",
+    "请详细描述当前界面的内容，包括:\n1. 界面类型（登录、主菜单、游戏内等）\n2. 可见的主要元素（按钮、文字、图标等）\n3. 当前状态（加载中、等待输入、显示结果等）\n4. 任何值得注意的信息",
+    "描述当前界面内容\n        \n        Args:\n            image_path: 截图路径\n        \n        Returns:\n            界面描述文本",
+    "智能游戏自动化测试器\n    \n    特点:\n    - 完全无人值守\n    - AI 自主决策\n    - 目标驱动\n    - 支持深度思考",
+    "验证当前界面是否符合期望状态。\n\n期望状态: {expected}\n\n返回 JSON 格式:\n{{\"matched\": true, \"confidence\": 0.95, \"detail\": \"简要说明\"}}\n\n如果不符合:\n{{\"matched\": false, \"confidence\": 0.2, \"detail\": \"说明不符合的原因\"}}",
+    "多模态分析\n        \n        Args:\n            prompt: 文本提示\n            image_path: 本地图片路径\n            image_urls: 图片 URL 列表\n            video_urls: 视频 URL 列表\n            file_urls: 文件 URL 列表\n            th",
+    "图片转 base64\n        \n        GLM-4.6V 支持直接传入 base64 字符串，无需 data URI 前缀",
+    "运行自动化测试\n        \n        Args:\n            initial_goal: 初始目标\n            final_goal: 最终目标\n            max_steps: 最大步数\n            on_step: 每步回调函数\n        \n        Returns:\n            测试报告",
+    "查找界面元素位置\n        \n        Args:\n            image_path: 截图路径\n            element_name: 元素描述\n        \n        Returns:\n            {\"found\": bool, \"x\": int, \"y\": int, \"width\": int, \"height\": int}",
+    "智能决策下一步操作\n        \n        Args:\n            image_path: 截图路径\n            goal: 当前目标\n            context: 上下文信息（可选）\n        \n        Returns:\n            {\n                \"action\": \"click|input|wait|",
+    "运行完整测试流程\n        \n        Args:\n            flow: 测试流程（默认使用 config.TEST_FLOW）\n            \n        Returns:\n            测试报告",
+    "构建多模态消息内容\n        \n        Args:\n            text: 文本提示\n            image_urls: 图片 URL 列表\n            video_urls: 视频 URL 列表\n            file_urls: 文件 URL 列表\n            local_image: 本地图片路径\n        \n  ",
+    "执行单个测试步骤\n        \n        Args:\n            step: 步骤配置\n            \n        Returns:\n            执行结果",
+    "GLM-4.6V 视觉理解模块\n\n基于智谱 GLM-4.6V 多模态模型，支持图像/视频/文件理解\n文档: https://docs.bigmodel.cn/cn/guide/models/vlm/glm-4.6v",
+    "找到界面中「{element_name}」的位置。\n\n返回 JSON 格式:\n{{\"found\": true, \"x\": 100, \"y\": 200, \"width\": 50, \"height\": 30}}\n\n如果找不到，返回:\n{{\"found\": false}}\n\n坐标使用相对于图片左上角的像素位置。",
+    "Here is the result:\n        ```json\n        {\"action\": \"click\", \"x\": 50, \"y\": 100}\n        ```"
+  ]
+}

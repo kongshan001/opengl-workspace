@@ -1,0 +1,116 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/research-reports",
+  "language": "shell",
+  "total_files": 2,
+  "total_lines": 93,
+  "modules": [
+    {
+      "name": "shell-scripts",
+      "path": "/root/.openclaw/workspace-opengl/repos/research-reports/scripts",
+      "language": "shell",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/research-reports/scripts/llm-blog-research.sh"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "env-variables",
+        "pipe-commands",
+        "loops",
+        "process-substitution"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "shell-reports-github-trending",
+      "path": "/root/.openclaw/workspace-opengl/repos/research-reports/reports/github-trending",
+      "language": "shell",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/research-reports/reports/github-trending/github-trending.sh"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "env-variables",
+        "pipe-commands",
+        "loops",
+        "error-handling",
+        "process-substitution"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "env-variables",
+      "description": "Shell env-variables",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/research-reports/scripts/llm-blog-research.sh",
+        "/root/.openclaw/workspace-opengl/repos/research-reports/reports/github-trending/github-trending.sh"
+      ]
+    },
+    {
+      "name": "pipe-commands",
+      "description": "Shell pipe-commands",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/research-reports/scripts/llm-blog-research.sh",
+        "/root/.openclaw/workspace-opengl/repos/research-reports/reports/github-trending/github-trending.sh"
+      ]
+    },
+    {
+      "name": "loops",
+      "description": "Shell loops",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/research-reports/scripts/llm-blog-research.sh",
+        "/root/.openclaw/workspace-opengl/repos/research-reports/reports/github-trending/github-trending.sh"
+      ]
+    },
+    {
+      "name": "process-substitution",
+      "description": "Shell process-substitution",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/research-reports/scripts/llm-blog-research.sh",
+        "/root/.openclaw/workspace-opengl/repos/research-reports/reports/github-trending/github-trending.sh"
+      ]
+    },
+    {
+      "name": "error-handling",
+      "description": "Shell error-handling",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/research-reports/reports/github-trending/github-trending.sh"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {},
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

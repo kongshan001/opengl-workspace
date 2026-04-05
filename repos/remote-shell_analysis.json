@@ -1,0 +1,1737 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/remote-shell",
+  "language": "python",
+  "total_files": 8,
+  "total_lines": 2409,
+  "modules": [
+    {
+      "name": "server",
+      "path": "/root/.openclaw/workspace-opengl/repos/remote-shell/server",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/server/server.py"
+      ],
+      "imports": [
+        "common.protocol",
+        "ssl",
+        "os",
+        "uuid",
+        "typing",
+        "sys",
+        "asyncio",
+        "subprocess",
+        "logging",
+        "argparse",
+        "base64",
+        "common.config",
+        "secrets"
+      ],
+      "exports": [],
+      "classes": [
+        "ClientSession",
+        "RemoteShellServer"
+      ],
+      "functions": [
+        "setup_logging",
+        "main"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "context-manager",
+        "async/await",
+        "type-hints"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "ClientSession",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "writer",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "config",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 6,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "客户端会话",
+          "inheritance": []
+        },
+        {
+          "name": "RemoteShellServer",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "config",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": null,
+              "line_count": 10,
+              "call_count": 5
+            },
+            {
+              "name": "create_ssl_context",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[ssl.SSLContext]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "创建 SSL 上下文",
+              "line_count": 11,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "远程 Shell 服务器",
+          "inheritance": []
+        }
+      ],
+      "functions_info": [
+        {
+          "name": "setup_logging",
+          "parameters": [
+            {
+              "name": "config",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": null,
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": null,
+          "line_count": 11,
+          "call_count": 7
+        },
+        {
+          "name": "main",
+          "parameters": [],
+          "return_type": null,
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 7,
+          "docstring": null,
+          "line_count": 36,
+          "call_count": 17
+        }
+      ]
+    },
+    {
+      "name": "common",
+      "path": "/root/.openclaw/workspace-opengl/repos/remote-shell/common",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/protocol.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/users.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/monitor.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/config.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/tunnel.py"
+      ],
+      "imports": [
+        "os",
+        "hashlib",
+        "typing",
+        "time",
+        "asyncio",
+        "dataclasses",
+        "json",
+        "logging",
+        "base64",
+        "enum",
+        "datetime",
+        "secrets"
+      ],
+      "exports": [],
+      "classes": [
+        "MessageType",
+        "Message",
+        "Permission",
+        "User",
+        "UserManager",
+        "CPUInfo",
+        "MemoryInfo",
+        "DiskInfo",
+        "ProcessInfo",
+        "SystemMonitor",
+        "ServerConfig",
+        "WebConfig",
+        "TLSConfig",
+        "LogConfig",
+        "Config",
+        "TunnelInfo",
+        "PortForwarder",
+        "ReverseTunnel"
+      ],
+      "functions": [
+        "create_auth_message",
+        "create_exec_message",
+        "create_output_message",
+        "create_exit_message",
+        "create_error_message",
+        "create_auth_ok_message",
+        "create_auth_fail_message",
+        "create_file_list_message",
+        "create_file_list_result_message",
+        "create_file_download_message",
+        "create_file_data_message",
+        "create_file_upload_message",
+        "create_file_done_message"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "decorators: classmethod, dataclass",
+        "type-hints",
+        "dataclass",
+        "decorators: classmethod, dataclass, staticmethod",
+        "context-manager",
+        "type-hints",
+        "dataclass",
+        "decorators: dataclass, staticmethod",
+        "context-manager",
+        "async/await",
+        "type-hints",
+        "dataclass",
+        "decorators: classmethod, dataclass",
+        "context-manager",
+        "type-hints",
+        "dataclass",
+        "decorators: dataclass",
+        "async/await",
+        "type-hints",
+        "dataclass"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "MessageType",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "消息类型",
+          "inheritance": [
+            "Enum"
+          ]
+        },
+        {
+          "name": "Message",
+          "methods": [
+            {
+              "name": "encode",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bytes",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "编码为字节流",
+              "line_count": 12,
+              "call_count": 4
+            },
+            {
+              "name": "decode",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Message",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "从字节流解码",
+              "line_count": 8,
+              "call_count": 5
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "消息结构",
+          "inheritance": []
+        },
+        {
+          "name": "Permission",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "权限类型",
+          "inheritance": [
+            "Enum"
+          ]
+        },
+        {
+          "name": "User",
+          "methods": [
+            {
+              "name": "check_password",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "password",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "验证密码",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "_hash_password",
+              "parameters": [
+                {
+                  "name": "password",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "密码哈希",
+              "line_count": 3,
+              "call_count": 3
+            },
+            {
+              "name": "create",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "username",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "password",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "permissions",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "User",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "创建用户",
+              "line_count": 7,
+              "call_count": 2
+            },
+            {
+              "name": "has_permission",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "permission",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "检查权限",
+              "line_count": 7,
+              "call_count": 0
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "转换为字典",
+              "line_count": 10,
+              "call_count": 0
+            },
+            {
+              "name": "from_dict",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "data",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "User",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "从字典创建",
+              "line_count": 10,
+              "call_count": 6
+            }
+          ],
+          "properties": [],
+          "complexity": 8,
+          "docstring": "用户",
+          "inheritance": []
+        },
+        {
+          "name": "UserManager",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "config_path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": null,
+              "line_count": 11,
+              "call_count": 2
+            },
+            {
+              "name": "_load",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "加载用户数据",
+              "line_count": 10,
+              "call_count": 7
+            },
+            {
+              "name": "_save",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "保存用户数据",
+              "line_count": 8,
+              "call_count": 6
+            },
+            {
+              "name": "create_user",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "username",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "password",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "permissions",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "创建用户",
+              "line_count": 9,
+              "call_count": 2
+            },
+            {
+              "name": "delete_user",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "username",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "删除用户",
+              "line_count": 8,
+              "call_count": 1
+            },
+            {
+              "name": "update_password",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "username",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "new_password",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "更新密码",
+              "line_count": 8,
+              "call_count": 2
+            },
+            {
+              "name": "update_permissions",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "username",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "permissions",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "更新权限",
+              "line_count": 8,
+              "call_count": 1
+            },
+            {
+              "name": "authenticate",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "username",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "password",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "认证用户，返回 session token",
+              "line_count": 19,
+              "call_count": 5
+            },
+            {
+              "name": "validate_session",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "token",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "验证 session，返回用户名",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "logout",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "token",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "登出",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "get_user",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "username",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[User]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取用户",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "list_users",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[dict]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "列出所有用户",
+              "line_count": 11,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 28,
+          "docstring": "用户管理器",
+          "inheritance": []
+        },
+        {
+          "name": "CPUInfo",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": null,
+          "inheritance": []
+        },
+        {
+          "name": "MemoryInfo",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": null,
+          "inheritance": []
+        },
+        {
+          "name": "DiskInfo",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": null,
+          "inheritance": []
+        },
+        {
+          "name": "ProcessInfo",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": null,
+          "inheritance": []
+        },
+        {
+          "name": "SystemMonitor",
+          "methods": [
+            {
+              "name": "get_memory_info",
+              "parameters": [],
+              "return_type": "MemoryInfo",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "获取内存信息",
+              "line_count": 27,
+              "call_count": 12
+            },
+            {
+              "name": "get_disk_info",
+              "parameters": [],
+              "return_type": "List[DiskInfo]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 6,
+              "docstring": "获取磁盘信息",
+              "line_count": 27,
+              "call_count": 8
+            },
+            {
+              "name": "format_bytes",
+              "parameters": [
+                {
+                  "name": "bytes",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "格式化字节数",
+              "line_count": 7,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 13,
+          "docstring": "系统监控",
+          "inheritance": []
+        },
+        {
+          "name": "ServerConfig",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": null,
+          "inheritance": []
+        },
+        {
+          "name": "WebConfig",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": null,
+          "inheritance": []
+        },
+        {
+          "name": "TLSConfig",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": null,
+          "inheritance": []
+        },
+        {
+          "name": "LogConfig",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": null,
+          "inheritance": []
+        },
+        {
+          "name": "Config",
+          "methods": [
+            {
+              "name": "load",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Config",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 9,
+              "docstring": "从文件加载配置",
+              "line_count": 28,
+              "call_count": 9
+            },
+            {
+              "name": "save",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "保存配置到文件",
+              "line_count": 30,
+              "call_count": 4
+            },
+            {
+              "name": "get_connect_url",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取连接 URL",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "get_web_url",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取 Web 管理界面 URL",
+              "line_count": 5,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 13,
+          "docstring": null,
+          "inheritance": []
+        },
+        {
+          "name": "TunnelInfo",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "隧道信息",
+          "inheritance": []
+        },
+        {
+          "name": "PortForwarder",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "list_tunnels",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "list",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "列出所有隧道",
+              "line_count": 14,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "端口转发器",
+          "inheritance": []
+        },
+        {
+          "name": "ReverseTunnel",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "list_tunnels",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "list",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "列出反向隧道",
+              "line_count": 6,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 3,
+          "docstring": "反向隧道（从服务端连接回客户端）",
+          "inheritance": []
+        }
+      ],
+      "functions_info": [
+        {
+          "name": "create_auth_message",
+          "parameters": [
+            {
+              "name": "token",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建认证消息",
+          "line_count": 3,
+          "call_count": 1
+        },
+        {
+          "name": "create_exec_message",
+          "parameters": [
+            {
+              "name": "command",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "request_id",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建执行命令消息",
+          "line_count": 3,
+          "call_count": 1
+        },
+        {
+          "name": "create_output_message",
+          "parameters": [
+            {
+              "name": "output",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "stream",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "request_id",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建输出消息",
+          "line_count": 7,
+          "call_count": 1
+        },
+        {
+          "name": "create_exit_message",
+          "parameters": [
+            {
+              "name": "code",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "request_id",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建退出消息",
+          "line_count": 3,
+          "call_count": 1
+        },
+        {
+          "name": "create_error_message",
+          "parameters": [
+            {
+              "name": "error",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "request_id",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建错误消息",
+          "line_count": 3,
+          "call_count": 1
+        },
+        {
+          "name": "create_auth_ok_message",
+          "parameters": [],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建认证成功消息",
+          "line_count": 3,
+          "call_count": 1
+        },
+        {
+          "name": "create_auth_fail_message",
+          "parameters": [
+            {
+              "name": "reason",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建认证失败消息",
+          "line_count": 3,
+          "call_count": 1
+        },
+        {
+          "name": "create_file_list_message",
+          "parameters": [
+            {
+              "name": "path",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "request_id",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建文件列表请求",
+          "line_count": 3,
+          "call_count": 1
+        },
+        {
+          "name": "create_file_list_result_message",
+          "parameters": [
+            {
+              "name": "files",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "request_id",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建文件列表结果",
+          "line_count": 3,
+          "call_count": 1
+        },
+        {
+          "name": "create_file_download_message",
+          "parameters": [
+            {
+              "name": "path",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "request_id",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建文件下载请求",
+          "line_count": 3,
+          "call_count": 1
+        },
+        {
+          "name": "create_file_data_message",
+          "parameters": [
+            {
+              "name": "data",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "offset",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "total",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "request_id",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建文件数据消息",
+          "line_count": 12,
+          "call_count": 3
+        },
+        {
+          "name": "create_file_upload_message",
+          "parameters": [
+            {
+              "name": "path",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "data",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "offset",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "total",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "request_id",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建文件上传消息",
+          "line_count": 13,
+          "call_count": 3
+        },
+        {
+          "name": "create_file_done_message",
+          "parameters": [
+            {
+              "name": "success",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "message",
+              "type_annotation": null,
+              "default_value": null
+            },
+            {
+              "name": "request_id",
+              "type_annotation": null,
+              "default_value": null
+            }
+          ],
+          "return_type": "Message",
+          "is_async": false,
+          "is_generator": false,
+          "complexity": 1,
+          "docstring": "创建文件传输完成消息",
+          "line_count": 3,
+          "call_count": 1
+        }
+      ]
+    },
+    {
+      "name": "web",
+      "path": "/root/.openclaw/workspace-opengl/repos/remote-shell/web",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/web/web_server.py"
+      ],
+      "imports": [
+        "common.protocol",
+        "common.tunnel",
+        "os",
+        "uuid",
+        "hashlib",
+        "common.users",
+        "sys",
+        "asyncio",
+        "common.monitor",
+        "json",
+        "base64",
+        "common.config",
+        "argparse",
+        "aiohttp"
+      ],
+      "exports": [],
+      "classes": [
+        "WebTerminal",
+        "WebServer"
+      ],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "context-manager",
+        "async/await",
+        "type-hints"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "WebTerminal",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "config",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "Web 终端会话",
+          "inheritance": []
+        },
+        {
+          "name": "WebServer",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "config",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 6,
+              "call_count": 4
+            },
+            {
+              "name": "_setup_routes",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "设置路由",
+              "line_count": 33,
+              "call_count": 18
+            },
+            {
+              "name": "_check_auth",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "request",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "tuple",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "检查认证，返回 (is_valid, username_or_error)",
+              "line_count": 9,
+              "call_count": 3
+            },
+            {
+              "name": "_check_permission",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "request",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "permission",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "tuple",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "检查权限",
+              "line_count": 11,
+              "call_count": 3
+            },
+            {
+              "name": "_get_index_html",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "返回主页 HTML（完整版）",
+              "line_count": 391,
+              "call_count": 0
+            },
+            {
+              "name": "run",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "启动",
+              "line_count": 7,
+              "call_count": 4
+            }
+          ],
+          "properties": [],
+          "complexity": 10,
+          "docstring": "Web 服务器",
+          "inheritance": []
+        }
+      ],
+      "functions_info": []
+    },
+    {
+      "name": "client",
+      "path": "/root/.openclaw/workspace-opengl/repos/remote-shell/client",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/client/client.py"
+      ],
+      "imports": [
+        "common.protocol",
+        "os",
+        "uuid",
+        "typing",
+        "sys",
+        "asyncio",
+        "argparse"
+      ],
+      "exports": [],
+      "classes": [
+        "RemoteShellClient"
+      ],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "async/await",
+        "type-hints"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "RemoteShellClient",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "host",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "port",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "token",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 7,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "远程 Shell 客户端",
+          "inheritance": []
+        }
+      ],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "context-manager",
+      "description": "Usage of context-manager",
+      "examples": [],
+      "frequency": 5,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/server/server.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/users.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/monitor.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/config.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/web/web_server.py"
+      ]
+    },
+    {
+      "name": "async/await",
+      "description": "Usage of async/await",
+      "examples": [],
+      "frequency": 5,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/server/server.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/monitor.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/tunnel.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/web/web_server.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/client/client.py"
+      ]
+    },
+    {
+      "name": "type-hints",
+      "description": "Usage of type-hints",
+      "examples": [],
+      "frequency": 8,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/server/server.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/protocol.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/users.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/monitor.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/config.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/tunnel.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/web/web_server.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/client/client.py"
+      ]
+    },
+    {
+      "name": "decorators: classmethod, dataclass",
+      "description": "Usage of decorators: classmethod, dataclass",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/protocol.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/config.py"
+      ]
+    },
+    {
+      "name": "dataclass",
+      "description": "Usage of dataclass",
+      "examples": [],
+      "frequency": 5,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/protocol.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/users.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/monitor.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/config.py",
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/tunnel.py"
+      ]
+    },
+    {
+      "name": "decorators: classmethod, dataclass, staticmethod",
+      "description": "Usage of decorators: classmethod, dataclass, staticmethod",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/users.py"
+      ]
+    },
+    {
+      "name": "decorators: dataclass, staticmethod",
+      "description": "Usage of decorators: dataclass, staticmethod",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/monitor.py"
+      ]
+    },
+    {
+      "name": "decorators: dataclass",
+      "description": "Usage of decorators: dataclass",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/remote-shell/common/tunnel.py"
+      ]
+    }
+  ],
+  "architecture": "Unknown",
+  "entry_points": [
+    "server/server.py"
+  ],
+  "public_apis": {},
+  "dependencies": {
+    "server": [
+      "common"
+    ],
+    "web": [
+      "common"
+    ],
+    "client": [
+      "common"
+    ]
+  },
+  "conventions": {
+    "naming": {
+      "classes": "PascalCase",
+      "functions": "snake_case"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": [
+    "<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Remote Shell v2.0</title>\n    <style>\n      "
+  ]
+}

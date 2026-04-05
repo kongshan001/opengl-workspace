@@ -1,0 +1,330 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/feishu_chatbot",
+  "language": "javascript",
+  "total_files": 16,
+  "total_lines": 1003,
+  "modules": [
+    {
+      "name": "web_app_with_jssdk/python/public",
+      "path": "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/web_app_with_jssdk/python/public",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/web_app_with_jssdk/python/public/index.js"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [
+        "apiAuth",
+        "showUser"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "typescript-types"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "echo_bot/nodejs",
+      "path": "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/echo_bot/nodejs",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/echo_bot/nodejs/index.js"
+      ],
+      "imports": [
+        "@larksuiteoapi/node-sdk"
+      ],
+      "exports": [],
+      "classes": [],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "async/await",
+        "typescript-types"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "card_interaction_bot/nodejs",
+      "path": "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/card_interaction_bot/nodejs",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/card_interaction_bot/nodejs/index.js"
+      ],
+      "imports": [
+        "@larksuiteoapi/node-sdk"
+      ],
+      "exports": [],
+      "classes": [],
+      "functions": [
+        "sendWelcomeCard",
+        "sendAlarmCard"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "async/await",
+        "typescript-types"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "react_and_nodejs/robot",
+      "path": "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/robot",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/robot/config.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/robot/index.js"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [
+        "pickRequestData"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "async/await",
+        "typescript-types"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "react_and_nodejs/web_app/src",
+      "path": "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src/setupTests.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src/config.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src/App.test.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src/App.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src/reportWebVitals.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src/index.js"
+      ],
+      "imports": [
+        "./reportWebVitals",
+        "./client/use-authentication",
+        "vconsole",
+        "react",
+        "./client/use-free-login",
+        "react-dom/client",
+        "./App",
+        "@testing-library/react"
+      ],
+      "exports": [],
+      "classes": [],
+      "functions": [
+        "App",
+        "reportWebVitals"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "default-export",
+        "default-export"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "react_and_nodejs/web_app/src/server",
+      "path": "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src/server",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src/server/index.js"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [
+        "getConfigParameters",
+        "getLoginInfo"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "async/await"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "mcp_larkbot_demo/nodejs/src/prompt",
+      "path": "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/mcp_larkbot_demo/nodejs/src/prompt",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/mcp_larkbot_demo/nodejs/src/prompt/index.ts"
+      ],
+      "imports": [],
+      "exports": [
+        "getSystemPrompt"
+      ],
+      "classes": [],
+      "functions": [
+        "getSystemPrompt"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "typescript-types"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "mcp_larkbot_demo/nodejs/src/config",
+      "path": "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/mcp_larkbot_demo/nodejs/src/config",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/mcp_larkbot_demo/nodejs/src/config/index.ts"
+      ],
+      "imports": [
+        "dotenv",
+        "@ai-sdk/openai-compatible"
+      ],
+      "exports": [
+        "config"
+      ],
+      "classes": [],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "mcp_larkbot_demo/nodejs/src/util",
+      "path": "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/mcp_larkbot_demo/nodejs/src/util",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/mcp_larkbot_demo/nodejs/src/util/message.ts",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/mcp_larkbot_demo/nodejs/src/util/index.ts"
+      ],
+      "imports": [
+        "ai"
+      ],
+      "exports": [
+        "formatToolCall",
+        "formatToolResult",
+        "parseMessages2Markdown",
+        "parseChunk2Message",
+        "safeParseJSON",
+        "pThrottle"
+      ],
+      "classes": [],
+      "functions": [
+        "formatToolCall",
+        "formatToolResult",
+        "parseMessages2Markdown",
+        "parseChunk2Message",
+        "throttling",
+        "safeParseJSON",
+        "execution",
+        "to",
+        "pThrottle",
+        "lastTime"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "typescript-types",
+        "async/await",
+        "typescript-types"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "typescript-types",
+      "description": "Usage of typescript-types",
+      "examples": [],
+      "frequency": 7,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/web_app_with_jssdk/python/public/index.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/echo_bot/nodejs/index.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/card_interaction_bot/nodejs/index.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/robot/index.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/mcp_larkbot_demo/nodejs/src/prompt/index.ts",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/mcp_larkbot_demo/nodejs/src/util/message.ts",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/mcp_larkbot_demo/nodejs/src/util/index.ts"
+      ]
+    },
+    {
+      "name": "async/await",
+      "description": "Usage of async/await",
+      "examples": [],
+      "frequency": 5,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/echo_bot/nodejs/index.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/card_interaction_bot/nodejs/index.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/robot/index.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src/server/index.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/mcp_larkbot_demo/nodejs/src/util/index.ts"
+      ]
+    },
+    {
+      "name": "default-export",
+      "description": "Usage of default-export",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src/App.js",
+        "/root/.openclaw/workspace-opengl/repos/feishu_chatbot/react_and_nodejs/web_app/src/reportWebVitals.js"
+      ]
+    }
+  ],
+  "architecture": "Unknown",
+  "entry_points": [
+    "echo_bot/python/main.py",
+    "card_interaction_bot/python/main.py",
+    "web_app_with_jssdk/python/server.py",
+    "web_app_with_auth/python/server.py",
+    "robot_quick_start/python/server.py",
+    "web_app_with_jssdk/python/public/index.js",
+    "echo_bot/nodejs/index.js",
+    "card_interaction_bot/nodejs/index.js",
+    "react_and_nodejs/robot/index.js",
+    "react_and_nodejs/web_app/src/index.js",
+    "react_and_nodejs/web_app/src/server/index.js",
+    "mcp_larkbot_demo/nodejs/src/prompt/index.ts",
+    "mcp_larkbot_demo/nodejs/src/config/index.ts",
+    "mcp_larkbot_demo/nodejs/src/util/index.ts",
+    "mcp_quick_remote_demo/go/main.go",
+    "echo_bot/go/main.go",
+    "card_interaction_bot/go/main.go",
+    "mcp_quick_demo/go/main.go"
+  ],
+  "public_apis": {
+    "web_app_with_jssdk/python/public": [
+      "apiAuth"
+    ]
+  },
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "functions": "camelCase"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

@@ -1,0 +1,107 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/clawhub-lab",
+  "language": "cpp",
+  "total_files": 1,
+  "total_lines": 151,
+  "modules": [
+    {
+      "name": "code-examples/hello-triangle",
+      "path": "/root/.openclaw/workspace-opengl/repos/clawhub-lab/code-examples/hello-triangle",
+      "language": "cpp",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/clawhub-lab/code-examples/hello-triangle/hello_triangle.cpp"
+      ],
+      "imports": [
+        "iostream",
+        "GLFW/glfw3.h",
+        "epoxy/gl.h"
+      ],
+      "exports": [],
+      "classes": [],
+      "functions": [
+        "main",
+        "vec4",
+        "main",
+        "vec4",
+        "checkShaderCompile",
+        "glGetShaderiv",
+        "if",
+        "glGetShaderInfoLog",
+        "checkProgramLink",
+        "glGetProgramiv",
+        "if",
+        "glGetProgramInfoLog",
+        "main",
+        "glfwWindowHint",
+        "glfwWindowHint",
+        "glfwWindowHint",
+        "glfwCreateWindow",
+        "if",
+        "glfwTerminate",
+        "glfwMakeContextCurrent",
+        "glCreateShader",
+        "glShaderSource",
+        "glCompileShader",
+        "glCreateShader",
+        "glShaderSource",
+        "glCompileShader",
+        "glCreateProgram",
+        "glAttachShader",
+        "glAttachShader",
+        "glLinkProgram",
+        "glDeleteShader",
+        "glDeleteShader",
+        "glGenVertexArrays",
+        "glGenBuffers",
+        "glBindVertexArray",
+        "glBindBuffer",
+        "glEnableVertexAttribArray",
+        "glBindBuffer",
+        "glBindVertexArray",
+        "glfwSetWindowShouldClose",
+        "glClearColor",
+        "glClear",
+        "glUseProgram",
+        "glBindVertexArray",
+        "glDrawArrays",
+        "glfwSwapBuffers",
+        "glfwPollEvents",
+        "glDeleteVertexArrays",
+        "glDeleteBuffers",
+        "glDeleteProgram",
+        "glfwTerminate"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "stl-containers"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "stl-containers",
+      "description": "C++ stl-containers",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/clawhub-lab/code-examples/hello-triangle/hello_triangle.cpp"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "functions": "camelCase"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

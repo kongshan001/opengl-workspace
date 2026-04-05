@@ -1,0 +1,18 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/ai-coding-tools-research",
+  "language": "unknown",
+  "total_files": 0,
+  "total_lines": 0,
+  "modules": [],
+  "patterns": [],
+  "architecture": "Monolithic",
+  "entry_points": [],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {},
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

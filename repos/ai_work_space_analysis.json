@@ -1,0 +1,134 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/ai_work_space",
+  "language": "shell",
+  "total_files": 3,
+  "total_lines": 608,
+  "modules": [
+    {
+      "name": "shell-scripts",
+      "path": "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts",
+      "language": "shell",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-daily-trends.sh",
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-weekly-trends.sh",
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/fix-weekly-dates.sh"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [
+        "fetch_trending",
+        "fetch_trending"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "shell-functions",
+        "env-variables",
+        "pipe-commands",
+        "conditionals",
+        "loops",
+        "error-handling",
+        "process-substitution",
+        "shell-functions",
+        "env-variables",
+        "pipe-commands",
+        "conditionals",
+        "loops",
+        "error-handling",
+        "process-substitution",
+        "env-variables",
+        "loops"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "shell-functions",
+      "description": "Shell shell-functions",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-daily-trends.sh",
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-weekly-trends.sh"
+      ]
+    },
+    {
+      "name": "env-variables",
+      "description": "Shell env-variables",
+      "examples": [],
+      "frequency": 3,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-daily-trends.sh",
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-weekly-trends.sh",
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/fix-weekly-dates.sh"
+      ]
+    },
+    {
+      "name": "pipe-commands",
+      "description": "Shell pipe-commands",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-daily-trends.sh",
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-weekly-trends.sh"
+      ]
+    },
+    {
+      "name": "conditionals",
+      "description": "Shell conditionals",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-daily-trends.sh",
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-weekly-trends.sh"
+      ]
+    },
+    {
+      "name": "loops",
+      "description": "Shell loops",
+      "examples": [],
+      "frequency": 3,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-daily-trends.sh",
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-weekly-trends.sh",
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/fix-weekly-dates.sh"
+      ]
+    },
+    {
+      "name": "error-handling",
+      "description": "Shell error-handling",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-daily-trends.sh",
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-weekly-trends.sh"
+      ]
+    },
+    {
+      "name": "process-substitution",
+      "description": "Shell process-substitution",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-daily-trends.sh",
+        "/root/.openclaw/workspace-opengl/repos/ai_work_space/scripts/generate-weekly-trends.sh"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "functions": "snake_case"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

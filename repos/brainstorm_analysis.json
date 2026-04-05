@@ -1,0 +1,38 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/brainstorm",
+  "language": "unknown",
+  "total_files": 2,
+  "total_lines": 102,
+  "modules": [
+    {
+      "name": "ideas",
+      "path": "/root/.openclaw/workspace-opengl/repos/brainstorm/ideas",
+      "language": "unknown",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/brainstorm/ideas/2026-03-01-voice-first-mobile.md",
+        "/root/.openclaw/workspace-opengl/repos/brainstorm/ideas/2026-02-28-clawhub-lab.md"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [],
+  "architecture": "Monolithic",
+  "entry_points": [],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {},
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

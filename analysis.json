@@ -1,0 +1,39 @@
+{
+  "codebase_path": "/tmp/test_js_project",
+  "language": "javascript",
+  "total_files": 1,
+  "total_lines": 1,
+  "modules": [
+    {
+      "name": "src",
+      "path": "/tmp/test_js_project/src",
+      "language": "javascript",
+      "files": [
+        "/tmp/test_js_project/src/index.js"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [],
+  "architecture": "Monolithic",
+  "entry_points": [
+    "src/index.js"
+  ],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {},
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

@@ -1,0 +1,138 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace",
+  "language": "shell",
+  "total_files": 3,
+  "total_lines": 397,
+  "modules": [
+    {
+      "name": "shell-scripts",
+      "path": "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts",
+      "language": "shell",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-all.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-skill.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-registry.sh"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [
+        "pass",
+        "fail",
+        "warn",
+        "info"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "env-variables",
+        "conditionals",
+        "loops",
+        "error-handling",
+        "shell-functions",
+        "env-variables",
+        "pipe-commands",
+        "conditionals",
+        "loops",
+        "error-handling",
+        "process-substitution",
+        "env-variables",
+        "pipe-commands",
+        "conditionals",
+        "loops",
+        "error-handling",
+        "process-substitution"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "env-variables",
+      "description": "Shell env-variables",
+      "examples": [],
+      "frequency": 3,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-all.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-skill.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-registry.sh"
+      ]
+    },
+    {
+      "name": "conditionals",
+      "description": "Shell conditionals",
+      "examples": [],
+      "frequency": 3,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-all.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-skill.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-registry.sh"
+      ]
+    },
+    {
+      "name": "loops",
+      "description": "Shell loops",
+      "examples": [],
+      "frequency": 3,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-all.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-skill.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-registry.sh"
+      ]
+    },
+    {
+      "name": "error-handling",
+      "description": "Shell error-handling",
+      "examples": [],
+      "frequency": 3,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-all.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-skill.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-registry.sh"
+      ]
+    },
+    {
+      "name": "shell-functions",
+      "description": "Shell shell-functions",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-skill.sh"
+      ]
+    },
+    {
+      "name": "pipe-commands",
+      "description": "Shell pipe-commands",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-skill.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-registry.sh"
+      ]
+    },
+    {
+      "name": "process-substitution",
+      "description": "Shell process-substitution",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-skill.sh",
+        "/root/.openclaw/workspace-opengl/repos/cc_skills_marketplace/scripts/validate-registry.sh"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "functions": "camelCase"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

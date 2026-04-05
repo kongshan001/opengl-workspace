@@ -1,0 +1,65 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/googletest_demo",
+  "language": "markdown",
+  "total_files": 2,
+  "total_lines": 62,
+  "modules": [
+    {
+      "name": "markdown-docs",
+      "path": "/root/.openclaw/workspace-opengl/repos/googletest_demo",
+      "language": "markdown",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/googletest_demo/README.md",
+        "/root/.openclaw/workspace-opengl/repos/googletest_demo/.claude/skills/root/SKILL.md"
+      ],
+      "imports": [],
+      "exports": [
+        "Root"
+      ],
+      "classes": [
+        "code-block:22"
+      ],
+      "functions": [
+        "Root",
+        "Overview",
+        "Domain Expertise",
+        "Key APIs",
+        "Functions",
+        "Code Examples",
+        "Basic Usage",
+        "Import from root",
+        "Usage Guide",
+        "When to Use This Skill",
+        "Best Practices",
+        "Common Tasks"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "code-blocks"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [],
+  "architecture": "Minimal",
+  "entry_points": [],
+  "public_apis": {
+    "markdown-docs": [
+      "Overview",
+      "Key APIs"
+    ]
+  },
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "classes": "snake_case",
+      "functions": "camelCase"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

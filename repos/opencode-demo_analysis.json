@@ -1,0 +1,1144 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/opencode-demo",
+  "language": "python",
+  "total_files": 4,
+  "total_lines": 439,
+  "modules": [
+    {
+      "name": "game-engine-starter.src.engine.ui",
+      "path": "/root/.openclaw/workspace-opengl/repos/opencode-demo/game-engine-starter/src/engine/ui",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/opencode-demo/game-engine-starter/src/engine/ui/manager.py",
+        "/root/.openclaw/workspace-opengl/repos/opencode-demo/game-engine-starter/src/engine/ui/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/opencode-demo/game-engine-starter/src/engine/ui/widgets.py",
+        "/root/.openclaw/workspace-opengl/repos/opencode-demo/game-engine-starter/src/engine/ui/element.py"
+      ],
+      "imports": [
+        "typing",
+        "element",
+        "widgets",
+        "manager"
+      ],
+      "exports": [],
+      "classes": [
+        "UIManager",
+        "Button",
+        "ItemSlot",
+        "InventoryPanel",
+        "Panel",
+        "Label",
+        "CheckBox",
+        "Slider",
+        "UIElement"
+      ],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "type-hints",
+        "type-hints",
+        "type-hints"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "UIManager",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "register",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "注册 UI 元素",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "unregister",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "注销 UI 元素",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "get_element",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[UIElement]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "通过 ID 获取元素",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "find_element_by_name",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[UIElement]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "通过名称查找元素",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "find_element_by_path",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[UIElement]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 7,
+              "docstring": "通过路径查找元素\n\n例如: \"inventory_panel/item_slot_1\"",
+              "line_count": 23,
+              "call_count": 1
+            },
+            {
+              "name": "get_element_at",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "x",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "y",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[UIElement]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "获取指定坐标的最上层元素",
+              "line_count": 7,
+              "call_count": 4
+            },
+            {
+              "name": "click_at",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "x",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "y",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "点击指定坐标\n\nReturns:\n    是否点击成功",
+              "line_count": 11,
+              "call_count": 2
+            },
+            {
+              "name": "click_element",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "path",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 5,
+              "docstring": "点击指定元素\n\nArgs:\n    element_id: 元素 ID\n    name: 元素名称\n    path: 元素路径\n\nReturns:\n    是否点击成功",
+              "line_count": 30,
+              "call_count": 4
+            },
+            {
+              "name": "list_elements",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "visible_only",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[dict]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "列出所有元素",
+              "line_count": 7,
+              "call_count": 3
+            },
+            {
+              "name": "get_hierarchy",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "dict",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "获取 UI 层级结构",
+              "line_count": 11,
+              "call_count": 3
+            },
+            {
+              "name": "clear",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "清空所有元素",
+              "line_count": 5,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 34,
+          "docstring": "UI 管理器",
+          "inheritance": []
+        },
+        {
+          "name": "Button",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "on_click",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 9,
+              "call_count": 2
+            },
+            {
+              "name": "click",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "点击按钮",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "按钮组件",
+          "inheritance": [
+            "UIElement"
+          ]
+        },
+        {
+          "name": "ItemSlot",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "slot_index",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "click",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "点击道具槽",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "set_item",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "item",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "设置道具",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "clear_item",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "清空道具",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 6,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "道具槽组件",
+          "inheritance": [
+            "UIElement"
+          ]
+        },
+        {
+          "name": "InventoryPanel",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "slot_count",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "cols",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 17,
+              "call_count": 3
+            },
+            {
+              "name": "_create_slots",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "创建道具槽",
+              "line_count": 16,
+              "call_count": 4
+            },
+            {
+              "name": "get_slot",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "index",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[ItemSlot]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "获取指定索引的道具槽",
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "find_slot_by_item_id",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "item_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[ItemSlot]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "通过道具 ID 查找槽位",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "add_item",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "item",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "添加道具到第一个空槽",
+              "line_count": 7,
+              "call_count": 1
+            },
+            {
+              "name": "remove_item",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "item_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "移除道具",
+              "line_count": 7,
+              "call_count": 2
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": null,
+              "line_count": 6,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 15,
+          "docstring": "背包面板",
+          "inheritance": [
+            "UIElement"
+          ]
+        },
+        {
+          "name": "Panel",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 7,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "通用面板",
+          "inheritance": [
+            "UIElement"
+          ]
+        },
+        {
+          "name": "Label",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "text",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 3,
+              "call_count": 2
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "文本标签",
+          "inheritance": [
+            "UIElement"
+          ]
+        },
+        {
+          "name": "CheckBox",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "checked",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "click",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "点击切换状态",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "复选框",
+          "inheritance": [
+            "UIElement"
+          ]
+        },
+        {
+          "name": "Slider",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "min_value",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "max_value",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "value",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 13,
+              "call_count": 2
+            },
+            {
+              "name": "set_value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "value",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "设置值",
+              "line_count": 5,
+              "call_count": 3
+            },
+            {
+              "name": "click",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "点击（测试用）",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 7,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "滑块",
+          "inheritance": [
+            "UIElement"
+          ]
+        },
+        {
+          "name": "UIElement",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "element_id",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 11,
+              "call_count": 0
+            },
+            {
+              "name": "get_bounds",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "获取边界 (left, top, right, bottom)",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "contains_point",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "x",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "y",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "检查点是否在元素内",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "click",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "点击事件 - 子类重写",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "add_child",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "child",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "添加子元素",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "to_dict",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "序列化为字典",
+              "line_count": 13,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 6,
+          "docstring": "UI 元素基类",
+          "inheritance": []
+        }
+      ],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "type-hints",
+      "description": "Usage of type-hints",
+      "examples": [],
+      "frequency": 3,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/opencode-demo/game-engine-starter/src/engine/ui/manager.py",
+        "/root/.openclaw/workspace-opengl/repos/opencode-demo/game-engine-starter/src/engine/ui/widgets.py",
+        "/root/.openclaw/workspace-opengl/repos/opencode-demo/game-engine-starter/src/engine/ui/element.py"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [
+    "mcp-servers/echo/index.ts",
+    "mcp-servers/calculator/index.ts"
+  ],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "classes": "PascalCase"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": [
+    "点击指定元素\n        \n        Args:\n            element_id: 元素 ID\n            name: 元素名称\n            path: 元素路径\n        \n        Returns:\n            是否点击成功",
+    "通过路径查找元素\n        \n        例如: \"inventory_panel/item_slot_1\"",
+    "点击指定坐标\n        \n        Returns:\n            是否点击成功"
+  ]
+}

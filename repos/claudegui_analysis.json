@@ -1,0 +1,72 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/claudegui",
+  "language": "typescript",
+  "total_files": 6,
+  "total_lines": 140,
+  "modules": [
+    {
+      "name": ".",
+      "path": "/root/.openclaw/workspace-opengl/repos/claudegui",
+      "language": "typescript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/claudegui/next.config.js",
+        "/root/.openclaw/workspace-opengl/repos/claudegui/vitest.config.js",
+        "/root/.openclaw/workspace-opengl/repos/claudegui/postcss.config.js",
+        "/root/.openclaw/workspace-opengl/repos/claudegui/playwright.config.ts",
+        "/root/.openclaw/workspace-opengl/repos/claudegui/tailwind.config.ts",
+        "/root/.openclaw/workspace-opengl/repos/claudegui/next-env.d.ts"
+      ],
+      "imports": [
+        "tailwindcss",
+        "vitest/config",
+        "@playwright/test"
+      ],
+      "exports": [],
+      "classes": [],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "async/await",
+        "default-export",
+        "default-export",
+        "default-export"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "async/await",
+      "description": "Usage of async/await",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/claudegui/next.config.js"
+      ]
+    },
+    {
+      "name": "default-export",
+      "description": "Usage of default-export",
+      "examples": [],
+      "frequency": 3,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/claudegui/vitest.config.js",
+        "/root/.openclaw/workspace-opengl/repos/claudegui/playwright.config.ts",
+        "/root/.openclaw/workspace-opengl/repos/claudegui/tailwind.config.ts"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {},
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

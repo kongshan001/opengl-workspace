@@ -1,0 +1,24 @@
+name: project-expert-team
+description: 领域专家团队，由资深工程师组成
+team_size: 4
+avg_experience: 10+ years
+agents:
+- animation-expert
+- core-expert
+- physics-expert
+- rendering-expert
+workflow:
+- task: 分析需求
+  assigned_to: core-expert
+- task: 设计方案
+  assigned_to: 相关领域专家
+- task: 实现功能
+  assigned_to: 相关领域专家
+- task: 代码审查
+  assigned_to: core-expert
+- task: 性能优化
+  assigned_to: 所有专家
+coordination:
+  communication: 领域专家之间协调
+  review_process: 资深专家审查
+  task_routing: 按领域分配

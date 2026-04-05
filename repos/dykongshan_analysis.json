@@ -1,0 +1,64 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/dykongshan",
+  "language": "javascript",
+  "total_files": 4,
+  "total_lines": 74,
+  "modules": [
+    {
+      "name": ".",
+      "path": "/root/.openclaw/workspace-opengl/repos/dykongshan",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/dykongshan/vite.config.js",
+        "/root/.openclaw/workspace-opengl/repos/dykongshan/vitest.config.js",
+        "/root/.openclaw/workspace-opengl/repos/dykongshan/postcss.config.js",
+        "/root/.openclaw/workspace-opengl/repos/dykongshan/tailwind.config.js"
+      ],
+      "imports": [
+        "@dcloudio/vite-plugin-uni",
+        "vitest/config",
+        "node:url",
+        "@vitejs/plugin-vue",
+        "vite"
+      ],
+      "exports": [],
+      "classes": [],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "default-export",
+        "default-export",
+        "default-export",
+        "default-export"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "default-export",
+      "description": "Usage of default-export",
+      "examples": [],
+      "frequency": 4,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/dykongshan/vite.config.js",
+        "/root/.openclaw/workspace-opengl/repos/dykongshan/vitest.config.js",
+        "/root/.openclaw/workspace-opengl/repos/dykongshan/postcss.config.js",
+        "/root/.openclaw/workspace-opengl/repos/dykongshan/tailwind.config.js"
+      ]
+    }
+  ],
+  "architecture": "Configuration-based",
+  "entry_points": [],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {},
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

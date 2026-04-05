@@ -1,0 +1,98 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/opencode-plugins",
+  "language": "javascript",
+  "total_files": 2,
+  "total_lines": 398,
+  "modules": [
+    {
+      "name": "opencode-prompt-monitor",
+      "path": "/root/.openclaw/workspace-opengl/repos/opencode-plugins/opencode-prompt-monitor",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/opencode-plugins/opencode-prompt-monitor/index.js"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [
+        "getUserHome",
+        "sendResponse",
+        "sendError",
+        "getLatestLogFile",
+        "parseLogLine",
+        "updateFromLog",
+        "saveState",
+        "loadState"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "typescript-types"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "opencode-prompt-monitor/plugin",
+      "path": "/root/.openclaw/workspace-opengl/repos/opencode-plugins/opencode-prompt-monitor/plugin",
+      "language": "javascript",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/opencode-plugins/opencode-prompt-monitor/plugin/index.js"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [
+        "saveState",
+        "loadState",
+        "PromptMonitorPlugin"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "async/await",
+        "typescript-types"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "typescript-types",
+      "description": "Usage of typescript-types",
+      "examples": [],
+      "frequency": 2,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/opencode-plugins/opencode-prompt-monitor/index.js",
+        "/root/.openclaw/workspace-opengl/repos/opencode-plugins/opencode-prompt-monitor/plugin/index.js"
+      ]
+    },
+    {
+      "name": "async/await",
+      "description": "Usage of async/await",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/opencode-plugins/opencode-prompt-monitor/plugin/index.js"
+      ]
+    }
+  ],
+  "architecture": "Monolithic",
+  "entry_points": [
+    "opencode-prompt-monitor/index.js",
+    "opencode-prompt-monitor/plugin/index.js"
+  ],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "functions": "camelCase"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

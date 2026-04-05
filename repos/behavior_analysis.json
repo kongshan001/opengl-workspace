@@ -1,0 +1,273 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/behavior",
+  "language": "python",
+  "total_files": 6,
+  "total_lines": 43,
+  "modules": [
+    {
+      "name": "component",
+      "path": "/root/.openclaw/workspace-opengl/repos/behavior/component",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/behavior/component/__init__.py"
+      ],
+      "imports": [],
+      "exports": [],
+      "classes": [],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "base",
+      "path": "/root/.openclaw/workspace-opengl/repos/behavior/base",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/behavior/base/precondition.py",
+        "/root/.openclaw/workspace-opengl/repos/behavior/base/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/behavior/base/controlnode.py",
+        "/root/.openclaw/workspace-opengl/repos/behavior/base/node.py",
+        "/root/.openclaw/workspace-opengl/repos/behavior/base/actionnode.py"
+      ],
+      "imports": [
+        "node"
+      ],
+      "exports": [],
+      "classes": [
+        "CPreCondition",
+        "CNode",
+        "CNode",
+        "CNode"
+      ],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "CPreCondition",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "IsTrue",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": null,
+          "inheritance": [
+            "object"
+          ]
+        },
+        {
+          "name": "CNode",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": null,
+          "inheritance": [
+            "<ast.Name object at 0x7b7d756465d0>"
+          ]
+        },
+        {
+          "name": "CNode",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "SetPreCondition",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "pPreCondition",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "Enter",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "Exit",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "Execute",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": null,
+          "inheritance": [
+            "object"
+          ]
+        },
+        {
+          "name": "CNode",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": null,
+          "inheritance": [
+            "<ast.Name object at 0x7b7d756469d0>"
+          ]
+        }
+      ],
+      "functions_info": []
+    }
+  ],
+  "patterns": [],
+  "architecture": "Monolithic",
+  "entry_points": [
+    "main.py"
+  ],
+  "public_apis": {},
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "classes": "PascalCase"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}

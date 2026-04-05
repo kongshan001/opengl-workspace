@@ -1,0 +1,3722 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework",
+  "language": "python",
+  "total_files": 15,
+  "total_lines": 2241,
+  "modules": [
+    {
+      "name": "render_pipeline",
+      "path": "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/__init__.py"
+      ],
+      "imports": [
+        "render_pipeline.graph.resources",
+        "render_pipeline.graph.builder",
+        "render_pipeline.core.base",
+        "render_pipeline.volume.manager",
+        "render_pipeline.volume.base",
+        "render_pipeline.graph.executor",
+        "render_pipeline.feature.passes",
+        "render_pipeline.feature.base",
+        "render_pipeline.core.context",
+        "render_pipeline.core.pipeline"
+      ],
+      "exports": [],
+      "classes": [],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "context-manager",
+        "type-hints"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    },
+    {
+      "name": "render_pipeline.graph",
+      "path": "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/resources.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/builder.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/executor.py"
+      ],
+      "imports": [
+        "time",
+        "uuid",
+        "render_pipeline.graph.resources",
+        "render_pipeline.graph.builder",
+        "dataclasses",
+        "collections",
+        "enum",
+        "render_pipeline.graph.executor",
+        "render_pipeline.feature.base",
+        "abc",
+        "render_pipeline.core.context",
+        "typing"
+      ],
+      "exports": [],
+      "classes": [
+        "ResourceType",
+        "ResourceUsage",
+        "TextureDesc",
+        "BufferDesc",
+        "ResourceHandle",
+        "TextureHandle",
+        "BufferHandle",
+        "ResourceAccess",
+        "ResourcePool",
+        "PassNode",
+        "CompiledGraph",
+        "RenderGraphBuilder",
+        "PassBuilder",
+        "RenderGraphExecutor"
+      ],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "decorators: abstractmethod, property, dataclass",
+        "context-manager",
+        "type-hints",
+        "dataclass",
+        "decorators: dataclass",
+        "context-manager",
+        "type-hints",
+        "dataclass",
+        "context-manager",
+        "type-hints"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "ResourceType",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "Types of GPU resources.",
+          "inheritance": [
+            "Enum"
+          ]
+        },
+        {
+          "name": "ResourceUsage",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "How a resource is used by a pass.",
+          "inheritance": [
+            "Flag"
+          ]
+        },
+        {
+          "name": "TextureDesc",
+          "methods": [
+            {
+              "name": "__hash__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "Description for creating a texture.",
+          "inheritance": []
+        },
+        {
+          "name": "BufferDesc",
+          "methods": [
+            {
+              "name": "__hash__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 1,
+          "docstring": "Description for creating a buffer.",
+          "inheritance": []
+        },
+        {
+          "name": "ResourceHandle",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "resource_type",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 7,
+              "call_count": 2
+            },
+            {
+              "name": "id",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "name",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "resource_type",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "ResourceType",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "version",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "is_imported",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Whether this is an external resource (not managed by graph).",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "is_transient",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Whether this resource can be aliased with others.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "create_version",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "ResourceHandle",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Create a new version of this handle (for write tracking).",
+              "line_count": 6,
+              "call_count": 3
+            },
+            {
+              "name": "_clone",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "ResourceHandle",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "__hash__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            },
+            {
+              "name": "__eq__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": null,
+              "line_count": 4,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 12,
+          "docstring": "Base class for typed resource handles.",
+          "inheritance": [
+            "ABC"
+          ]
+        },
+        {
+          "name": "TextureHandle",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "desc",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": null,
+              "line_count": 10,
+              "call_count": 3
+            },
+            {
+              "name": "desc",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "TextureDesc",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "width",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "height",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "format",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "_clone",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "TextureHandle",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 7,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 9,
+          "docstring": "Handle to a texture resource.",
+          "inheritance": [
+            "ResourceHandle"
+          ]
+        },
+        {
+          "name": "BufferHandle",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "desc",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 3,
+              "call_count": 3
+            },
+            {
+              "name": "desc",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "BufferDesc",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "size",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "int",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "_clone",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "BufferHandle",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 6,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "Handle to a buffer resource.",
+          "inheritance": [
+            "ResourceHandle"
+          ]
+        },
+        {
+          "name": "ResourceAccess",
+          "methods": [
+            {
+              "name": "is_read",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            },
+            {
+              "name": "is_write",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "Describes how a pass accesses a resource.",
+          "inheritance": []
+        },
+        {
+          "name": "ResourcePool",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "allocate",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "handle",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "create_func",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Any",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "Allocate a resource, potentially aliasing with existing ones.\n\nArgs:\n    handle: The resource handle to allocate\n    create_func: Engine-specific function to create the resource\n    \nReturns:\n    The actual GPU resource",
+              "line_count": 27,
+              "call_count": 3
+            },
+            {
+              "name": "_find_aliasable_resource",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "handle",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[str]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "Find a resource that can be aliased with this one.",
+              "line_count": 10,
+              "call_count": 1
+            },
+            {
+              "name": "release",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "handle_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Mark a resource as no longer active (can be aliased).",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "get",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "handle_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Any]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "Get an allocated resource by handle ID.",
+              "line_count": 7,
+              "call_count": 3
+            },
+            {
+              "name": "clear",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Clear all resources.",
+              "line_count": 5,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 11,
+          "docstring": "Pool for managing resource allocation and aliasing.\n\nThis is where the memory optimization happens - transient resources\nwith non-overlapping lifetimes can share the same GPU memory.",
+          "inheritance": []
+        },
+        {
+          "name": "PassNode",
+          "methods": [
+            {
+              "name": "add_access",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "access",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "Internal representation of a pass in the graph.",
+          "inheritance": []
+        },
+        {
+          "name": "CompiledGraph",
+          "methods": [
+            {
+              "name": "get_execution_order",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[str]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "Get the ordered list of pass IDs to execute.",
+              "line_count": 3,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "A compiled, optimized render graph ready for execution.",
+          "inheritance": []
+        },
+        {
+          "name": "RenderGraphBuilder",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 10,
+              "call_count": 1
+            },
+            {
+              "name": "reset",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Reset the builder for a new frame.",
+              "line_count": 9,
+              "call_count": 7
+            },
+            {
+              "name": "create_texture",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "width",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "height",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "format",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "TextureHandle",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Declare a transient texture resource.\n\nTransient textures are managed by the graph and can be\naliased with other transient textures to save memory.",
+              "line_count": 25,
+              "call_count": 2
+            },
+            {
+              "name": "create_buffer",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "size",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "format",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "BufferHandle",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Declare a transient buffer resource.",
+              "line_count": 12,
+              "call_count": 2
+            },
+            {
+              "name": "import_texture",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "texture",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "width",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "height",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "format",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "TextureHandle",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Import an external texture (not managed by graph).\n\nUse for backbuffer, camera target, or other pre-existing textures.",
+              "line_count": 25,
+              "call_count": 3
+            },
+            {
+              "name": "add_pass",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "render_pass",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "PassBuilder",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Add a render pass to the graph.\n\nReturns a PassBuilder for declaring resource accesses.",
+              "line_count": 22,
+              "call_count": 4
+            },
+            {
+              "name": "_record_access",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "node",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "handle",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "usage",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "stage",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "ResourceRef",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "Record a resource access for dependency tracking.",
+              "line_count": 21,
+              "call_count": 3
+            },
+            {
+              "name": "build",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "CompiledGraph",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Build and optimize the render graph.\n\nThis performs:\n1. Dependency analysis\n2. Pass culling (remove passes with unused outputs)\n3. Topological sort for execution order\n4. Resource lifetime calculation",
+              "line_count": 24,
+              "call_count": 4
+            },
+            {
+              "name": "_analyze_dependencies",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 6,
+              "docstring": "Analyze pass dependencies based on resource accesses.",
+              "line_count": 20,
+              "call_count": 2
+            },
+            {
+              "name": "_cull_passes",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 7,
+              "docstring": "Cull passes whose outputs are never consumed.",
+              "line_count": 22,
+              "call_count": 4
+            },
+            {
+              "name": "_topological_sort",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[PassNode]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 12,
+              "docstring": "Sort passes in dependency order.",
+              "line_count": 34,
+              "call_count": 8
+            }
+          ],
+          "properties": [],
+          "complexity": 35,
+          "docstring": "Builder for constructing render graphs.\n\nThis provides a declarative API where passes declare their\nresource dependencies, allowing the graph to:\n1. Automatically determine pass ordering\n2. Cull passes whose outputs are never read\n3. Manage resource lifetimes\n4. Enable resource aliasing for memory efficiency\n\nExample:\n    >>> builder = RenderGraphBuilder()\n    >>> \n    >>> # Declare resources\n    >>> color = builder.create_texture(\"Color\", 1920, 1080, \"RGBA16F\")\n    >>> depth = builder.create_texture(\"Depth\", 1920, 1080, \"DEPTH24\")\n    >>> bloom = builder.create_texture(\"Bloom\", 960, 540, \"RGBA16F\")\n    >>> \n    >>> # Add opaque pass - writes to color/depth\n    >>> opaque_pass = builder.add_pass(\"OpaquePass\")\n    >>> opaque_pass.write(color, ResourceUsage.COLOR_TARGET)\n    >>> opaque_pass.write(depth, ResourceUsage.DEPTH_TARGET)\n    >>> \n    >>> # Add bloom pass - reads color, writes bloom\n    >>> bloom_pass = builder.add_pass(\"BloomPass\")\n    >>> bloom_pass.read(color)\n    >>> bloom_pass.write(bloom)\n    >>> \n    >>> # Add final pass - reads bloom\n    >>> final_pass = builder.add_pass(\"FinalPass\")\n    >>> final_pass.read(bloom)\n    >>> \n    >>> # Build optimized graph\n    >>> graph = builder.build()",
+          "inheritance": []
+        },
+        {
+          "name": "PassBuilder",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "graph_builder",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "node",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "read",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "handle",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "usage",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "stage",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "PassBuilder",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Declare that this pass reads a resource.",
+              "line_count": 9,
+              "call_count": 1
+            },
+            {
+              "name": "write",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "handle",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "usage",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "stage",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "PassBuilder",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Declare that this pass writes to a resource.",
+              "line_count": 9,
+              "call_count": 1
+            },
+            {
+              "name": "read_write",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "handle",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "usage",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "stage",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "PassBuilder",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Declare that this pass both reads and writes a resource.",
+              "line_count": 9,
+              "call_count": 1
+            },
+            {
+              "name": "set_execute_func",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "func",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "PassBuilder",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Set a custom execute function for this pass.",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "depends_on",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "pass_name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "PassBuilder",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "Add an explicit dependency on another pass.",
+              "line_count": 7,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 8,
+          "docstring": "Builder for declaring a pass's resource accesses.\n\nReturned by RenderGraphBuilder.add_pass() for fluent API.",
+          "inheritance": []
+        },
+        {
+          "name": "RenderGraphExecutor",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 1
+            },
+            {
+              "name": "set_debug_mode",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "enabled",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Enable debug mode for verbose logging.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "execute",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "graph",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 6,
+              "docstring": "Execute the render graph.\n\nArgs:\n    graph: The compiled render graph\n    context: The render context for this frame",
+              "line_count": 29,
+              "call_count": 6
+            },
+            {
+              "name": "_allocate_resources",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "graph",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "Allocate all resources needed by the graph.",
+              "line_count": 11,
+              "call_count": 4
+            },
+            {
+              "name": "_get_resource_creator",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "handle",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Callable",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "Get or create a resource creation function.",
+              "line_count": 10,
+              "call_count": 1
+            },
+            {
+              "name": "_execute_pass",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "node",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 12,
+              "docstring": "Execute a single render pass.",
+              "line_count": 42,
+              "call_count": 15
+            },
+            {
+              "name": "_release_unused_resources",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "node",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Release resources whose lifetime has ended.",
+              "line_count": 5,
+              "call_count": 0
+            },
+            {
+              "name": "_cleanup_resources",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Cleanup resources after frame execution.",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "_log_graph_info",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "graph",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "Log debug information about the graph.",
+              "line_count": 13,
+              "call_count": 11
+            },
+            {
+              "name": "get_timings",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Dict[<ast.Tuple object at 0x702827b48e10>]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Get timing information for the last executed graph.",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "get_resource_pool",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "ResourcePool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Access the resource pool for engine integration.",
+              "line_count": 3,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 34,
+          "docstring": "Executes compiled render graphs with resource management.\n\nThe executor handles:\n1. Resource allocation and deallocation\n2. Resource state transitions (barriers)\n3. Pass execution in optimized order\n4. Profiling and debugging support",
+          "inheritance": []
+        }
+      ],
+      "functions_info": []
+    },
+    {
+      "name": "render_pipeline.feature",
+      "path": "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/feature",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/feature/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/feature/base.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/feature/passes.py"
+      ],
+      "imports": [
+        "uuid",
+        "render_pipeline.graph.builder",
+        "dataclasses",
+        "render_pipeline.core.base",
+        "enum",
+        "render_pipeline.feature.base",
+        "abc",
+        "render_pipeline.core.context",
+        "render_pipeline.core.pipeline",
+        "typing"
+      ],
+      "exports": [],
+      "classes": [
+        "PassEvent",
+        "PassInjectionPoint",
+        "ScriptableRenderPass",
+        "RenderFeature",
+        "FeatureRegistry"
+      ],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "decorators: enabled, abstractmethod, property, classmethod, dataclass",
+        "type-hints",
+        "dataclass"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "PassEvent",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "Points in the pipeline where passes can be injected.\n\nSimilar to Unity's RenderPassEvent, this defines the execution\norder relative to built-in pipeline passes.",
+          "inheritance": [
+            "Enum"
+          ]
+        },
+        {
+          "name": "PassInjectionPoint",
+          "methods": [
+            {
+              "name": "__lt__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": null,
+              "line_count": 4,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 2,
+          "docstring": "Defines where a pass should be injected.",
+          "inheritance": []
+        },
+        {
+          "name": "ScriptableRenderPass",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "event",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "priority",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 10,
+              "call_count": 3
+            },
+            {
+              "name": "event",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "PassEvent",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "injection_point",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "PassInjectionPoint",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "requires_volume_component",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Type[VolumeComponent]]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Declare which volume component this pass depends on.\n\nReturns:\n    The VolumeComponent subclass, or None if no dependency",
+              "line_count": 8,
+              "call_count": 0
+            },
+            {
+              "name": "should_execute",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "Check if this pass should execute this frame.\n\nDefault implementation checks volume component if declared.\nOverride for custom culling logic.",
+              "line_count": 14,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 7,
+          "docstring": "Base class for custom render passes.\n\nSimilar to Unity's ScriptableRenderPass, this is the fundamental\nunit of rendering work that can be injected into the pipeline.\n\nSubclasses should:\n1. Override execute() to perform rendering\n2. Optionally override on_camera_setup/cleanup\n3. Declare resources via RenderGraph when available",
+          "inheritance": [
+            "BasePass"
+          ]
+        },
+        {
+          "name": "RenderFeature",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "id",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "name",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "enabled",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "enabled",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "value",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "setup",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "pipeline",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Setup this feature. Called once when added to pipeline.\n\nOverride to create passes and register resources.",
+              "line_count": 7,
+              "call_count": 0
+            },
+            {
+              "name": "inject_passes",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "builder",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Inject passes into the render graph for this frame.\n\nThis is called each frame. Implementations should:\n1. Query volume components for parameters\n2. Configure passes based on parameters\n3. Add passes to the builder\n\nArgs:\n    builder: The render graph builder\n    context: Current render context",
+              "line_count": 15,
+              "call_count": 0
+            },
+            {
+              "name": "cleanup",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Cleanup after frame rendering.\n\nOverride to release per-frame resources.",
+              "line_count": 7,
+              "call_count": 0
+            },
+            {
+              "name": "get_passes",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[ScriptableRenderPass]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Get all passes owned by this feature.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "add_pass",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "render_pass",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Add a pass to this feature.",
+              "line_count": 3,
+              "call_count": 1
+            }
+          ],
+          "properties": [],
+          "complexity": 10,
+          "docstring": "Base class for render features.\n\nRender Features are plugins that inject one or more render passes\ninto the pipeline. They serve as the bridge between Volume data\nand Render Graph execution.\n\nA typical feature:\n1. Reads parameters from Volume components\n2. Creates/configures render passes\n3. Injects passes into the render graph\n\nExample:\n    >>> class BloomFeature(RenderFeature):\n    ...     def setup(self, pipeline):\n    ...         self._pass = BloomPass()\n    ...     \n    ...     def inject_passes(self, builder, context):\n    ...         bloom_vol = context.get_volume_component(BloomVolume)\n    ...         if bloom_vol and bloom_vol.is_active:\n    ...             self._pass.set_parameters(bloom_vol)\n    ...             builder.add_pass(self._pass)",
+          "inheritance": [
+            "ABC"
+          ]
+        },
+        {
+          "name": "FeatureRegistry",
+          "methods": [
+            {
+              "name": "register",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "feature_class",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Register a feature class.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "get",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Type[RenderFeature]]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Get a feature class by name.",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "create",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[RenderFeature]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "Create a feature instance by name.",
+              "line_count": 6,
+              "call_count": 2
+            },
+            {
+              "name": "list_features",
+              "parameters": [
+                {
+                  "name": "cls",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[str]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "List all registered feature names.",
+              "line_count": 3,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "Registry for render feature types.\n\nAllows dynamic discovery and instantiation of features.",
+          "inheritance": []
+        }
+      ],
+      "functions_info": []
+    },
+    {
+      "name": "render_pipeline.core",
+      "path": "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/context.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/base.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/pipeline.py"
+      ],
+      "imports": [
+        "time",
+        "uuid",
+        "render_pipeline.graph.builder",
+        "dataclasses",
+        "render_pipeline.core.base",
+        "render_pipeline.volume.manager",
+        "render_pipeline.volume.base",
+        "render_pipeline.graph.executor",
+        "render_pipeline.core.context",
+        "render_pipeline.feature.base",
+        "abc",
+        "enum",
+        "render_pipeline.core.pipeline",
+        "typing"
+      ],
+      "exports": [],
+      "classes": [
+        "RenderCamera",
+        "RenderContext",
+        "Priority",
+        "BaseComponent",
+        "BasePass",
+        "CommandBuffer",
+        "PipelineConfig",
+        "Pipeline"
+      ],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "decorators: dataclass",
+        "type-hints",
+        "dataclass",
+        "decorators: property, enabled, abstractmethod, priority",
+        "context-manager",
+        "type-hints",
+        "decorators: property, dataclass",
+        "type-hints",
+        "dataclass"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "RenderCamera",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "Represents a camera being rendered.\n\nAttributes:\n    position: World-space position (x, y, z)\n    rotation: Rotation as quaternion (x, y, z, w) or euler angles\n    view_matrix: View transformation matrix\n    projection_matrix: Projection matrix\n    fov: Field of view in degrees\n    near_plane: Near clipping plane distance\n    far_plane: Far clipping plane distance\n    aspect_ratio: Width / Height\n    is_orthographic: Whether using orthographic projection\n    ortho_size: Orthographic size (half-height)\n    layer_mask: Culling mask for render layers",
+          "inheritance": []
+        },
+        {
+          "name": "RenderContext",
+          "methods": [
+            {
+              "name": "get_volume_component",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "component_type",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Any]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Get the current blended volume component of the specified type.\n\nThis is the primary way for render passes to access volume parameters.\n\nArgs:\n    component_type: The VolumeComponent subclass to retrieve\n    \nReturns:\n    The blended volume component, or None if not active",
+              "line_count": 14,
+              "call_count": 2
+            },
+            {
+              "name": "mark_pass_executed",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "pass_name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Record that a pass was executed this frame.",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "start_timer",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "Start a profiling timer.",
+              "line_count": 4,
+              "call_count": 1
+            },
+            {
+              "name": "stop_timer",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "Stop a profiling timer and return elapsed time in ms.",
+              "line_count": 10,
+              "call_count": 2
+            },
+            {
+              "name": "set_resource",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "resource",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Store a resource for this frame.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "get_resource",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[Any]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Retrieve a resource stored this frame.",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "clear_frame_data",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Clear per-frame data. Called at the start of each frame.",
+              "line_count": 5,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 10,
+          "docstring": "Complete render context for a single frame/camera.\n\nThis is the central object passed through all pipeline stages,\ncontaining camera data, volume parameters, command buffer,\nand frame-specific state.",
+          "inheritance": []
+        },
+        {
+          "name": "Priority",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "Priority levels for ordering components.",
+          "inheritance": [
+            "Enum"
+          ]
+        },
+        {
+          "name": "BaseComponent",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 4,
+              "call_count": 2
+            },
+            {
+              "name": "id",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "name",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "enabled",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "enabled",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "value",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 5,
+          "docstring": "Base class for all pipeline components.",
+          "inheritance": [
+            "ABC"
+          ]
+        },
+        {
+          "name": "BasePass",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 2
+            },
+            {
+              "name": "id",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "name",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "enabled",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "enabled",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "value",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "priority",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Priority",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "priority",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "value",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "execute",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Execute this render pass.\n\nArgs:\n    context: The current render context containing camera, \n            volume data, and command buffer.",
+              "line_count": 9,
+              "call_count": 0
+            },
+            {
+              "name": "on_camera_setup",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Called before rendering each camera. Override for setup logic.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "on_camera_cleanup",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Called after rendering each camera. Override for cleanup logic.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "__lt__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "other",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            },
+            {
+              "name": "__repr__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 2,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 12,
+          "docstring": "Base class for render passes.\n\nSimilar to Unity's ScriptableRenderPass, this defines a single\nunit of rendering work within the pipeline.",
+          "inheritance": [
+            "ABC"
+          ]
+        },
+        {
+          "name": "CommandBuffer",
+          "methods": [
+            {
+              "name": "draw_mesh",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "mesh",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "material",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Draw a mesh with the given material.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "draw_procedural",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "topology",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "vertex_count",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Draw procedural geometry.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "set_render_target",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "target",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "depth",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Set the current render target.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "clear_render_target",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "clear_color",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "clear_depth",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "color",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "depth",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Clear the current render target.",
+              "line_count": 6,
+              "call_count": 0
+            },
+            {
+              "name": "blit",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "source",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "destination",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "material",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Copy/blit from source to destination, optionally using a material.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "set_view_projection",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "view",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "projection",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Set view and projection matrices.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "set_shader_float",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "value",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Set a float shader parameter.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "set_shader_texture",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "name",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "texture",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Set a texture shader parameter.",
+              "line_count": 3,
+              "call_count": 0
+            }
+          ],
+          "properties": [],
+          "complexity": 8,
+          "docstring": "Abstract command buffer for recording rendering commands.\n\nEngine-specific implementations should inherit from this class\nand implement the abstract methods using their native APIs.",
+          "inheritance": [
+            "ABC"
+          ]
+        },
+        {
+          "name": "PipelineConfig",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "Configuration for the render pipeline.",
+          "inheritance": []
+        },
+        {
+          "name": "Pipeline",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "config",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 20,
+              "call_count": 4
+            },
+            {
+              "name": "volume_manager",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "VolumeManager",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Access the volume manager for parameter queries.",
+              "line_count": 3,
+              "call_count": 0
+            },
+            {
+              "name": "add_volume",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "volume",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Pipeline",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Add a volume component to the pipeline.\n\nArgs:\n    volume: A VolumeComponent instance (e.g., BloomVolume)\n    \nReturns:\n    Self for chaining",
+              "line_count": 12,
+              "call_count": 1
+            },
+            {
+              "name": "remove_volume",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "volume_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Remove a volume by its ID.",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "add_feature",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "feature",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Pipeline",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Add a render feature to the pipeline.\n\nRender features inject render passes at specific points\nin the pipeline without modifying core rendering logic.\n\nArgs:\n    feature: A RenderFeature instance\n    \nReturns:\n    Self for chaining",
+              "line_count": 15,
+              "call_count": 1
+            },
+            {
+              "name": "remove_feature",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "feature_name",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "Remove a feature by name.",
+              "line_count": 7,
+              "call_count": 2
+            },
+            {
+              "name": "get_feature",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "feature_type",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "Optional[RenderFeature]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "Get a feature by type.",
+              "line_count": 6,
+              "call_count": 1
+            },
+            {
+              "name": "setup",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "Setup the pipeline. Called once before rendering begins.\n\nThis initializes all features and builds the initial pass list.",
+              "line_count": 17,
+              "call_count": 2
+            },
+            {
+              "name": "_rebuild_pass_list",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "Rebuild the sorted list of render passes.",
+              "line_count": 10,
+              "call_count": 4
+            },
+            {
+              "name": "begin_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "camera",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "command_buffer",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "width",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "height",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "RenderContext",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "Begin a new frame and return the render context.\n\nArgs:\n    camera: The camera to render with\n    command_buffer: Engine-specific command buffer\n    width: Render target width\n    height: Render target height\n    \nReturns:\n    A RenderContext for this frame",
+              "line_count": 34,
+              "call_count": 4
+            },
+            {
+              "name": "execute",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 3,
+              "docstring": "Execute the render pipeline for this frame.\n\nThis uses the render graph to optimize and execute all passes.",
+              "line_count": 20,
+              "call_count": 6
+            },
+            {
+              "name": "end_frame",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "End the current frame and cleanup.",
+              "line_count": 12,
+              "call_count": 2
+            },
+            {
+              "name": "render",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "camera",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "command_buffer",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "width",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "height",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "RenderContext",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Complete render cycle in one call.\n\nCombines begin_frame, execute, and end_frame.",
+              "line_count": 13,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 25,
+          "docstring": "Main render pipeline orchestrating Volume, Feature, and Graph layers.\n\nThis is the entry point for rendering. It coordinates:\n1. Volume system for parameter blending\n2. Render features for pass injection\n3. Render graph for optimized execution\n\nExample:\n    >>> pipeline = Pipeline()\n    >>> pipeline.add_volume(BloomVolume(intensity=1.5))\n    >>> pipeline.add_feature(BloomRenderFeature())\n    >>> \n    >>> # Per-frame render\n    >>> context = pipeline.begin_frame(camera, command_buffer)\n    >>> pipeline.execute(context)\n    >>> pipeline.end_frame(context)",
+          "inheritance": []
+        }
+      ],
+      "functions_info": []
+    },
+    {
+      "name": "render_pipeline.volume",
+      "path": "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/volume",
+      "language": "python",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/volume/manager.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/volume/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/volume/base.py"
+      ],
+      "imports": [
+        "uuid",
+        "math",
+        "dataclasses",
+        "render_pipeline.volume.base",
+        "render_pipeline.volume.manager",
+        "abc",
+        "enum",
+        "typing"
+      ],
+      "exports": [],
+      "classes": [
+        "VolumeInstance",
+        "VolumeManager",
+        "BlendMode",
+        "VolumeBounds"
+      ],
+      "functions": [],
+      "dependencies": [],
+      "patterns": [
+        "decorators: dataclass",
+        "context-manager",
+        "type-hints",
+        "dataclass"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [
+        {
+          "name": "VolumeInstance",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "Internal representation of a registered volume.",
+          "inheritance": []
+        },
+        {
+          "name": "VolumeManager",
+          "methods": [
+            {
+              "name": "__init__",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "global_blend_distance",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": null,
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": null,
+              "line_count": 5,
+              "call_count": 0
+            },
+            {
+              "name": "add_volume",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "component",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "str",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Add a volume component to the manager.\n\nArgs:\n    component: The VolumeComponent to add\n    \nReturns:\n    The volume ID for later removal",
+              "line_count": 20,
+              "call_count": 2
+            },
+            {
+              "name": "remove_volume",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "volume_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "Remove a volume by its ID.",
+              "line_count": 7,
+              "call_count": 1
+            },
+            {
+              "name": "update_volume",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "volume_id",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 4,
+              "docstring": "Update volume properties.",
+              "line_count": 12,
+              "call_count": 5
+            },
+            {
+              "name": "_invalidate_cache",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Invalidate the cached stack.",
+              "line_count": 4,
+              "call_count": 0
+            },
+            {
+              "name": "get_stack",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "position",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "VolumeStack",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 11,
+              "docstring": "Get the blended volume stack for a given position.\n\nThis method is called each frame to get the current\nblended parameters based on camera position.\n\nArgs:\n    position: Camera world position (x, y, z)\n    \nReturns:\n    A VolumeStack with blended components",
+              "line_count": 61,
+              "call_count": 10
+            },
+            {
+              "name": "_calculate_weight",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "instance",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "position",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "Calculate the influence weight of a volume at a position.",
+              "line_count": 14,
+              "call_count": 2
+            },
+            {
+              "name": "update",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "context",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Update the volume system for a new frame.\n\nCalled automatically by the pipeline at frame start.",
+              "line_count": 9,
+              "call_count": 1
+            },
+            {
+              "name": "get_all_volumes",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "List[VolumeComponent]",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "Get all registered volume components.",
+              "line_count": 3,
+              "call_count": 1
+            },
+            {
+              "name": "clear",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "None",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Remove all volumes.",
+              "line_count": 4,
+              "call_count": 2
+            }
+          ],
+          "properties": [],
+          "complexity": 26,
+          "docstring": "Manages spatial volumes and provides blended parameter stacks.\n\nThis is the core of the Volume layer. It tracks all volumes,\ncomputes blend weights based on camera position, and produces\nVolumeStack instances with blended parameters.\n\nExample:\n    >>> manager = VolumeManager()\n    >>> manager.add_volume(BloomVolume(intensity=1.5))\n    >>> \n    >>> # Get blended stack for camera position\n    >>> stack = manager.get_stack((10, 5, 10))\n    >>> bloom = stack.get_component(BloomVolume)",
+          "inheritance": []
+        },
+        {
+          "name": "BlendMode",
+          "methods": [],
+          "properties": [],
+          "complexity": 0,
+          "docstring": "Volume blending modes.",
+          "inheritance": [
+            "Enum"
+          ]
+        },
+        {
+          "name": "VolumeBounds",
+          "methods": [
+            {
+              "name": "contains",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "point",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "bool",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Check if a point is inside this volume.",
+              "line_count": 10,
+              "call_count": 3
+            },
+            {
+              "name": "distance",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "point",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 1,
+              "docstring": "Calculate distance from point to volume center.",
+              "line_count": 7,
+              "call_count": 1
+            },
+            {
+              "name": "blend_weight",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "point",
+                  "type_annotation": null,
+                  "default_value": null
+                },
+                {
+                  "name": "blend_distance",
+                  "type_annotation": null,
+                  "default_value": null
+                }
+              ],
+              "return_type": "float",
+              "is_async": false,
+              "is_generator": false,
+              "complexity": 2,
+              "docstring": "Calculate blend weight based on distance from volume center.\n\nThis is the standard Unity-like behavior where:\n- At center: weight = 1.0\n- At blend_distance: weight = 0.0\n- Linearly interpolates between\n\nArgs:\n    point: Camera position\n    blend_distance: Distance from center over which to blend (0 = full weight everywhere)\n    \nReturns:\n    Weight in range [0, 1]",
+              "line_count": 27,
+              "call_count": 3
+            }
+          ],
+          "properties": [],
+          "complexity": 4,
+          "docstring": "Spatial bounds for a volume.",
+          "inheritance": []
+        }
+      ],
+      "functions_info": []
+    }
+  ],
+  "patterns": [
+    {
+      "name": "context-manager",
+      "description": "Usage of context-manager",
+      "examples": [],
+      "frequency": 6,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/resources.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/builder.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/executor.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/base.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/volume/manager.py"
+      ]
+    },
+    {
+      "name": "type-hints",
+      "description": "Usage of type-hints",
+      "examples": [],
+      "frequency": 9,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/__init__.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/resources.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/builder.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/executor.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/feature/base.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/context.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/base.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/pipeline.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/volume/manager.py"
+      ]
+    },
+    {
+      "name": "decorators: abstractmethod, property, dataclass",
+      "description": "Usage of decorators: abstractmethod, property, dataclass",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/resources.py"
+      ]
+    },
+    {
+      "name": "dataclass",
+      "description": "Usage of dataclass",
+      "examples": [],
+      "frequency": 6,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/resources.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/builder.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/feature/base.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/context.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/pipeline.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/volume/manager.py"
+      ]
+    },
+    {
+      "name": "decorators: dataclass",
+      "description": "Usage of decorators: dataclass",
+      "examples": [],
+      "frequency": 3,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/graph/builder.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/context.py",
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/volume/manager.py"
+      ]
+    },
+    {
+      "name": "decorators: enabled, abstractmethod, property, classmethod, dataclass",
+      "description": "Usage of decorators: enabled, abstractmethod, property, classmethod, dataclass",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/feature/base.py"
+      ]
+    },
+    {
+      "name": "decorators: property, enabled, abstractmethod, priority",
+      "description": "Usage of decorators: property, enabled, abstractmethod, priority",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/base.py"
+      ]
+    },
+    {
+      "name": "decorators: property, dataclass",
+      "description": "Usage of decorators: property, dataclass",
+      "examples": [],
+      "frequency": 1,
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/render-pipeline-framework/render_pipeline/core/pipeline.py"
+      ]
+    }
+  ],
+  "architecture": "Unknown",
+  "entry_points": [],
+  "public_apis": {},
+  "dependencies": {
+    "render_pipeline": [
+      "render_pipeline.feature",
+      "render_pipeline.graph",
+      "render_pipeline.core",
+      "render_pipeline.volume"
+    ],
+    "render_pipeline.graph": [
+      "render_pipeline",
+      "render_pipeline.feature",
+      "render_pipeline.core"
+    ],
+    "render_pipeline.feature": [
+      "render_pipeline",
+      "render_pipeline.graph",
+      "render_pipeline.core"
+    ],
+    "render_pipeline.core": [
+      "render_pipeline",
+      "render_pipeline.graph",
+      "render_pipeline.feature",
+      "render_pipeline.volume"
+    ],
+    "render_pipeline.volume": [
+      "render_pipeline"
+    ]
+  },
+  "conventions": {
+    "naming": {
+      "classes": "PascalCase"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": [
+    "Copy/blit from source to destination, optionally using a material.",
+    "A compiled, optimized render graph ready for execution.",
+    "Main render pipeline orchestrating Volume, Feature, and Graph layers.\n    \n    This is the entry point for rendering. It coordinates:\n    1. Volume system for parameter blending\n    2. Render features",
+    "Base class for volume components containing render parameters.\n    \n    Each component defines a set of parameters that can be blended\n    spatially. Examples: BloomVolume, TonemappingVolume, FogVolum",
+    "Render context: Holds all state for a single render operation.",
+    "Calculate blend weight based on distance from volume center.\n        \n        This is the standard Unity-like behavior where:\n        - At center: weight = 1.0\n        - At blend_distance: weight = 0.",
+    "Execute the render pipeline for this frame.\n        \n        This uses the render graph to optimize and execute all passes.",
+    "Clear per-frame data. Called at the start of each frame.",
+    "Add a render pass to the graph.\n        \n        Returns a PassBuilder for declaring resource accesses.",
+    "Render Graph Executor: Executes compiled render graphs.",
+    "Declare that this pass both reads and writes a resource.",
+    "Points in the pipeline where passes can be injected.\n    \n    Similar to Unity's RenderPassEvent, this defines the execution\n    order relative to built-in pipeline passes.",
+    "Import an external texture (not managed by graph).\n        \n        Use for backbuffer, camera target, or other pre-existing textures.",
+    "Registry for render feature types.\n    \n    Allows dynamic discovery and instantiation of features.",
+    "Render passes module - concrete pass implementations live here.",
+    "Volume base classes: Data containers for rendering parameters.\n\nThe Volume system is the \"What to render\" layer - it defines\nparameters that can be blended spatially based on camera position.",
+    "Render Graph Builder: Declarative API for constructing render graphs.\n\nThe builder collects passes and their resource dependencies,\nthen compiles them into an optimized execution graph.",
+    "Abstract command buffer for recording rendering commands.\n    \n    Engine-specific implementations should inherit from this class\n    and implement the abstract methods using their native APIs.",
+    "Mark a resource as no longer active (can be aliased).",
+    "Execute the render graph.\n        \n        Args:\n            graph: The compiled render graph\n            context: The render context for this frame"
+  ]
+}

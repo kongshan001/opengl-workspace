@@ -1,0 +1,117 @@
+{
+  "codebase_path": "/root/.openclaw/workspace-opengl/repos/games101_hw",
+  "language": "markdown",
+  "total_files": 5,
+  "total_lines": 226,
+  "modules": [
+    {
+      "name": "markdown-docs",
+      "path": "/root/.openclaw/workspace-opengl/repos/games101_hw",
+      "language": "markdown",
+      "files": [
+        "/root/.openclaw/workspace-opengl/repos/games101_hw/README.md",
+        "/root/.openclaw/workspace-opengl/repos/games101_hw/.claude/skills/hw0-assignment  0-代码框架-x64-debug-cmakefiles-showincludes/SKILL.md",
+        "/root/.openclaw/workspace-opengl/repos/games101_hw/.claude/skills/hw0/SKILL.md",
+        "/root/.openclaw/workspace-opengl/repos/games101_hw/.claude/skills/hw0-assignment  0-代码框架-x64-debug-cmakefiles-3-29-5-msvc4-compileridcxx/SKILL.md",
+        "/root/.openclaw/workspace-opengl/repos/games101_hw/.claude/skills/hw0-assignment  0-代码框架/SKILL.md"
+      ],
+      "imports": [],
+      "exports": [
+        "Hw0 Assignment  0 代码框架 X64 Debug Cmakefiles Showincludes",
+        "Hw0",
+        "Hw0 Assignment  0 代码框架 X64 Debug Cmakefiles 3 29 5 Msvc4 Compileridcxx",
+        "Hw0 Assignment  0 代码框架"
+      ],
+      "classes": [
+        "code-block:74",
+        "code-block:21",
+        "code-block:95",
+        "code-block:88",
+        "code-block:40"
+      ],
+      "functions": [
+        "Hw0 Assignment  0 代码框架 X64 Debug Cmakefiles Showincludes",
+        "Overview",
+        "Domain Expertise",
+        "Code Examples",
+        "Basic Usage",
+        "Import from Hw0/Assignment  0/代码框架/x64-Debug/CMakeFiles/ShowIncludes",
+        "Usage Guide",
+        "When to Use This Skill",
+        "Best Practices",
+        "Common Tasks",
+        "Hw0",
+        "Overview",
+        "Domain Expertise",
+        "Code Examples",
+        "Basic Usage",
+        "Import from Hw0",
+        "Usage Guide",
+        "When to Use This Skill",
+        "Best Practices",
+        "Common Tasks",
+        "Hw0 Assignment  0 代码框架 X64 Debug Cmakefiles 3 29 5 Msvc4 Compileridcxx",
+        "Overview",
+        "Domain Expertise",
+        "Patterns",
+        "Key APIs",
+        "Functions",
+        "Common Patterns",
+        "Usage Examples",
+        "Code Examples",
+        "Basic Usage",
+        "Import from Hw0/Assignment  0/代码框架/x64-Debug/CMakeFiles/3.29.5-msvc4/CompilerIdCXX",
+        "Usage Guide",
+        "When to Use This Skill",
+        "Best Practices",
+        "Common Tasks",
+        "Hw0 Assignment  0 代码框架",
+        "Overview",
+        "Domain Expertise",
+        "Code Examples",
+        "Basic Usage",
+        "Import from Hw0/Assignment  0/代码框架",
+        "Usage Guide",
+        "When to Use This Skill",
+        "Best Practices",
+        "Common Tasks"
+      ],
+      "dependencies": [],
+      "patterns": [
+        "code-blocks",
+        "code-blocks",
+        "code-blocks",
+        "code-blocks"
+      ],
+      "domain_knowledge": [],
+      "conventions": {},
+      "classes_info": [],
+      "functions_info": []
+    }
+  ],
+  "patterns": [],
+  "architecture": "Minimal",
+  "entry_points": [
+    "Hw0/main.cpp",
+    "Hw0/Assignment  0/代码框架/main.cpp"
+  ],
+  "public_apis": {
+    "markdown-docs": [
+      "Overview",
+      "Overview",
+      "Overview",
+      "Key APIs",
+      "Overview"
+    ]
+  },
+  "dependencies": {},
+  "conventions": {
+    "naming": {
+      "classes": "snake_case",
+      "functions": "camelCase"
+    },
+    "formatting": {},
+    "structure": {}
+  },
+  "domain_knowledge": []
+}
